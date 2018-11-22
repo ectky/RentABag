@@ -1,0 +1,16 @@
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\bin\Debug\netcoreapp2.1\RentABag.Data.deps.json
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\bin\Debug\netcoreapp2.1\RentABag.Data.runtimeconfig.json
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\bin\Debug\netcoreapp2.1\RentABag.Data.runtimeconfig.dev.json
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\bin\Debug\netcoreapp2.1\RentABag.Data.dll
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\bin\Debug\netcoreapp2.1\RentABag.Data.pdb
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\bin\Debug\netcoreapp2.1\RentABag.Models.dll
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\bin\Debug\netcoreapp2.1\RentABag.Models.pdb
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\obj\Debug\netcoreapp2.1\RentABag.Data.csprojAssemblyReference.cache
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\obj\Debug\netcoreapp2.1\RentABag.Data.csproj.CoreCompileInputs.cache
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\obj\Debug\netcoreapp2.1\RentABag.Data.AssemblyInfoInputs.cache
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\obj\Debug\netcoreapp2.1\RentABag.Data.AssemblyInfo.cs
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\obj\Debug\netcoreapp2.1\RentABag.Data.csproj.CopyComplete
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\obj\Debug\netcoreapp2.1\RentABag.Data.dll
+D:\VSProjects\RentABag\RentABag.Web\RentACar.Data\obj\Debug\netcoreapp2.1\RentABag.Data.pdb
