@@ -19,6 +19,14 @@ namespace RentABag.Web.Data
         public RentABagDbContext(DbContextOptions<RentABagDbContext> options)
             : base(options)
         {
+           
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

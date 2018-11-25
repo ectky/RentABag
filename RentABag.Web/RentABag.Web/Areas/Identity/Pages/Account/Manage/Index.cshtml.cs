@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RentABag.Models;
+using RentABag.Web.ValidationAttributes;
 
 namespace RentABag.Web.Areas.Identity.Pages.Account.Manage
 {
@@ -41,7 +43,43 @@ namespace RentABag.Web.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "FullName")]
+            public string FullName { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Display(Name = "Country")]
+            public string Country { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Display(Name = "City")]
+            public string City { get; set; }
+
+            [Required]
+            [StringLength(10, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Display(Name = "PostCode")]
+            public string PostCode { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "Address")]
+            public string ActualAddress { get; set; }
+
+            [Required]
+            [Birthdate(ErrorMessage = "Required minimum age: {0}")]
+            [DataType(DataType.Date)]
+            [Display(Name = "Birthday")]
+            public DateTime Birthday { get; set; }
+
+            //[Required]
+            [Display(Name = "ProfilePicture")]
+            public IFormFile ProfilePicture { get; set; }
+
+            [Required]
             [EmailAddress]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Phone]
@@ -66,7 +104,13 @@ namespace RentABag.Web.Areas.Identity.Pages.Account.Manage
             Input = new InputModel
             {
                 Email = email,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FullName = user.FullName,
+                Birthday = user.Birthday,
+                ActualAddress = user.Address.ActualAddress,
+                City = user.Address.City,
+                Country = user.Address.Country,
+                PostCode = user.Address.PostCode
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
