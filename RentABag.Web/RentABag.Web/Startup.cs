@@ -12,6 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RentABag.Web.Data;
+using RentABag.Models;
+using RentABag.Web.Services;
+using RentABag.Web.Middlewares;
 
 namespace RentABag.Web
 {
@@ -37,8 +40,33 @@ namespace RentABag.Web
             services.AddDbContext<RentABagDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<RentABagDbContext>();
+            services.AddIdentity<RentABagUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.User.RequireUniqueEmail = false;
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.DefaultLockoutTimeSpan = new TimeSpan(1, 0, 0, 0);
+            })
+                .AddEntityFrameworkStores<RentABagDbContext>()
+                .AddRoles<IdentityRole>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+
+            //services.AddDbContext<RentABagDbContext>(options =>
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDefaultIdentity<RentABagUser>()
+            //    .AddEntityFrameworkStores<RentABagDbContext>();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<RentABagUser>
+                , UserClaimsPrincipalFactory<RentABagUser,
+            IdentityRole>>();
+
+            services.AddScoped<IAddressesService, AddressesService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -56,6 +84,8 @@ namespace RentABag.Web
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseSeeder();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

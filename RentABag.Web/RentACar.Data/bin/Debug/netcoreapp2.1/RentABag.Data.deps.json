@@ -575,9 +575,6 @@
         }
       },
       "RentABag.Models/1.0.0": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Http.Features": "2.1.1.0"
-        },
         "runtime": {
           "RentABag.Models.dll": {}
         }
@@ -585,14 +582,6 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore/2.1.1.0": {
         "runtime": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {
-            "assemblyVersion": "2.1.1.0",
-            "fileVersion": "2.1.1.18157"
-          }
-        }
-      },
-      "Microsoft.AspNetCore.Http.Features.Reference/2.1.1.0": {
-        "runtime": {
-          "Microsoft.AspNetCore.Http.Features.dll": {
             "assemblyVersion": "2.1.1.0",
             "fileVersion": "2.1.1.18157"
           }
@@ -1032,11 +1021,6 @@
       "sha512": ""
     },
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore/2.1.1.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.AspNetCore.Http.Features.Reference/2.1.1.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

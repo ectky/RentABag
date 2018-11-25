@@ -1,7 +1,8 @@
 @using Microsoft.AspNetCore.Identity
+@using RentABag.Models
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<RentABagUser> SignInManager
+@inject UserManager<RentABagUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
