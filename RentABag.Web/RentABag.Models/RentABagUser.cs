@@ -20,8 +20,6 @@ namespace RentABag.Models
 
         public DateTime Birthday { get; set; }
 
-        public byte[] ProfilePicture { get; set; }
-
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

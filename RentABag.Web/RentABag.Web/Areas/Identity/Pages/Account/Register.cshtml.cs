@@ -57,6 +57,7 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
             [Display(Name = "FullName")]
             public string FullName { get; set; }
 
+            [Required]
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -86,10 +87,6 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
             [DataType(DataType.Date)]
             [Display(Name = "Birthday")]
             public DateTime Birthday { get; set; }
-
-            //[Required]
-            [Display(Name = "ProfilePicture")]
-            public IFormFile ProfilePicture { get; set; }
 
             [Required]
             [EmailAddress]
@@ -125,8 +122,6 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
                     City = Input.City,
                     Country = Input.Country
                 };
-               // _addressesService.CreateAddress(address);
-                //byte[] profilePic = GetProfilePicture();
                 var user = new RentABagUser { UserName = Input.UserName, Email = Input.Email, FullName = Input.FullName, Address = address, Birthday = Input.Birthday, PhoneNumber = Input.PhoneNumber };
                 var result1 = await _userManager.CreateAsync(user, Input.Password);
                 var result2 = await _userManager.AddToRoleAsync(user, "User");
@@ -159,15 +154,6 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
-        }
-
-        private byte[] GetProfilePicture()
-        {
-            using (var memoryStream = new MemoryStream())
-            {
-                Input.ProfilePicture.CopyToAsync(memoryStream);
-                return memoryStream.ToArray();
-            }
         }
     }
 }

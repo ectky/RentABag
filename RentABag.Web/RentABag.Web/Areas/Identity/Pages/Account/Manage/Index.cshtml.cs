@@ -78,15 +78,12 @@ namespace RentABag.Web.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Birthday")]
             public DateTime Birthday { get; set; }
 
-            //[Required]
-            [Display(Name = "ProfilePicture")]
-            public IFormFile ProfilePicture { get; set; }
-
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [Required]
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
