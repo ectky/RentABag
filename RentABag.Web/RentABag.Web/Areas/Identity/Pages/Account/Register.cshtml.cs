@@ -57,6 +57,10 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
             [Display(Name = "FullName")]
             public string FullName { get; set; }
 
+            [Phone]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
+
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
             [Display(Name = "Country")]
@@ -123,7 +127,7 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
                 };
                // _addressesService.CreateAddress(address);
                 //byte[] profilePic = GetProfilePicture();
-                var user = new RentABagUser { UserName = Input.UserName, Email = Input.Email, FullName = Input.FullName, Address = address, Birthday = Input.Birthday };
+                var user = new RentABagUser { UserName = Input.UserName, Email = Input.Email, FullName = Input.FullName, Address = address, Birthday = Input.Birthday, PhoneNumber = Input.PhoneNumber };
                 var result1 = await _userManager.CreateAsync(user, Input.Password);
                 var result2 = await _userManager.AddToRoleAsync(user, "User");
                 if (result1.Succeeded && result2.Succeeded)
