@@ -43,6 +43,11 @@ namespace RentABag.Web.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required]
+            [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "Username")]
+            public string UserName { get; set; }
+
+            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [Display(Name = "FullName")]
             public string FullName { get; set; }
@@ -110,7 +115,8 @@ namespace RentABag.Web.Areas.Identity.Pages.Account.Manage
                 ActualAddress = user.Address.ActualAddress,
                 City = user.Address.City,
                 Country = user.Address.Country,
-                PostCode = user.Address.PostCode
+                PostCode = user.Address.PostCode,
+                UserName = Username
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
@@ -151,6 +157,20 @@ namespace RentABag.Web.Areas.Identity.Pages.Account.Manage
                     var userId = await _userManager.GetUserIdAsync(user);
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
+            }
+
+            user.Address.ActualAddress = Input.ActualAddress;
+            user.Address.Country = Input.Country;
+            user.Address.City = Input.City;
+            user.Address.PostCode = Input.PostCode;
+            user.Birthday = Input.Birthday;
+            user.FullName = Input.FullName;
+            user.UserName = Input.UserName;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return Page();
             }
 
             await _signInManager.RefreshSignInAsync(user);
