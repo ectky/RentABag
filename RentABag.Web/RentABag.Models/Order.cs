@@ -29,6 +29,10 @@ namespace RentABag.Models
 
         public virtual DiscountCode DiscountCode { get; set; }
 
+        public int ShopId { get; set; }
+
+        public virtual Shop Shop { get; set; }
+
         [NotMapped]
         public decimal TotalPrice => (this.Bag.Price * this.RentalDays) * (1 - DiscountCode?.DiscountPercent ?? 0);
     }

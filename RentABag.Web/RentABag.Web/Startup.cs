@@ -56,17 +56,13 @@ namespace RentABag.Web
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-            //services.AddDbContext<RentABagDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity<RentABagUser>()
-            //    .AddEntityFrameworkStores<RentABagDbContext>();
-
             services.AddScoped<IUserClaimsPrincipalFactory<RentABagUser>
                 , UserClaimsPrincipalFactory<RentABagUser,
             IdentityRole>>();
 
             services.AddScoped<IAddressesService, AddressesService>();
+
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

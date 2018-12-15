@@ -20,5 +20,7 @@ namespace RentABag.Models
         public byte[] Image { get; set; }
 
         public virtual ICollection<Bag> Bags { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }
