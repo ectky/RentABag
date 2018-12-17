@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RentABag.Web.Data;
 using RentABag.Models;
-using RentABag.Web.Services;
+using RentABag.Web.Data;
 using RentABag.Web.Middlewares;
+using RentABag.Web.Services;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace RentABag.Web
 {
@@ -62,7 +60,17 @@ namespace RentABag.Web
 
             services.AddScoped<IAddressesService, AddressesService>();
 
-
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAuthentication()
+                .AddFacebook(fbOptions =>
+                {
+                    fbOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                    fbOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    fbOptions.Scope.Add("user_birthday");
+                    fbOptions.Scope.Add("user_location");
+                    fbOptions.Fields.Add("birthday");
+                    fbOptions.Fields.Add("location");
+                });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

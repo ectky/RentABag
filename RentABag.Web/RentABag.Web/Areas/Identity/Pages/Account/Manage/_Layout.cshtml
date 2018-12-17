@@ -1,22 +1,39 @@
-﻿@{ 
-    Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Manage your account</h2>
-
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
+<div class="container contact_container">
     <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li>My Account</li>
+                    <li class="active"><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-angle-right" aria-hidden="true"></i>My Profile</a></li>
+                </ul>
+            </div>
+
         </div>
-        <div class="col-md-9">
-            @RenderBody()
+    </div>
+
+    <div class="container fill_height">
+        <h2>Manage your account</h2>
+
+        <div>
+            <h4>Change your account settings</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-3">
+                    <partial name="_ManageNav" />
+                </div>
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }

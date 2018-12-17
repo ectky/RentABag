@@ -23,8 +23,12 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGet()
         {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
@@ -37,7 +41,7 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
             }
             else
             {
-                return Page();
+                return RedirectToAction("Index", "Home");
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -10,12 +11,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using RentABag.Models;
+using RentABag.Web.ValidationAttributes;
 
 namespace RentABag.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
     {
+        private const string LocationClaimsType = "urn:facebook:location";
         private readonly SignInManager<RentABagUser> _signInManager;
         private readonly UserManager<RentABagUser> _userManager;
         private readonly ILogger<ExternalLoginModel> _logger;
@@ -43,7 +46,49 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "Username")]
+            public string UserName { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "FullName")]
+            public string FullName { get; set; }
+
+            [Required]
+            [Phone]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Display(Name = "Country")]
+            public string Country { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Display(Name = "City")]
+            public string City { get; set; }
+
+            [Required]
+            [StringLength(10, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Display(Name = "PostCode")]
+            public string PostCode { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "Address")]
+            public string ActualAddress { get; set; }
+
+            [Required]
+            [Birthdate(ErrorMessage = "Required minimum age: {0}")]
+            [DataType(DataType.Date)]
+            [Display(Name = "Birthday")]
+            public DateTime Birthday { get; set; }
+
+            [Required]
             [EmailAddress]
+            [Display(Name = "Email")]
             public string Email { get; set; }
         }
 
@@ -93,9 +138,18 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
                 LoginProvider = info.LoginProvider;
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
                 {
+                    var city = info.Principal.FindFirstValue(LocationClaimsType).Split(", ").First();
+                    var country = info.Principal.FindFirstValue(LocationClaimsType).Split(", ").Last();
+                    var bday = info.Principal.FindFirstValue(ClaimTypes.DateOfBirth);
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        Birthday = bday == null? DateTime.Now : DateTime.ParseExact(bday, "MM/dd/yyyy", CultureInfo.InvariantCulture),
+                        Country = country,
+                        City = city,
+                        FullName = info.Principal.FindFirstValue(ClaimTypes.Name),
+                        PhoneNumber = info.Principal.FindFirstValue(ClaimTypes.MobilePhone),
+                        UserName = info.Principal.FindFirstValue(ClaimTypes.Name),
                     };
                 }
                 return Page();
@@ -115,19 +169,31 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new RentABagUser { UserName = Input.Email, Email = Input.Email };
-                var result = await _userManager.CreateAsync(user);
-                if (result.Succeeded)
+                var address = new Address
                 {
-                    result = await _userManager.AddLoginAsync(user, info);
-                    if (result.Succeeded)
+                    PostCode = Input.PostCode,
+                    ActualAddress = Input.ActualAddress,
+                    City = Input.City,
+                    Country = Input.Country
+                };
+                var user = new RentABagUser { UserName = Input.UserName, Email = Input.Email, FullName = Input.FullName, Address = address, Birthday = Input.Birthday, PhoneNumber = Input.PhoneNumber };
+                var result1 = await _userManager.CreateAsync(user);
+                var result2 = await _userManager.AddToRoleAsync(user, "User");
+                if (result1.Succeeded && result2.Succeeded)
+                {
+                    result1 = await _userManager.AddLoginAsync(user, info);
+                    if (result1.Succeeded)
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         return LocalRedirect(returnUrl);
                     }
                 }
-                foreach (var error in result.Errors)
+                foreach (var error in result1.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                foreach (var error in result2.Errors.Where(e => !result1.Errors.Contains(e)))
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
