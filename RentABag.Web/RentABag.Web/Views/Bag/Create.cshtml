@@ -1,0 +1,58 @@
+﻿@model CreateBagViewModel
+
+@{
+    ViewData["Title"] = "Create Bag";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <section>
+            <form method="post">
+                <h4>Create a Bag for rent</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image"></label>
+                    <input asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <select class="custom-select">
+                    <option selected disabled>Open this select menu1</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <select class="custom-select">
+                    <option selected disabled>Open this select menu2</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <select class="custom-select">
+                    <option selected disabled>Open this select menu3</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Create</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

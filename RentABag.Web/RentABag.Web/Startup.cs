@@ -7,12 +7,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RentABag.Models;
+using RentABag.Services.Mapping;
 using RentABag.Web.Data;
 using RentABag.Web.Middlewares;
 using RentABag.Web.Services;
+using RentABag.Web.Services.Contracts;
+using RentABag.Web.ViewModels;
 using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace RentABag.Web
 {
@@ -28,6 +29,10 @@ namespace RentABag.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AutoMapperConfig.RegisterMappings(
+                typeof(CreateDesignerViewModel).Assembly
+                );
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -59,6 +64,8 @@ namespace RentABag.Web
             IdentityRole>>();
 
             services.AddScoped<IAddressesService, AddressesService>();
+            services.AddScoped<IDesignersService, DesignersService>();
+            services.AddScoped<ICategoriesService, CategoriesService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAuthentication()

@@ -19,7 +19,17 @@ using RentABag.Web;
 #line default
 #line hidden
 #line 2 "D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\Views\_ViewImports.cshtml"
+using RentABag.Models;
+
+#line default
+#line hidden
+#line 3 "D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\Views\_ViewImports.cshtml"
 using RentABag.Web.Models;
+
+#line default
+#line hidden
+#line 4 "D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\Views\_ViewImports.cshtml"
+using RentABag.Web.ViewModels;
 
 #line default
 #line hidden
@@ -29,7 +39,7 @@ using Microsoft.AspNetCore.Http.Features;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5c18f8c7ec540a446e15b225511cfa1a006e3ec3", @"/Views/Shared/_CookieConsentPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b05840b0ce3bc1ca4f022df6853995ec67d0cd5c", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7551c6c4c1b08464879f0bca5d7b649ea68017e4", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__CookieConsentPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "Home", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -97,7 +107,7 @@ using Microsoft.AspNetCore.Http.Features;
                     ");
             EndContext();
             BeginContext(1234, 92, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2df4188e282549ecbd67354ebc09e533", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "eae79461c1d3433badc1614a21e2ceeb", async() => {
                 BeginContext(1312, 10, true);
                 WriteLiteral("Learn More");
                 EndContext();

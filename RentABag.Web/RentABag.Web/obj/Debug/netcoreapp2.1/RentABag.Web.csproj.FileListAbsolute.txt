@@ -70,3 +70,14 @@ D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\A
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.g.cshtml.cs
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\_ViewImports.g.cshtml.cs
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\_ViewStart.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Bag\Create.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Designer\Create.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Designer\Details.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Designer\Edit.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\bin\Debug\netcoreapp2.1\RentABag.Services.Mapping.dll
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\bin\Debug\netcoreapp2.1\RentABag.Services.Mapping.pdb
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Designer\Index.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Category\Create.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Category\Details.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Category\Edit.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Category\Index.g.cshtml.cs

@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -366,7 +366,16 @@ section
 /*********************************
 3.2 Language
 *********************************/
-
+.language2 {
+    display: inline-block;
+    position: relative;
+    min-width: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    text-align: center;
+    vertical-align: middle;
+    background: white;
+}
 .language
 {
 	display: inline-block;
@@ -392,6 +401,11 @@ section
 {
 	margin-left: 8px;
 }
+    .language2:hover .language_selection {
+        visibility: visible;
+        opacity: 1;
+        top: 100%;
+    }
 .language:hover .language_selection
 {
 	visibility: visible;
