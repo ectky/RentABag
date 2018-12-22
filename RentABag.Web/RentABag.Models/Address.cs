@@ -15,8 +15,12 @@ namespace RentABag.Models
 
         public string ActualAddress { get; set; }
 
-        public virtual ICollection<RentABagUser> Users { get; set; }
+        public string UserId { get; set; }
 
-        public virtual ICollection<Shop> Shops { get; set; }
+        public virtual RentABagUser User { get; set; }
+
+        public int? ShopId { get; set; }
+
+        public virtual Shop Shop { get; set; }
     }
 }

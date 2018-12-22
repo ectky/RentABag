@@ -11,5 +11,13 @@ namespace RentABag.Models
         public int Rating { get; set; }
 
         public string Comment { get; set; }
+
+        public int? BagId { get; set; }
+
+        public virtual Bag Bag { get; set; }
+
+        public int? ShopId { get; set; }
+
+        public virtual Shop Shop { get; set; }
     }
 }

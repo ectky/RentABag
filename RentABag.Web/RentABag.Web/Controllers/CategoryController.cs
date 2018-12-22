@@ -59,13 +59,13 @@ namespace RentABag.Web.Controllers
         [Authorize(Roles = administratorRole)]
         public ActionResult Create(CreateCategoryViewModel vm)
         {
-            try
+            if (ModelState.IsValid)
             {
                 int categoryId = this.categoriesService.CreateCategory(vm);
 
                 return RedirectToAction(detailsName, categoryName, new { id = categoryId });
             }
-            catch
+            else
             {
                 return View();
             }
@@ -97,7 +97,7 @@ namespace RentABag.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CreateCategoryViewModel vm)
         {
-            try
+            if (ModelState.IsValid)
             {
                 var category = this.categoriesService.GetCategoryById(id);
 
@@ -110,7 +110,7 @@ namespace RentABag.Web.Controllers
 
                 return RedirectToAction(detailsName, categoryName, new { id = categoryId });
             }
-            catch
+            else
             {
                 return View();
             }

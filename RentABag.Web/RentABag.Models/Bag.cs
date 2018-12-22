@@ -9,6 +9,8 @@ namespace RentABag.Models
         public Bag()
         {
             this.Orders = new HashSet<Order>();
+            this.Reviews = new HashSet<Review>();
+            this.BagShops = new HashSet<BagShop>();
         }
 
         public int Id { get; set; }

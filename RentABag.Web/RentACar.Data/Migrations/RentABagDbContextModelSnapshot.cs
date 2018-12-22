@@ -143,7 +143,19 @@ namespace RentABag.Data.Migrations
 
                     b.Property<string>("PostCode");
 
+                    b.Property<int?>("ShopId");
+
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ShopId")
+                        .IsUnique()
+                        .HasFilter("[ShopId] IS NOT NULL");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Addresses");
                 });
@@ -320,8 +332,6 @@ namespace RentABag.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -347,11 +357,15 @@ namespace RentABag.Data.Migrations
 
                     b.Property<int>("Rating");
 
+                    b.Property<int?>("ShopId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BagId");
 
                     b.HasIndex("DesignerId");
+
+                    b.HasIndex("ShopId");
 
                     b.ToTable("Reviews");
                 });
@@ -364,17 +378,17 @@ namespace RentABag.Data.Migrations
 
                     b.Property<int>("AddressId");
 
+                    b.Property<string>("Description");
+
                     b.Property<decimal>("DiscountPercent");
 
-                    b.Property<int>("ReviewId");
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PhoneNumber");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("ReviewId");
-
-                    b.ToTable("Shop");
+                    b.ToTable("Shops");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -419,6 +433,19 @@ namespace RentABag.Data.Migrations
                     b.HasOne("RentABag.Models.RentABagUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RentABag.Models.Address", b =>
+                {
+                    b.HasOne("RentABag.Models.Shop", "Shop")
+                        .WithOne("Address")
+                        .HasForeignKey("RentABag.Models.Address", "ShopId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RentABag.Models.RentABagUser", "User")
+                        .WithOne("Address")
+                        .HasForeignKey("RentABag.Models.Address", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -469,36 +496,19 @@ namespace RentABag.Data.Migrations
                         .HasForeignKey("UserId1");
                 });
 
-            modelBuilder.Entity("RentABag.Models.RentABagUser", b =>
-                {
-                    b.HasOne("RentABag.Models.Address", "Address")
-                        .WithMany("Users")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("RentABag.Models.Review", b =>
                 {
-                    b.HasOne("RentABag.Models.Bag")
+                    b.HasOne("RentABag.Models.Bag", "Bag")
                         .WithMany("Reviews")
                         .HasForeignKey("BagId");
 
                     b.HasOne("RentABag.Models.Designer")
                         .WithMany("Reviews")
                         .HasForeignKey("DesignerId");
-                });
 
-            modelBuilder.Entity("RentABag.Models.Shop", b =>
-                {
-                    b.HasOne("RentABag.Models.Address", "Address")
-                        .WithMany("Shops")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RentABag.Models.Review", "Review")
-                        .WithMany()
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("RentABag.Models.Shop", "Shop")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ShopId");
                 });
 #pragma warning restore 612, 618
         }

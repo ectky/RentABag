@@ -59,13 +59,13 @@ namespace RentABag.Web.Controllers
         [Authorize(Roles = administratorRole)]
         public ActionResult Create(CreateDesignerViewModel vm)
         {
-            try
+            if (ModelState.IsValid)
             {
                 int designerId = this.designersService.CreateDesigner(vm);
 
                 return RedirectToAction(detailsName ,designerName, new { id = designerId });
             }
-            catch
+            else
             {
                 return View();
             }
@@ -99,7 +99,7 @@ namespace RentABag.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CreateDesignerViewModel vm)
         {
-            try
+            if (ModelState.IsValid)
             {
                 var designer = this.designersService.GetDesignerById(id);
 
@@ -112,7 +112,7 @@ namespace RentABag.Web.Controllers
 
                 return RedirectToAction(detailsName, designerName, new { id = designerId });
             }
-            catch
+            else
             {
                 return View();
             }

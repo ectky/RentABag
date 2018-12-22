@@ -2,26 +2,52 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentABag.Web.Services.Contracts;
+using RentABag.Web.ViewModels;
 
 namespace RentABag.Web.Controllers
 {
     public class ShopController : Controller
     {
+        private const string homeControllerName = "Home";
+        private const string administratorRole = "Administrator";
+        private const string detailsName = "Details";
+        private const string shopName = "Shop";
+
+        private readonly IShopsService shopsService;
+
+        public ShopController(IShopsService shopsService)
+        {
+            this.shopsService = shopsService;
+        }
+
         // GET: Shop
+        [Authorize(Roles = administratorRole)]
         public ActionResult Index()
         {
-            return View();
+            var allShops = this.shopsService.GetAllShops();
+
+            return View(allShops);
         }
 
         // GET: Shop/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var shop = this.shopsService.GetShopById(id);
+
+            if (shop == null)
+            {
+                return RedirectToAction(nameof(Index), homeControllerName);
+            }
+
+            return View(shop);
         }
 
         // GET: Shop/Create
+        [Authorize(Roles = administratorRole)]
         public ActionResult Create()
         {
             return View();
@@ -30,63 +56,91 @@ namespace RentABag.Web.Controllers
         // POST: Shop/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CreateShopViewModel vm)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                int shopId = this.shopsService.CreateShop(vm);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(detailsName, shopName, new { id = shopId });
             }
-            catch
+            else
             {
                 return View();
             }
         }
 
         // GET: Shop/Edit/5
+        [Authorize(Roles = administratorRole)]
         public ActionResult Edit(int id)
         {
-            return View();
+            var shop = this.shopsService.GetShopById(id);
+
+            if (shop == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var shopViewModel = new ShopViewModel()
+            {
+                Description = shop.Description,
+                Name = shop.Name,
+                Id = shop.Id,
+                ActualAddress = shop.Address.ActualAddress,
+                City = shop.Address.City,
+                Country = shop.Address.Country,
+                DiscountPercent = shop.DiscountPercent,
+                PhoneNumber = shop.PhoneNumber,
+                PostCode = shop.Address.PostCode
+            };
+
+            return View(shopViewModel);
         }
 
         // POST: Shop/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, CreateShopViewModel vm)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var shop = this.shopsService.GetShopById(id);
 
-                return RedirectToAction(nameof(Index));
+                if (shop == null)
+                {
+                    return RedirectToAction(nameof(Index), homeControllerName);
+                }
+
+                int shopId = this.shopsService.EditShop(vm, shop);
+
+                return RedirectToAction(detailsName, shopName, new { id = shopId });
             }
-            catch
+            else
             {
                 return View();
             }
         }
 
         // GET: Shop/Delete/5
+        [Authorize(Roles = administratorRole)]
         public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Shop/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                var shop = this.shopsService.GetShopById(id);
+
+                if (shop == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                this.shopsService.DeleteShop(shop);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
     }

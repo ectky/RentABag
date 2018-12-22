@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace RentABag.Models
 {
     public class Shop
     {
+        public Shop()
+        {
+            this.BagShops = new HashSet<BagShop>();
+            this.Reviews = new HashSet<Review>();
+        }
+
         public int Id { get; set; }
 
-        public int ReviewId { get; set; }
+        public string Name { get; set; }
 
-        public virtual Review Review { get; set; }
+        public string Description { get; set; }
+
+        public string PhoneNumber { get; set; }
 
         public int AddressId { get; set; }
 
@@ -20,5 +26,6 @@ namespace RentABag.Models
 
         public virtual ICollection<BagShop> BagShops { get; set; }
 
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

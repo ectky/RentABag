@@ -21,5 +21,12 @@ namespace RentABag.Web.Services
             this.context.Addresses.Add(address);
             this.context.SaveChanges();
         }
+
+        public Address GetAddressById(int id)
+        {
+            var address = this.context.Addresses.FirstOrDefault(a => a.Id == id);
+
+            return address;
+        }
     }
 }

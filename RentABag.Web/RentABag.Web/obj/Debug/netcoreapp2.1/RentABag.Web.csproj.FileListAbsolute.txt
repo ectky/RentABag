@@ -81,3 +81,7 @@ D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\V
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Category\Details.g.cshtml.cs
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Category\Edit.g.cshtml.cs
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Category\Index.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shop\Create.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shop\Details.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shop\Edit.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shop\Index.g.cshtml.cs

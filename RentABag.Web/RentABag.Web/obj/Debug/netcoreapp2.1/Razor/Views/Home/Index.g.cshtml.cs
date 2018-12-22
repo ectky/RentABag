@@ -693,7 +693,7 @@ using RentABag.Web.ViewModels;
             WriteLiteral("     <div class=\"col-lg-6\">\r\n                ");
             EndContext();
             BeginContext(30809, 530, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5d01119c43fb4324b948cc913074c787", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e40ea1215300455e8fc821f4f35ce2ff", async() => {
                 BeginContext(30829, 503, true);
                 WriteLiteral(@"
                     <div class=""newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center"">
