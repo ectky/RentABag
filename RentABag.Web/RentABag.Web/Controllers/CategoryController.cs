@@ -112,7 +112,21 @@ namespace RentABag.Web.Controllers
             }
             else
             {
-                return View();
+                var category = this.categoriesService.GetCategoryById(id);
+
+                if (category == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var categoryViewModel = new CategoryViewModel()
+                {
+                    Description = category.Description,
+                    Name = category.Name,
+                    Id = category.Id
+                };
+
+                return View(categoryViewModel);
             }
         }
 

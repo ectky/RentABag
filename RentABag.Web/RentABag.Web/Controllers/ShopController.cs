@@ -117,7 +117,27 @@ namespace RentABag.Web.Controllers
             }
             else
             {
-                return View();
+                var shop = this.shopsService.GetShopById(id);
+
+                if (shop == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var shopViewModel = new ShopViewModel()
+                {
+                    Description = shop.Description,
+                    Name = shop.Name,
+                    Id = shop.Id,
+                    ActualAddress = shop.Address.ActualAddress,
+                    City = shop.Address.City,
+                    Country = shop.Address.Country,
+                    DiscountPercent = shop.DiscountPercent,
+                    PhoneNumber = shop.PhoneNumber,
+                    PostCode = shop.Address.PostCode
+                };
+
+                return View(shopViewModel);
             }
         }
 

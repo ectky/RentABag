@@ -33,6 +33,7 @@
                     <label asp-for="Description"></label>
                     <textarea asp-for="Description" class="form-control" disabled></textarea>
                 </div>
+                <a asp-area="" asp-controller="Category" asp-action="Index"><button type="button" class="btn btn-default">Back to List</button></a>
                 @if (this.User.IsInRole("Administrator"))
                 {
                     <a asp-area="" asp-controller="Category" asp-action="Edit" asp-route-id="@Model.Id"><button class="btn btn-default">Edit</button></a>

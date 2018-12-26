@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentABag.Web.Services.Contracts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,18 +10,26 @@ namespace RentABag.Web.ValidationAttributes
     public class IsValidDesignerIdAttribute : ValidationAttribute
     {
         private const int years = 18;
+        private readonly IDesignersService designersService;
+
+        public IsValidDesignerIdAttribute(IDesignersService designersService)
+        {
+            this.designersService = designersService;
+        }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (!(value is DateTime))
+            int id = 0;
+
+            if (int.TryParse(value.ToString(), out id))
             {
-                return new ValidationResult("Invalid DateTime object.");
+                return new ValidationResult("Invalid Designer Id.");
             }
 
-            var dateTime = (DateTime)value;
-            if (((DateTime.UtcNow - dateTime).TotalDays / 365.25) < years)
+
+            if (this.designersService.ExistsDesignerWithId(id))
             {
-                return new ValidationResult(this.ErrorMessage.Replace("{0}", years.ToString()));
+                return new ValidationResult("Designer with this id does not exist.");
             }
 
             return ValidationResult.Success;

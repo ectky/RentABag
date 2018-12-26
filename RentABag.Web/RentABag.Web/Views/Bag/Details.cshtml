@@ -1,0 +1,71 @@
+﻿@model Shop
+
+@{
+    ViewData["Title"] = "Shop Details";
+}
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li>Administrator</li>
+                    <li class="active"><a asp-area="" asp-controller="Shop" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Shops</a></li>
+                    <li class="active"><a asp-area="" asp-controller="Shop" asp-action="Details" asp-route-id="@Model.Id"><i class="fa fa-angle-right" aria-hidden="true"></i>Shop Details</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <section>
+        <h4>Shop Details</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" disabled class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" disabled class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DiscountPercent"></label>
+                    <input asp-for="DiscountPercent" disabled type="number" step=".01" min="0" max="100" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" disabled class="form-control" />
+                </div>
+                @if (this.User.IsInRole("Administrator"))
+                {
+                    <a asp-area="" asp-controller="Shop" asp-action="Edit" asp-route-id="@Model.Id"><button class="btn btn-default">Edit</button></a>
+                    <a asp-area="" asp-controller="Shop" asp-action="Delete" asp-route-id="@Model.Id"><button class="btn btn-default">Delete</button></a>
+                }
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Address.Country"></label>
+                    <input asp-for="Address.Country" disabled class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.City"></label>
+                    <input asp-for="Address.City" disabled class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.PostCode"></label>
+                    <input asp-for="Address.PostCode" disabled class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.ActualAddress"></label>
+                    <input asp-for="Address.ActualAddress" disabled class="form-control" />
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

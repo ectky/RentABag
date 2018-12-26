@@ -37,6 +37,7 @@
                     <label asp-for="Image"></label>
                     <input asp-for="Image" class="form-control" disabled />
                 </div>
+                <a asp-area="" asp-controller="Designer" asp-action="Index"><button type="button" class="btn btn-default">Back to List</button></a>
                 @if (this.User.IsInRole("Administrator"))
                 {
                     <a asp-area="" asp-controller="Designer" asp-action="Edit" asp-route-id="@Model.Id"><button class="btn btn-default">Edit</button></a>

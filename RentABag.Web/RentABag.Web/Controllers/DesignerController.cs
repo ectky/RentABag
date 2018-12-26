@@ -114,7 +114,22 @@ namespace RentABag.Web.Controllers
             }
             else
             {
-                return View();
+                var designer = this.designersService.GetDesignerById(id);
+
+                if (designer == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var designerViewModel = new DesignerViewModel()
+                {
+                    Description = designer.Description,
+                    FullName = designer.FullName,
+                    Image = designer.Image,
+                    Id = designer.Id
+                };
+
+                return View(designerViewModel);
             }
         }
 

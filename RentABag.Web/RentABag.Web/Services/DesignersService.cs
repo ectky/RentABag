@@ -54,6 +54,11 @@ namespace RentABag.Web.Services
             return designer.Id;
         }
 
+        public bool ExistsDesignerWithId(int id)
+        {
+            return this.context.Designers.Any(d => d.Id == id);
+        }
+
         public ICollection<DesignerViewModel> GetAllDesigners()
         {
             var designers = this.context.Designers

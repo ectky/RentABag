@@ -17,6 +17,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Bag\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Bag\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Bag\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Category\Create.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

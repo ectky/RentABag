@@ -14,5 +14,6 @@ namespace RentABag.Web.Services.Contracts
         int EditDesigner(CreateDesignerViewModel vm, Designer designer);
         void DeleteDesigner(Designer designer);
         ICollection<DesignerViewModel> GetAllDesigners();
+        bool ExistsDesignerWithId(int id);
     }
 }
