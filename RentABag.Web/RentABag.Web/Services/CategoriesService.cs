@@ -19,7 +19,7 @@ namespace RentABag.Web.Services
             this.context = context;
         }
 
-        public int CreateCategory(CreateCategoryViewModel vm)
+        public async Task<int> CreateCategoryAsync(CreateCategoryViewModel vm)
         {
             var category = new Category()
             {
@@ -27,37 +27,41 @@ namespace RentABag.Web.Services
                 Name = vm.Name
             };
 
-            this.context.Categories.Add(category);
-            this.context.SaveChanges();
+            await this.context.Categories.AddAsync(category);
+            await this.context.SaveChangesAsync();
 
             int categoryId = category.Id;
 
             return categoryId;
         }
         
-        public void DeleteCategory(Category category)
+        public async void DeleteCategoryAsync(Category category)
         {
             this.context.Remove(category);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
         }
 
-        public int EditCategory(CreateCategoryViewModel vm, Category category)
+        public async Task<int> EditCategoryAsync(CreateCategoryViewModel vm, Category category)
         {
             this.context.Attach(category);
 
             category.Name = vm.Name;
             category.Description = vm.Description;
 
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
             return category.Id;
         }
-        
-        public ICollection<CategoryViewModel> GetAllCategories()
+
+        public bool ExistsCategoryWithId(int id)
+        {
+            return this.context.Categories.Any(d => d.Id == id);
+        }
+
+        public IQueryable<CategoryViewModel> GetAllCategories()
         {
             var categories = this.context.Categories
-                .To<CategoryViewModel>()
-                .ToList();
+                .To<CategoryViewModel>();
 
             return categories;
         }

@@ -9,7 +9,7 @@ namespace RentABag.Web.Services
 {
     public interface IAddressesService
     {
-        void CreateAddress(Address address);
+        void CreateAddressAsync(Address address);
         Address GetAddressById(int id);
     }
 }

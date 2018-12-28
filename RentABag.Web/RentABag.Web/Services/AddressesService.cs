@@ -16,10 +16,10 @@ namespace RentABag.Web.Services
             this.context = context;
         }
 
-        public void CreateAddress(Address address)
+        public async void CreateAddressAsync(Address address)
         {
-            this.context.Addresses.Add(address);
-            this.context.SaveChanges();
+            await this.context.Addresses.AddAsync(address);
+            await this.context.SaveChangesAsync();
         }
 
         public Address GetAddressById(int id)

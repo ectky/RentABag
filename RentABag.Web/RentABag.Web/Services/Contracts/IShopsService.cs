@@ -9,10 +9,10 @@ namespace RentABag.Web.Services.Contracts
 {
     public interface IShopsService
     {
-        int CreateShop(CreateShopViewModel vm);
+        Task<int> CreateShopAsync(CreateShopViewModel vm);
         Shop GetShopById(int id);
-        int EditShop(CreateShopViewModel vm, Shop shop);
-        void DeleteShop(Shop shop);
-        ICollection<ShopViewModel> GetAllShops();
+        Task<int> EditShopAsync(CreateShopViewModel vm, Shop shop);
+        void DeleteShopAsync(Shop shop);
+        IQueryable<ShopViewModel> GetAllShops();
     }
 }

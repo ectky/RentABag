@@ -9,10 +9,11 @@ namespace RentABag.Web.Services.Contracts
 {
     public interface ICategoriesService
     {
-        int CreateCategory(CreateCategoryViewModel vm);
+        Task<int> CreateCategoryAsync(CreateCategoryViewModel vm);
         Category GetCategoryById(int id);
-        int EditCategory(CreateCategoryViewModel vm, Category category);
-        void DeleteCategory(Category category);
-        ICollection<CategoryViewModel> GetAllCategories();
+        Task<int> EditCategoryAsync(CreateCategoryViewModel vm, Category category);
+        void DeleteCategoryAsync(Category category);
+        IQueryable<CategoryViewModel> GetAllCategories();
+        bool ExistsCategoryWithId(int id);
     }
 }

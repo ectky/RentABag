@@ -122,7 +122,7 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
                     City = Input.City,
                     Country = Input.Country
                 };
-                this._addressesService.CreateAddress(address);
+                this._addressesService.CreateAddressAsync(address);
                 var user = new RentABagUser { UserName = Input.UserName, Email = Input.Email, FullName = Input.FullName, Address = address, Birthday = Input.Birthday, PhoneNumber = Input.PhoneNumber };
                 var result1 = await _userManager.CreateAsync(user, Input.Password);
                 var result2 = await _userManager.AddToRoleAsync(user, "User");

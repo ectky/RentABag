@@ -31,11 +31,10 @@ namespace RentABag.Web.ViewModels
         public int DesignerId { get; set; }
 
         [Required]
-        //[IsValidCategoryId]
+        [IsValidCategoryId]
         public int CategoryId { get; set; }
 
-        [Required]
-        //[IsValidShopId]
-        public int ShopId { get; set; }        
+        //[Required]
+        //public int ShopId { get; set; }        
     }
 }

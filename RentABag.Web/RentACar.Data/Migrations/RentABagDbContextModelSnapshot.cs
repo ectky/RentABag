@@ -223,9 +223,9 @@ namespace RentABag.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("FullName");
-
                     b.Property<byte[]>("Image");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 

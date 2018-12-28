@@ -1,7 +1,10 @@
-﻿@model ShopViewModel
+﻿@model BagViewModel
 
 @{
-    ViewData["Title"] = "Edit Shop";
+    ViewData["Title"] = "Edit Bag";
+    var categories = this.ViewData["Categories"] as IEnumerable<SelectListItem>;
+    var designers = this.ViewData["Designers"] as IEnumerable<SelectListItem>;
+    var shops = this.ViewData["Shops"] as IEnumerable<SelectListItem>;
 }
 
 <div class="container contact_container">
@@ -13,17 +16,17 @@
             <div class="breadcrumbs d-flex flex-row align-items-center">
                 <ul>
                     <li>Administrator</li>
-                    <li class="active"><a asp-area="" asp-controller="Shop" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Shops</a></li>
-                    <li class="active"><a asp-area="" asp-controller="Shop" asp-action="Edit" asp-route-id="@Model.Id"><i class="fa fa-angle-right" aria-hidden="true"></i>Edit Shop</a></li>
+                    <li class="active"><a asp-area="" asp-controller="Bag" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Bags</a></li>
+                    <li class="active"><a asp-area="" asp-controller="Bag" asp-action="Edit" asp-route-id="@Model.Id"><i class="fa fa-angle-right" aria-hidden="true"></i>Edit Bag</a></li>
                 </ul>
             </div>
 
         </div>
     </div>
     <section>
-        <h4>Edit a Shop</h4>
+        <h4>Edit a Bag</h4>
         <hr />
-        <form method="post" asp-area="" asp-controller="Shop" asp-action="Edit" asp-route-id="@Model.Id" class="row">
+        <form method="post" asp-area="" asp-controller="Bag" asp-action="Edit" asp-route-id="@Model.Id" class="row">
             <div class="col-md-6">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -32,45 +35,35 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="Description"></label>
-                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <input asp-for="Description" class="form-control" />
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="DiscountPercent"></label>
-                    <input asp-for="DiscountPercent" type="number" step=".01" min="0" max="100" class="form-control" />
-                    <span asp-validation-for="DiscountPercent" class="text-danger"></span>
+                    <label asp-for="Image"></label>
+                    <input asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PhoneNumber"></label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    <label asp-for="Category"></label>
+                    <select asp-for="CategoryId" asp-items="categories" class="custom-select form-control">
+                        <option selected disabled>Category</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <a asp-area="" asp-controller="Bag" asp-action="Idex"><button class="btn btn-default">Back</button></a>
+                    <label asp-for="Designer"></label>
+                    <select asp-for="DesignerId" asp-items="designers" class="custom-select form-control">
+                        <option selected disabled>Designer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <a asp-area="" asp-controller="Bag" asp-action="Index"><button type="button" class="btn btn-default">Back to List</button></a>
                     <button type="submit" class="btn btn-default">Edit</button>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="Country"></label>
-                    <input asp-for="Country" class="form-control" />
-                    <span asp-validation-for="Country" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="City"></label>
-                    <input asp-for="City" class="form-control" />
-                    <span asp-validation-for="City" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PostCode"></label>
-                    <input asp-for="PostCode" class="form-control" />
-                    <span asp-validation-for="PostCode" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ActualAddress"></label>
-                    <input asp-for="ActualAddress" class="form-control" />
-                    <span asp-validation-for="ActualAddress" class="text-danger"></span>
                 </div>
             </div>
         </form>

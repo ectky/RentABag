@@ -19,37 +19,37 @@ namespace RentABag.Web.Services
             this.context = context;
         }
 
-        public int CreateDesigner(CreateDesignerViewModel vm)
+        public async Task<int> CreateDesignerAsync(CreateDesignerViewModel vm)
         {
             var designer = new Designer()
             {
-                FullName = vm.FullName,
+                Name = vm.Name,
                 Description = vm.Description
             };
 
-            this.context.Designers.Add(designer);
-            this.context.SaveChanges();
+            await this.context.Designers.AddAsync(designer);
+            await this.context.SaveChangesAsync();
 
             int designerId = designer.Id;
 
             return designerId;
         }
 
-        public void DeleteDesigner(Designer designer)
+        public async void DeleteDesignerAsync(Designer designer)
         {
             this.context.Remove(designer);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
         }
 
-        public int EditDesigner(CreateDesignerViewModel vm, Designer designer)
+        public async Task<int> EditDesignerAsync(CreateDesignerViewModel vm, Designer designer)
         {
             this.context.Attach(designer);
 
-            designer.FullName = vm.FullName;
+            designer.Name = vm.Name;
             designer.Description = vm.Description;
             designer.Image = vm.Image;
 
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
             return designer.Id;
         }
@@ -59,11 +59,10 @@ namespace RentABag.Web.Services
             return this.context.Designers.Any(d => d.Id == id);
         }
 
-        public ICollection<DesignerViewModel> GetAllDesigners()
+        public IQueryable<DesignerViewModel> GetAllDesigners()
         {
             var designers = this.context.Designers
-                .To<DesignerViewModel>()
-                .ToList();
+                .To<DesignerViewModel>();
 
             return designers;
         }

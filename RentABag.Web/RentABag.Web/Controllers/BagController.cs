@@ -1,92 +1,247 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using RentABag.Services.Mapping;
+using RentABag.Web.Services.Contracts;
+using RentABag.Web.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RentABag.Web.Controllers
 {
     public class BagController : Controller
     {
+        private const string homeControllerName = "Home";
+        private const string administratorRole = "Administrator";
+        private const string detailsName = "Details";
+        private const string bagName = "Bag";
+
+        private readonly IBagsService bagsService;
+        private readonly IDesignersService designersService;
+        private readonly ICategoriesService categoriesService;
+        private readonly IShopsService shopsService;
+
+        public BagController(IBagsService bagsService, IDesignersService designersService, ICategoriesService categoriesService, IShopsService shopsService)
+        {
+            this.bagsService = bagsService;
+            this.designersService = designersService;
+            this.categoriesService = categoriesService;
+            this.shopsService = shopsService;
+        }
+
         // GET: Bag
+        [Authorize(Roles = administratorRole)]
         public ActionResult Index()
         {
-            return View();
+            var allCategories = bagsService.GetAllBags();
+
+            return View(allCategories);
         }
 
         // GET: Bag/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var bag = bagsService.GetBagById(id);
+
+            if (bag == null)
+            {
+                return RedirectToAction(nameof(Index), homeControllerName);
+            }
+
+            var category = this.categoriesService.GetCategoryById(bag.CategoryId);
+            var designer = this.designersService.GetDesignerById(bag.DesignerId);
+
+            var bagViewModel = new BagViewModel()
+            {
+                Description = bag.Description,
+                Category = category.Name,
+                Designer = designer.Name,
+                Id = bag.Id,
+                Image = bag.Image,
+                Name = bag.Name,
+                Price = bag.Price
+            };
+
+            return View(bagViewModel);
         }
 
         // GET: Bag/Create
+        [Authorize(Roles = administratorRole)]
         public ActionResult Create()
         {
+            ViewData["Categories"] = categoriesService.GetAllCategories()
+                .To<IdAndNameViewModel>().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                })
+                .ToList();
+            ViewData["Designers"] = designersService.GetAllDesigners()
+                .To<IdAndNameViewModel>().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                })
+                .ToList();
+            ViewData["Shops"] = shopsService.GetAllShops()
+                .To<IdAndNameViewModel>().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                })
+                .ToList();
+
             return View();
         }
 
         // POST: Bag/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [Authorize(Roles = administratorRole)]
+        public async Task<ActionResult> Create(CreateBagViewModel vm)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                int bagId = await bagsService.CreateBagAsync(vm);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(detailsName, bagName, new { id = bagId });
             }
-            catch
+            else
             {
                 return View();
             }
         }
 
         // GET: Bag/Edit/5
+        [Authorize(Roles = administratorRole)]
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewData["Categories"] = categoriesService.GetAllCategories()
+                .To<IdAndNameViewModel>().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                })
+                .ToList();
+            ViewData["Designers"] = designersService.GetAllDesigners()
+                .To<IdAndNameViewModel>().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                })
+                .ToList();
+            ViewData["Shops"] = shopsService.GetAllShops()
+                .To<IdAndNameViewModel>().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                })
+                .ToList();
+
+            var bag = bagsService.GetBagById(id);
+
+            if (bag == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var bagViewModel = new BagViewModel()
+            {
+                Description = bag.Description,
+                Name = bag.Name,
+                Id = bag.Id,
+                DesignerId = bag.DesignerId,
+                CategoryId = bag.CategoryId,
+                Price = bag.Price
+            };
+
+            return View(bagViewModel);
         }
 
         // POST: Bag/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, CreateBagViewModel vm)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var bag = bagsService.GetBagById(id);
 
-                return RedirectToAction(nameof(Index));
+                if (bag == null)
+                {
+                    return RedirectToAction(nameof(Index), homeControllerName);
+                }
+
+                int bagId = await bagsService.EditBagAsync(vm, bag);
+
+                return RedirectToAction(detailsName, bagName, new { id = bagId });
             }
-            catch
+            else
             {
-                return View();
+                ViewData["Categories"] = categoriesService.GetAllCategories()
+                .To<IdAndNameViewModel>().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                })
+                .ToList();
+                ViewData["Designers"] = designersService.GetAllDesigners()
+                    .To<IdAndNameViewModel>().Select(x => new SelectListItem
+                    {
+                        Value = x.Id.ToString(),
+                        Text = x.Name
+                    })
+                    .ToList();
+                ViewData["Shops"] = shopsService.GetAllShops()
+                    .To<IdAndNameViewModel>().Select(x => new SelectListItem
+                    {
+                        Value = x.Id.ToString(),
+                        Text = x.Name
+                    })
+                    .ToList();
+
+                var bag = bagsService.GetBagById(id);
+
+                if (bag == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var bagViewModel = new BagViewModel()
+                {
+                    Description = bag.Description,
+                    Name = bag.Name,
+                    Id = bag.Id,
+                    DesignerId = bag.DesignerId,
+                    CategoryId = bag.CategoryId,
+                    Price = bag.Price
+                };
+
+                return View(bagViewModel);
             }
         }
 
         // GET: Bag/Delete/5
+        [Authorize(Roles = administratorRole)]
         public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Bag/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                var bag = this.bagsService.GetBagById(id);
+
+                if (bag == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                this.bagsService.DeleteBagAsync(bag);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
     }

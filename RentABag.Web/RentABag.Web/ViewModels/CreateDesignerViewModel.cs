@@ -13,7 +13,7 @@ namespace RentABag.Web.ViewModels
         [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [Display(Name = "Full Name")]
         [Required]
-        public string FullName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(500, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]

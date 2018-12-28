@@ -21,7 +21,7 @@ namespace RentABag.Web.Services
             this.addressesService = addressesService;
         }
 
-        public int CreateShop(CreateShopViewModel vm)
+        public async Task<int> CreateShopAsync(CreateShopViewModel vm)
         {
             var address = new Address
             {
@@ -30,8 +30,9 @@ namespace RentABag.Web.Services
                 City = vm.City,
                 Country = vm.Country
             };
-            this.addressesService.CreateAddress(address);
-            this.context.SaveChanges();
+
+            this.addressesService.CreateAddressAsync(address);
+            await this.context.SaveChangesAsync();
 
             var shop = new Shop()
             {
@@ -42,24 +43,24 @@ namespace RentABag.Web.Services
                 PhoneNumber = vm.PhoneNumber
             };
 
-            this.context.Shops.Add(shop);
+            await this.context.Shops.AddAsync(shop);
 
             address.ShopId = shop.Id;
 
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
             int shopId = shop.Id;
 
             return shopId;
         }
 
-        public void DeleteShop(Shop shop)
+        public async void DeleteShopAsync(Shop shop)
         {
             this.context.Remove(shop);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
         }
 
-        public int EditShop(CreateShopViewModel vm, Shop shop)
+        public async Task<int> EditShopAsync(CreateShopViewModel vm, Shop shop)
         {
             var address = this.addressesService.GetAddressById(shop.AddressId);
 
@@ -78,16 +79,15 @@ namespace RentABag.Web.Services
             shop.AddressId = address.Id;
             shop.PhoneNumber = vm.PhoneNumber;
 
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
             return shop.Id;
         }
 
-        public ICollection<ShopViewModel> GetAllShops()
+        public IQueryable<ShopViewModel> GetAllShops()
         {
             var shops = this.context.Shops
-                .To<ShopViewModel>()
-                .ToList();
+                .To<ShopViewModel>();
 
             return shops;
         }

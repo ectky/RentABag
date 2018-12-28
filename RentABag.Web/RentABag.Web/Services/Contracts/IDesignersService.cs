@@ -9,11 +9,11 @@ namespace RentABag.Web.Services.Contracts
 {
     public interface IDesignersService
     {
-        int CreateDesigner(CreateDesignerViewModel vm);
+        Task<int> CreateDesignerAsync(CreateDesignerViewModel vm);
         Designer GetDesignerById(int id);
-        int EditDesigner(CreateDesignerViewModel vm, Designer designer);
-        void DeleteDesigner(Designer designer);
-        ICollection<DesignerViewModel> GetAllDesigners();
+        Task<int> EditDesignerAsync(CreateDesignerViewModel vm, Designer designer);
+        void DeleteDesignerAsync(Designer designer);
+        IQueryable<DesignerViewModel> GetAllDesigners();
         bool ExistsDesignerWithId(int id);
     }
 }

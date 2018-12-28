@@ -9,25 +9,17 @@ namespace RentABag.Web.ValidationAttributes
 {
     public class IsValidDesignerIdAttribute : ValidationAttribute
     {
-        private const int years = 18;
-        private readonly IDesignersService designersService;
-
-        public IsValidDesignerIdAttribute(IDesignersService designersService)
-        {
-            this.designersService = designersService;
-        }
-
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            var designersService = (IDesignersService)validationContext.GetService(typeof(IDesignersService));
             int id = 0;
 
-            if (int.TryParse(value.ToString(), out id))
+            if (!int.TryParse(value.ToString(), out id))
             {
-                return new ValidationResult("Invalid Designer Id.");
+                return new ValidationResult("Invalid Designer.");
             }
 
-
-            if (this.designersService.ExistsDesignerWithId(id))
+            if (!designersService.ExistsDesignerWithId(id))
             {
                 return new ValidationResult("Designer with this id does not exist.");
             }

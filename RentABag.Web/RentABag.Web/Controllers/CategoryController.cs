@@ -28,7 +28,7 @@ namespace RentABag.Web.Controllers
         [Authorize(Roles = administratorRole)]
         public ActionResult Index()
         {
-            var allCategories = this.categoriesService.GetAllCategories();
+            var allCategories = this.categoriesService.GetAllCategories().ToList();
 
             return View(allCategories);
         }
@@ -57,11 +57,11 @@ namespace RentABag.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = administratorRole)]
-        public ActionResult Create(CreateCategoryViewModel vm)
+        public async Task<ActionResult> Create(CreateCategoryViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                int categoryId = this.categoriesService.CreateCategory(vm);
+                int categoryId = await this.categoriesService.CreateCategoryAsync(vm);
 
                 return RedirectToAction(detailsName, categoryName, new { id = categoryId });
             }
@@ -95,7 +95,7 @@ namespace RentABag.Web.Controllers
         // POST: Category/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CreateCategoryViewModel vm)
+        public async Task<ActionResult> Edit(int id, CreateCategoryViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace RentABag.Web.Controllers
                     return RedirectToAction(nameof(Index), homeControllerName);
                 }
 
-                int categoryId = this.categoriesService.EditCategory(vm, category);
+                int categoryId = await this.categoriesService.EditCategoryAsync(vm, category);
 
                 return RedirectToAction(detailsName, categoryName, new { id = categoryId });
             }
@@ -143,7 +143,7 @@ namespace RentABag.Web.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                this.categoriesService.DeleteCategory(category);
+                this.categoriesService.DeleteCategoryAsync(category);
 
                 return RedirectToAction(nameof(Index));
             }

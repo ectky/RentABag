@@ -28,7 +28,7 @@ namespace RentABag.Web.Controllers
         [Authorize(Roles = administratorRole)]
         public ActionResult Index()
         {
-            var allDesigners = this.designersService.GetAllDesigners();
+            var allDesigners = this.designersService.GetAllDesigners().ToList();
 
             return View(allDesigners);
         }
@@ -57,11 +57,11 @@ namespace RentABag.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = administratorRole)]
-        public ActionResult Create(CreateDesignerViewModel vm)
+        public async Task<ActionResult> Create(CreateDesignerViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                int designerId = this.designersService.CreateDesigner(vm);
+                int designerId = await this.designersService.CreateDesignerAsync(vm);
 
                 return RedirectToAction(detailsName ,designerName, new { id = designerId });
             }
@@ -85,7 +85,7 @@ namespace RentABag.Web.Controllers
             var designerViewModel = new DesignerViewModel()
             {
                 Description = designer.Description,
-                FullName = designer.FullName,
+                Name = designer.Name,
                 Image = designer.Image,
                 Id = designer.Id
             };
@@ -97,7 +97,7 @@ namespace RentABag.Web.Controllers
         [Authorize(Roles =administratorRole)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CreateDesignerViewModel vm)
+        public async Task<ActionResult> Edit(int id, CreateDesignerViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -108,7 +108,7 @@ namespace RentABag.Web.Controllers
                     return RedirectToAction(nameof(Index), homeControllerName);
                 }
 
-                int designerId = this.designersService.EditDesigner(vm, designer);
+                int designerId = await this.designersService.EditDesignerAsync(vm, designer);
 
                 return RedirectToAction(detailsName, designerName, new { id = designerId });
             }
@@ -124,7 +124,7 @@ namespace RentABag.Web.Controllers
                 var designerViewModel = new DesignerViewModel()
                 {
                     Description = designer.Description,
-                    FullName = designer.FullName,
+                    Name = designer.Name,
                     Image = designer.Image,
                     Id = designer.Id
                 };
@@ -146,7 +146,7 @@ namespace RentABag.Web.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                this.designersService.DeleteDesigner(designer);
+                this.designersService.DeleteDesignerAsync(designer);
 
                 return RedirectToAction(nameof(Index));
             }

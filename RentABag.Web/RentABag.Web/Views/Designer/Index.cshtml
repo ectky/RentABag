@@ -32,7 +32,7 @@
             @foreach (var designer in Model)
             {
                 <tr class="row">
-                    <th class="col-md-9"><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-id="@designer.Id">@designer.FullName</a></th>
+                    <th class="col-md-9"><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-id="@designer.Id">@designer.Name</a></th>
                     <td class="col-md-3 text-center">
                         <a asp-area="" asp-controller="Designer" asp-action="Edit" asp-route-id="@designer.Id"><button class="btn btn-default">Edit</button></a>
                         <a asp-area="" asp-controller="Designer" asp-action="Delete" asp-route-id="@designer.Id"><button class="btn btn-default">Delete</button></a>

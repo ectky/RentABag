@@ -28,7 +28,7 @@ namespace RentABag.Web.Controllers
         [Authorize(Roles = administratorRole)]
         public ActionResult Index()
         {
-            var allShops = this.shopsService.GetAllShops();
+            var allShops = this.shopsService.GetAllShops().ToList();
 
             return View(allShops);
         }
@@ -56,11 +56,11 @@ namespace RentABag.Web.Controllers
         // POST: Shop/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateShopViewModel vm)
+        public async Task<ActionResult> Create(CreateShopViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                int shopId = this.shopsService.CreateShop(vm);
+                int shopId = await this.shopsService.CreateShopAsync(vm);
 
                 return RedirectToAction(detailsName, shopName, new { id = shopId });
             }
@@ -100,7 +100,7 @@ namespace RentABag.Web.Controllers
         // POST: Shop/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CreateShopViewModel vm)
+        public async Task<ActionResult> Edit(int id, CreateShopViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace RentABag.Web.Controllers
                     return RedirectToAction(nameof(Index), homeControllerName);
                 }
 
-                int shopId = this.shopsService.EditShop(vm, shop);
+                int shopId = await this.shopsService.EditShopAsync(vm, shop);
 
                 return RedirectToAction(detailsName, shopName, new { id = shopId });
             }
@@ -154,7 +154,7 @@ namespace RentABag.Web.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                this.shopsService.DeleteShop(shop);
+                this.shopsService.DeleteShopAsync(shop);
 
                 return RedirectToAction(nameof(Index));
             }
