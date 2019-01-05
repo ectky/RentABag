@@ -15,6 +15,7 @@ namespace RentABag.Web.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<BagShop> BagShops { get; set; }
+        public DbSet<Collection> Collections { get; set; }
 
         public RentABagDbContext(DbContextOptions<RentABagDbContext> options)
             : base(options)

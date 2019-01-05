@@ -37,11 +37,11 @@
                     <label asp-for="Image"></label>
                     <input asp-for="Image" class="form-control" disabled />
                 </div>
-                <a asp-area="" asp-controller="Designer" asp-action="Index"><button type="button" class="btn btn-default">Back to List</button></a>
+                <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Designer" asp-action="Index">Back to List</a></div>
                 @if (this.User.IsInRole("Administrator"))
                 {
-                    <a asp-area="" asp-controller="Designer" asp-action="Edit" asp-route-id="@Model.Id"><button class="btn btn-default">Edit</button></a>
-                    <a asp-area="" asp-controller="Designer" asp-action="Delete" asp-route-id="@Model.Id"><button class="btn btn-default">Delete</button></a>
+                    <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Designer" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></div>
+                    <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Designer" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
                 }
             </section>
         </div>

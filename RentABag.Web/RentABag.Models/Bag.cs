@@ -21,6 +21,8 @@ namespace RentABag.Models
 
         public string Description { get; set; }
 
+        public decimal DiscountPercent { get; set; }
+
         public byte[] Image { get; set; }
 
         public int DesignerId { get; set; }
@@ -30,6 +32,10 @@ namespace RentABag.Models
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
+
+        public int? CollectionId { get; set; }
+
+        public virtual Collection Collection { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
 

@@ -1,4 +1,3 @@
-D:\VSProjects\RentABag\RentABag.Web\RentABag.Services.Mapping\obj\Debug\netcoreapp2.1\RentABag.Services.Mapping.csprojAssemblyReference.cache
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Services.Mapping\obj\Debug\netcoreapp2.1\RentABag.Services.Mapping.csproj.CoreCompileInputs.cache
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Services.Mapping\obj\Debug\netcoreapp2.1\RentABag.Services.Mapping.AssemblyInfoInputs.cache
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Services.Mapping\obj\Debug\netcoreapp2.1\RentABag.Services.Mapping.AssemblyInfo.cs

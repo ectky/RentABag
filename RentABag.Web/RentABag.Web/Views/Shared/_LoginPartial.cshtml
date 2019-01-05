@@ -76,10 +76,7 @@
                             <ul class="navbar_menu">
                                 <li><a href="#">home</a></li>
                                 <li><a href="#">shop</a></li>
-                                <li><a href="#">promotion</a></li>
-                                <li><a href="#">pages</a></li>
-                                <li><a href="#">blog</a></li>
-                                <li><a href="contact.html">contact</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a></li>
                                 @if (this.User.IsInRole("Administrator"))
                                 {
                                     <li class="language2">
@@ -91,6 +88,7 @@
                                             <li><a asp-area="" asp-controller="Bag" asp-action="Index">Bags</a></li>
                                             <li><a asp-area="" asp-controller="Designer" asp-action="Index">Designers</a></li>
                                             <li><a asp-area="" asp-controller="Category" asp-action="Index">Categories</a></li>
+                                            <li><a asp-area="" asp-controller="Collection" asp-action="Index">Collections</a></li>
                                             <li><a asp-area="" asp-controller="Shop" asp-action="Index">Shops</a></li>
                                         </ul>
                                     </li>
@@ -98,7 +96,6 @@
                             </ul>
                             <ul class="navbar_user">
                                 <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                                 <li class="checkout">
                                     <a href="#">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -156,10 +153,7 @@
                 </li>
                 <li class="menu_item"><a href="#">home</a></li>
                 <li class="menu_item"><a href="#">shop</a></li>
-                <li class="menu_item"><a href="#">promotion</a></li>
-                <li class="menu_item"><a href="#">pages</a></li>
-                <li class="menu_item"><a href="#">blog</a></li>
-                <li class="menu_item"><a href="#">contact</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a></li>
                 @if (this.User.IsInRole("Administrator"))
                 {
                     <li class="language2">
@@ -171,6 +165,7 @@
                             <li><a asp-area="" asp-controller="Bag" asp-action="Index">Bags</a></li>
                             <li><a asp-area="" asp-controller="Designer" asp-action="Index">Designers</a></li>
                             <li><a asp-area="" asp-controller="Category" asp-action="Index">Categories</a></li>
+                            <li><a asp-area="" asp-controller="Collection" asp-action="Index">Collections</a></li>
                             <li><a asp-area="" asp-controller="Shop" asp-action="Index">Shops</a></li>
                         </ul>
                     </li>
@@ -254,14 +249,10 @@ else
                             <ul class="navbar_menu">
                                 <li><a href="#">home</a></li>
                                 <li><a href="#">shop</a></li>
-                                <li><a href="#">promotion</a></li>
-                                <li><a href="#">pages</a></li>
-                                <li><a href="#">blog</a></li>
-                                <li><a href="contact.html">contact</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a></li>
                             </ul>
                             <ul class="navbar_user">
                                 <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                                 <li class="checkout">
                                     <a href="#">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -319,10 +310,7 @@ else
                 </li>
                 <li class="menu_item"><a href="#">home</a></li>
                 <li class="menu_item"><a href="#">shop</a></li>
-                <li class="menu_item"><a href="#">promotion</a></li>
-                <li class="menu_item"><a href="#">pages</a></li>
-                <li class="menu_item"><a href="#">blog</a></li>
-                <li class="menu_item"><a href="#">contact</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a></li>
             </ul>
         </div>
     </div>

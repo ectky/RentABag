@@ -19,7 +19,7 @@
     </div>
 
     <h1 class="text-center">Categories</h1>
-    <a asp-area="" asp-controller="Category" asp-action="Create"><button class="btn btn-default">Create</button></a>
+    <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Category" asp-action="Create">Create</a></div>
     <hr class="hr-2" />
     <table class="table w-75 mx-auto table-hover">
         <thead>
@@ -34,8 +34,8 @@
                 <tr class="row">
                     <th class="col-md-9"><a asp-area="" asp-controller="Category" asp-action="Details" asp-route-id="@category.Id">@category.Name</a></th>
                     <td class="col-md-3 text-center">
-                        <a asp-area="" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id"><button class="btn btn-default">Edit</button></a>
-                        <a asp-area="" asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id"><button class="btn btn-default">Delete</button></a>
+                        <div class="red_button btn mr-3"><a asp-area="" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">Edit</a></div>
+                        <div class="red_button btn mr-3"><a asp-area="" asp-controller="Category" asp-action="Delet" asp-route-id="@category.Id">Delete</a></div>
                     </td>
                 </tr>
             }

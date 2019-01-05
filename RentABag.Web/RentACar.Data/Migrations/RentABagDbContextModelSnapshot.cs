@@ -168,9 +168,13 @@ namespace RentABag.Data.Migrations
 
                     b.Property<int>("CategoryId");
 
+                    b.Property<int?>("CollectionId");
+
                     b.Property<string>("Description");
 
                     b.Property<int>("DesignerId");
+
+                    b.Property<decimal>("DiscountPercent");
 
                     b.Property<byte[]>("Image");
 
@@ -181,6 +185,8 @@ namespace RentABag.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CollectionId");
 
                     b.HasIndex("DesignerId");
 
@@ -213,6 +219,23 @@ namespace RentABag.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("RentABag.Models.Collection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Collections");
                 });
 
             modelBuilder.Entity("RentABag.Models.Designer", b =>
@@ -455,6 +478,10 @@ namespace RentABag.Data.Migrations
                         .WithMany("Bags")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RentABag.Models.Collection", "Collection")
+                        .WithMany("Bags")
+                        .HasForeignKey("CollectionId");
 
                     b.HasOne("RentABag.Models.Designer", "Designer")
                         .WithMany("Bags")

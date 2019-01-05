@@ -24,6 +24,11 @@ namespace RentABag.Web.ViewModels
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Required]
+        [Range(0.01, 100, ErrorMessage = "Discount Percent must be greater than 0.00")]
+        [Display(Name = "Discount Percent")]
+        public decimal DiscountPercent { get; set; }
+
         public byte[] Image { get; set; }
 
         [Required]
@@ -33,6 +38,10 @@ namespace RentABag.Web.ViewModels
         [Required]
         [IsValidCategoryId]
         public int CategoryId { get; set; }
+
+        [Required]
+        [IsValidCollectionId]
+        public int CollectionId { get; set; }
 
         //[Required]
         //public int ShopId { get; set; }        

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RentABag.Services.Mapping;
 using RentABag.Web.Services.Contracts;
 using RentABag.Web.ViewModels;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,13 +22,15 @@ namespace RentABag.Web.Controllers
         private readonly IDesignersService designersService;
         private readonly ICategoriesService categoriesService;
         private readonly IShopsService shopsService;
+        private readonly ICollectionsService collectionsService;
 
-        public BagController(IBagsService bagsService, IDesignersService designersService, ICategoriesService categoriesService, IShopsService shopsService)
+        public BagController(IBagsService bagsService, IDesignersService designersService, ICategoriesService categoriesService, IShopsService shopsService, ICollectionsService collectionsService)
         {
             this.bagsService = bagsService;
             this.designersService = designersService;
             this.categoriesService = categoriesService;
             this.shopsService = shopsService;
+            this.collectionsService = collectionsService;
         }
 
         // GET: Bag
@@ -70,27 +73,7 @@ namespace RentABag.Web.Controllers
         [Authorize(Roles = administratorRole)]
         public ActionResult Create()
         {
-            ViewData["Categories"] = categoriesService.GetAllCategories()
-                .To<IdAndNameViewModel>().Select(x => new SelectListItem
-                {
-                    Value = x.Id.ToString(),
-                    Text = x.Name
-                })
-                .ToList();
-            ViewData["Designers"] = designersService.GetAllDesigners()
-                .To<IdAndNameViewModel>().Select(x => new SelectListItem
-                {
-                    Value = x.Id.ToString(),
-                    Text = x.Name
-                })
-                .ToList();
-            ViewData["Shops"] = shopsService.GetAllShops()
-                .To<IdAndNameViewModel>().Select(x => new SelectListItem
-                {
-                    Value = x.Id.ToString(),
-                    Text = x.Name
-                })
-                .ToList();
+            this.LoadViewData();
 
             return View();
         }
@@ -117,6 +100,30 @@ namespace RentABag.Web.Controllers
         [Authorize(Roles = administratorRole)]
         public ActionResult Edit(int id)
         {
+            this.LoadViewData();
+
+            var bag = bagsService.GetBagById(id);
+
+            if (bag == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var bagViewModel = new BagViewModel()
+            {
+                Description = bag.Description,
+                Name = bag.Name,
+                Id = bag.Id,
+                DesignerId = bag.DesignerId,
+                CategoryId = bag.CategoryId,
+                Price = bag.Price
+            };
+
+            return View(bagViewModel);
+        }
+
+        private void LoadViewData()
+        {
             ViewData["Categories"] = categoriesService.GetAllCategories()
                 .To<IdAndNameViewModel>().Select(x => new SelectListItem
                 {
@@ -138,25 +145,13 @@ namespace RentABag.Web.Controllers
                     Text = x.Name
                 })
                 .ToList();
-
-            var bag = bagsService.GetBagById(id);
-
-            if (bag == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            var bagViewModel = new BagViewModel()
-            {
-                Description = bag.Description,
-                Name = bag.Name,
-                Id = bag.Id,
-                DesignerId = bag.DesignerId,
-                CategoryId = bag.CategoryId,
-                Price = bag.Price
-            };
-
-            return View(bagViewModel);
+            ViewData["Collections"] = collectionsService.GetAllCollections()
+                .To<IdAndNameViewModel>().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                })
+                .ToList();
         }
 
         // POST: Bag/Edit/5
@@ -179,27 +174,7 @@ namespace RentABag.Web.Controllers
             }
             else
             {
-                ViewData["Categories"] = categoriesService.GetAllCategories()
-                .To<IdAndNameViewModel>().Select(x => new SelectListItem
-                {
-                    Value = x.Id.ToString(),
-                    Text = x.Name
-                })
-                .ToList();
-                ViewData["Designers"] = designersService.GetAllDesigners()
-                    .To<IdAndNameViewModel>().Select(x => new SelectListItem
-                    {
-                        Value = x.Id.ToString(),
-                        Text = x.Name
-                    })
-                    .ToList();
-                ViewData["Shops"] = shopsService.GetAllShops()
-                    .To<IdAndNameViewModel>().Select(x => new SelectListItem
-                    {
-                        Value = x.Id.ToString(),
-                        Text = x.Name
-                    })
-                    .ToList();
+                LoadViewData();
 
                 var bag = bagsService.GetBagById(id);
 

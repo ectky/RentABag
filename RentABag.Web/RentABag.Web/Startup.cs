@@ -68,6 +68,7 @@ namespace RentABag.Web
             services.AddScoped<ICategoriesService, CategoriesService>();
             services.AddScoped<IShopsService, ShopsService>();
             services.AddScoped<IBagsService, BagsService>();
+            services.AddScoped<ICollectionsService, CollectionsService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAuthentication()
