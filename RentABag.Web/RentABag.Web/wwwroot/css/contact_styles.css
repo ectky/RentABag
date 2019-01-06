@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -1056,10 +1056,11 @@ section
 	background: #1e1e27;
 	color: #FFFFFF;
 	text-transform: uppercase;
-	width: 165px;
+	width: 140px;
 	border: none;
-	height: 46px;
+	height: 40px;
 	cursor: pointer;
+    border-radius: 3px;
 }
 .message_submit_btn:hover
 {

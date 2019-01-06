@@ -16,13 +16,18 @@ namespace RentABag.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private const string homeControllerName = "Home";
+        private const string errorName = "Error";
+        private const string successfulMessage = "Your message was sent successfully.";
         private ICollectionsService collectionsService;
         private IBagsService bagsService;
+        private IMessagesService messagesService;
 
-        public HomeController(ICollectionsService collectionsService, IBagsService bagsService)
+        public HomeController(ICollectionsService collectionsService, IBagsService bagsService, IMessagesService messagesService)
         {
             this.collectionsService = collectionsService;
             this.bagsService = bagsService;
+            this.messagesService = messagesService;
         }
 
         public IActionResult Index()
@@ -31,7 +36,7 @@ namespace RentABag.Web.Controllers
 
             if (collection == null)
             {
-                return new NotFoundResult();
+                return RedirectToAction(errorName, homeControllerName);
             }
 
             var collectionViewModel = Mapper.Map<Collection ,CollectionViewModel>(collection);
@@ -40,7 +45,7 @@ namespace RentABag.Web.Controllers
 
             if (dealOfTheWeek == null)
             {
-                return new NotFoundResult();
+                return RedirectToAction(errorName, homeControllerName);
             }
 
             var bagViewModel = Mapper.Map<Bag, BagViewModel>(dealOfTheWeek);
@@ -51,7 +56,7 @@ namespace RentABag.Web.Controllers
 
             if (bestSellers == null)
             {
-                return new NotFoundResult();
+                return RedirectToAction(errorName, homeControllerName);
             }
 
             var queryable = bestSellers.AsQueryable();
@@ -65,18 +70,33 @@ namespace RentABag.Web.Controllers
             return View(collectionViewModel);
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
+        //public IActionResult About()
+        //{
+        //    ViewData["Message"] = "Your application description page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contact(CreateMessageViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                int messageId = await this.messagesService.CreateMessageAsync(vm);
+
+                ViewData["Message"] = successfulMessage;
+
+                return View();
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult Privacy()

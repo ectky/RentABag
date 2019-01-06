@@ -270,6 +270,23 @@ namespace RentABag.Data.Migrations
                     b.ToTable("DiscountCodes");
                 });
 
+            modelBuilder.Entity("RentABag.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("RentABag.Models.Order", b =>
                 {
                     b.Property<int>("Id")

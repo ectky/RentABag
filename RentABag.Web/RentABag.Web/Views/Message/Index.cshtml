@@ -1,0 +1,43 @@
+﻿@model ICollection<MessageViewModel>
+@{
+    ViewData["Title"] = "Messages";
+}
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li>Administrator</li>
+                    <li class="active"><a asp-area="" asp-controller="Message" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Messages</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="text-center">Messages</h1>
+    <hr class="hr-2" />
+    <table class="table w-75 mx-auto table-hover">
+        <thead>
+            <tr class="row">
+                <th class="col-md-9">Full Name</th>
+                <th class="col-md-3 text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var designer in Model)
+            {
+                <tr class="row">
+                    <th class="col-md-9"><a asp-area="" asp-controller="Message" asp-action="Details" asp-route-id="@designer.Id">@designer.Name</a></th>
+                    <td class="col-md-3 text-center">
+                        <div class="red_button btn mr-3"><a asp-area="" asp-controller="Message" asp-action="Delete" asp-route-id="@designer.Id">Delete</a></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

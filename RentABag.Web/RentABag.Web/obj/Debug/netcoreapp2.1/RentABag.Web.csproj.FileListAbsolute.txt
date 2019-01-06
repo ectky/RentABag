@@ -94,3 +94,5 @@ D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\V
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Collection\Index.g.cshtml.cs
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\BagViewModelDisplayTemplate.g.cshtml.cs
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\BagScrollableDisplayTemplate.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Message\Details.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Message\Index.g.cshtml.cs
