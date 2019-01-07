@@ -25,7 +25,7 @@ namespace RentABag.Web.ViewModels
         public string Description { get; set; }
 
         [Required]
-        [Range(0.01, 100, ErrorMessage = "Discount Percent must be greater than 0.00")]
+        [Range(0.00, 100, ErrorMessage = "Discount Percent must be greater than 0.00")]
         [Display(Name = "Discount Percent")]
         public decimal DiscountPercent { get; set; }
 

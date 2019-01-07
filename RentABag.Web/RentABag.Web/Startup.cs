@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using RentABag.Models;
 using RentABag.Services.Mapping;
 using RentABag.Web.Data;
@@ -14,6 +15,7 @@ using RentABag.Web.Services;
 using RentABag.Web.Services.Contracts;
 using RentABag.Web.ViewModels;
 using System;
+using System.IO;
 
 namespace RentABag.Web
 {
@@ -63,6 +65,10 @@ namespace RentABag.Web
                 , UserClaimsPrincipalFactory<RentABagUser,
             IdentityRole>>();
 
+            services.AddSingleton<IFileProvider>(
+                new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+
             services.AddScoped<IAddressesService, AddressesService>();
             services.AddScoped<IDesignersService, DesignersService>();
             services.AddScoped<ICategoriesService, CategoriesService>();
@@ -70,6 +76,7 @@ namespace RentABag.Web
             services.AddScoped<IBagsService, BagsService>();
             services.AddScoped<ICollectionsService, CollectionsService>();
             services.AddScoped<IMessagesService, MessagesService>();
+            services.AddScoped<IReviewsService, ReviewsService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAuthentication()

@@ -18,7 +18,8 @@
                 </div>
                 <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-@discountPercent%</span></div>
                 <div class="product_info">
-                    <h6 class="product_name"><a href="single.html">@Model.Name</a></h6>
+                    <h6 class="product_name"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a></h6>
+                    <h6 class="product_name"><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-id="@Model.DesignerId">@Model.DesignerName</a></h6>
                     <div class="product_price">$@newPriceString<span>$@priceString</span></div>
                 </div>
             </div>
@@ -35,7 +36,8 @@ else if (Model.CollectionId == collectionId)
                 </div>
                 <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>new</span></div>
                 <div class="product_info">
-                    <h6 class="product_name"><a href="single.html">@Model.Name</a></h6>
+                    <h6 class="product_name"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a></h6>
+                    <h6 class="product_name"><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-id="@Model.DesignerId">@Model.DesignerName</a></h6>
                     <div class="product_price">$@priceString</div>
                 </div>
             </div>
@@ -51,7 +53,8 @@ else
                     <img src="images/product_8.png" alt="">
                 </div>
                 <div class="product_info">
-                    <h6 class="product_name"><a href="single.html">@Model.Name</a></h6>
+                    <h6 class="product_name"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a></h6>
+                    <h6 class="product_name"><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-id="@Model.DesignerId">@Model.DesignerName</a></h6>
                     <div class="product_price">$@priceString</div>
                 </div>
             </div>

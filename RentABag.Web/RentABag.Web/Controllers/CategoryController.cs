@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentABag.Models;
+using RentABag.Web.Helpers;
 using RentABag.Web.Services.Contracts;
 using RentABag.Web.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RentABag.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        private const string homeControllerName = "Home";
-        private const string administratorRole = "Administrator";
-        private const string detailsName = "Details";
-        private const string categoryName = "Category";
-
         private readonly ICategoriesService categoriesService;
 
         public CategoryController(ICategoriesService categoriesService)
@@ -25,10 +20,15 @@ namespace RentABag.Web.Controllers
         }
 
         // GET: Category
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Index()
         {
-            var allCategories = this.categoriesService.GetAllCategories().ToList();
+            var allCategories = categoriesService.GetAllCategories().ToList();
+
+            if (allCategories == null)
+            {
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
+            }
 
             return View(allCategories);
         }
@@ -36,18 +36,18 @@ namespace RentABag.Web.Controllers
         // GET: Category/Details/5
         public ActionResult Details(int id)
         {
-            var category = this.categoriesService.GetCategoryById(id);
+            var category = categoriesService.GetCategoryById(id);
 
             if (category == null)
             {
-                return RedirectToAction(nameof(Index), homeControllerName);
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
             return View(category);
         }
 
         // GET: Category/Create
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Create()
         {
             return View();
@@ -56,14 +56,14 @@ namespace RentABag.Web.Controllers
         // POST: Category/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public async Task<ActionResult> Create(CreateCategoryViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                int categoryId = await this.categoriesService.CreateCategoryAsync(vm);
+                int categoryId = await categoriesService.CreateCategoryAsync(vm);
 
-                return RedirectToAction(detailsName, categoryName, new { id = categoryId });
+                return RedirectToAction(Constants.detailsName, Constants.categoryName, new { id = categoryId });
             }
             else
             {
@@ -72,22 +72,17 @@ namespace RentABag.Web.Controllers
         }
 
         // GET: Category/Edit/5
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Edit(int id)
         {
-            var category = this.categoriesService.GetCategoryById(id);
+            var category = categoriesService.GetCategoryById(id);
 
             if (category == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
-            var categoryViewModel = new CategoryViewModel()
-            {
-                Description = category.Description,
-                Name = category.Name,
-                Id = category.Id
-            };
+            var categoryViewModel = Mapper.Map<Category, CategoryViewModel>(category);
 
             return View(categoryViewModel);
         }
@@ -99,57 +94,52 @@ namespace RentABag.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var category = this.categoriesService.GetCategoryById(id);
+                var category = categoriesService.GetCategoryById(id);
 
                 if (category == null)
                 {
-                    return RedirectToAction(nameof(Index), homeControllerName);
+                    return RedirectToAction(Constants.errorName, Constants.homeControllerName);
                 }
 
-                int categoryId = await this.categoriesService.EditCategoryAsync(vm, category);
+                int categoryId = await categoriesService.EditCategoryAsync(vm, category);
 
-                return RedirectToAction(detailsName, categoryName, new { id = categoryId });
+                return RedirectToAction(Constants.detailsName, Constants.categoryName, new { id = categoryId });
             }
             else
             {
-                var category = this.categoriesService.GetCategoryById(id);
+                var category = categoriesService.GetCategoryById(id);
 
                 if (category == null)
                 {
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(Constants.errorName, Constants.homeControllerName);
                 }
 
-                var categoryViewModel = new CategoryViewModel()
-                {
-                    Description = category.Description,
-                    Name = category.Name,
-                    Id = category.Id
-                };
+                var categoryViewModel = Mapper.Map<Category, CategoryViewModel>(category);
 
                 return View(categoryViewModel);
             }
         }
 
         // GET: Category/Delete/5
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Delete(int id)
         {
             try
             {
-                var category = this.categoriesService.GetCategoryById(id);
+                var category = categoriesService.GetCategoryById(id);
 
                 if (category == null)
                 {
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(Constants.errorName, Constants.homeControllerName);
                 }
 
-                this.categoriesService.DeleteCategoryAsync(category);
+                categoriesService.DeleteCategoryAsync(category);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
         }
     }

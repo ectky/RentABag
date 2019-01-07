@@ -395,7 +395,13 @@ namespace RentABag.Data.Migrations
 
                     b.Property<int?>("DesignerId");
 
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Name");
+
                     b.Property<int>("Rating");
+
+                    b.Property<DateTime>("ReviewedOn");
 
                     b.Property<int?>("ShopId");
 

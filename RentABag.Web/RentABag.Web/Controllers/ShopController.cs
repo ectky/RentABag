@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentABag.Models;
+using RentABag.Web.Helpers;
 using RentABag.Web.Services.Contracts;
 using RentABag.Web.ViewModels;
 
@@ -12,11 +15,6 @@ namespace RentABag.Web.Controllers
 {
     public class ShopController : Controller
     {
-        private const string homeControllerName = "Home";
-        private const string administratorRole = "Administrator";
-        private const string detailsName = "Details";
-        private const string shopName = "Shop";
-
         private readonly IShopsService shopsService;
 
         public ShopController(IShopsService shopsService)
@@ -25,10 +23,15 @@ namespace RentABag.Web.Controllers
         }
 
         // GET: Shop
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Index()
         {
             var allShops = this.shopsService.GetAllShops().ToList();
+
+            if (allShops == null)
+            {
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
+            }
 
             return View(allShops);
         }
@@ -40,14 +43,14 @@ namespace RentABag.Web.Controllers
 
             if (shop == null)
             {
-                return RedirectToAction(nameof(Index), homeControllerName);
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
             return View(shop);
         }
 
         // GET: Shop/Create
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Create()
         {
             return View();
@@ -62,7 +65,7 @@ namespace RentABag.Web.Controllers
             {
                 int shopId = await this.shopsService.CreateShopAsync(vm);
 
-                return RedirectToAction(detailsName, shopName, new { id = shopId });
+                return RedirectToAction(Constants.detailsName, Constants.shopName, new { id = shopId });
             }
             else
             {
@@ -71,7 +74,7 @@ namespace RentABag.Web.Controllers
         }
 
         // GET: Shop/Edit/5
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Edit(int id)
         {
             var shop = this.shopsService.GetShopById(id);
@@ -81,18 +84,7 @@ namespace RentABag.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var shopViewModel = new ShopViewModel()
-            {
-                Description = shop.Description,
-                Name = shop.Name,
-                Id = shop.Id,
-                ActualAddress = shop.Address.ActualAddress,
-                City = shop.Address.City,
-                Country = shop.Address.Country,
-                DiscountPercent = shop.DiscountPercent,
-                PhoneNumber = shop.PhoneNumber,
-                PostCode = shop.Address.PostCode
-            };
+            var shopViewModel = Mapper.Map<Shop, ShopViewModel>(shop);
 
             return View(shopViewModel);
         }
@@ -108,12 +100,12 @@ namespace RentABag.Web.Controllers
 
                 if (shop == null)
                 {
-                    return RedirectToAction(nameof(Index), homeControllerName);
+                    return RedirectToAction(Constants.errorName, Constants.homeControllerName);
                 }
 
                 int shopId = await this.shopsService.EditShopAsync(vm, shop);
 
-                return RedirectToAction(detailsName, shopName, new { id = shopId });
+                return RedirectToAction(Constants.detailsName, Constants.shopName, new { id = shopId });
             }
             else
             {
@@ -124,25 +116,14 @@ namespace RentABag.Web.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                var shopViewModel = new ShopViewModel()
-                {
-                    Description = shop.Description,
-                    Name = shop.Name,
-                    Id = shop.Id,
-                    ActualAddress = shop.Address.ActualAddress,
-                    City = shop.Address.City,
-                    Country = shop.Address.Country,
-                    DiscountPercent = shop.DiscountPercent,
-                    PhoneNumber = shop.PhoneNumber,
-                    PostCode = shop.Address.PostCode
-                };
+                var shopViewModel = Mapper.Map<Shop, ShopViewModel>(shop);
 
                 return View(shopViewModel);
             }
         }
 
         // GET: Shop/Delete/5
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Delete(int id)
         {
             try
@@ -151,7 +132,7 @@ namespace RentABag.Web.Controllers
 
                 if (shop == null)
                 {
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(Constants.errorName, Constants.homeControllerName);
                 }
 
                 this.shopsService.DeleteShopAsync(shop);
@@ -160,7 +141,7 @@ namespace RentABag.Web.Controllers
             }
             catch
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
         }
     }

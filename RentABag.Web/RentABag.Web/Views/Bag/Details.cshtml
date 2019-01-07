@@ -1,9 +1,10 @@
-﻿@model BagViewModel
+﻿@model CreateReviewViewModel
 
 @{
     ViewData["Title"] = "Bag Details";
-    var priceString = $"{Model.Price:f2}";
-    var newPriceString = $"{Model.NewPrice:f2}";
+    var bag = ViewData["Bag"] as BagViewModel;
+    var priceString = $"{bag.Price:f2}";
+    var newPriceString = $"{bag.NewPrice:f2}";
 }
 
 <div class="container single_product_container">
@@ -16,7 +17,7 @@
                 <ul>
                     <li>Administrator</li>
                     <li class="active"><a asp-area="" asp-controller="Bag" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Bags</a></li>
-                    <li class="active"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@Model.Id"><i class="fa fa-angle-right" aria-hidden="true"></i>Bag Details</a></li>
+                    <li class="active"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@bag.Id"><i class="fa fa-angle-right" aria-hidden="true"></i>Bag Details</a></li>
                 </ul>
             </div>
 
@@ -46,16 +47,17 @@
         <div class="col-lg-5">
             <div class="product_details">
                 <div class="product_details_title">
-                    <h2>@Model.Name</h2>
-                    <p>@Model.ShortDescription</p>
+                    <h2>@bag.Name</h2>
+                    <p><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-id="@bag.DesignerId">@bag.DesignerName</a></p>
+                    <p>@bag.ShortDescription</p>
                 </div>
-                @if (Model.Price >= 500)
+                @if (bag.Price >= 500)
                 {
                     <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
                         <span class="ti-truck"></span><span>free delivery</span>
                     </div>
                 }
-                @if (Model.DiscountPercent != 0)
+                @if (bag.DiscountPercent != 0)
                 {
                     <div class="original_price">$@priceString</div>
                     <div class="product_price">$@newPriceString</div>
@@ -65,11 +67,14 @@
                     <div class="product_price">$@priceString</div>
                 }
                 <ul class="star_rating">
-                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                    @for (int i = 0; i < bag.Reviews.Average(r => r?.Rating); i++)
+                    {
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    }
+                    @for (int i = 0; i < 5 - bag.Reviews.Average(r => r?.Rating); i++)
+                    {
+                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                    }
                 </ul>
                 <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                     <div class="red_button shop_now_button"><a href="#">add to cart</a></div>
@@ -78,8 +83,8 @@
                     @if (this.User.IsInRole("Administrator"))
                     {
                         <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Bag" asp-action="Index">Back to List</a></div>
-                        <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Bag" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></div>
-                        <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Bag" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
+                        <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Bag" asp-action="Edit" asp-route-id="@bag.Id">Edit</a></div>
+                        <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Bag" asp-action="Delete" asp-route-id="@bag.Id">Delete</a></div>
                     }
                 </div>
             </div>
@@ -97,7 +102,7 @@
                         <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
                             <li class="tab active" data-active-tab="tab_1"><span>Description</span></li>
                             <li class="tab" data-active-tab="tab_2"><span>Additional Information</span></li>
-                            <li class="tab" data-active-tab="tab_3"><span>Reviews (2)</span></li>
+                            <li class="tab" data-active-tab="tab_3"><span>Reviews (@bag.Reviews.Count)</span></li>
                         </ul>
                     </div>
                 </div>
@@ -114,8 +119,9 @@
                                     <h4>Description</h4>
                                 </div>
                                 <div class="tab_text_block">
-                                    <h2>@Model.Name</h2>
-                                    <p>@Model.Description</p>
+                                    <h2>@bag.Name</h2>
+                                    <p><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-id="@bag.DesignerId">@bag.DesignerName</a></p>
+                                    <p>@bag.Description</p>
                                 </div>
                             </div>
                         </div>
@@ -143,75 +149,72 @@
 
                             <div class="col-lg-6 reviews_col">
                                 <div class="tab_title reviews_title">
-                                    <h4>Reviews (2)</h4>
+                                    <h4>Reviews (@bag.Reviews.Count)</h4>
                                 </div>
-
                                 <!-- User Review -->
 
-                                <div class="user_review_container d-flex flex-column flex-sm-row">
-                                    <div class="user">
-                                        <div class="user_pic"></div>
-                                        <div class="user_rating">
-                                            <ul class="star_rating">
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                                            </ul>
+                                @if (bag.Reviews.Count == 0)
+                                {
+                                    <div class="user_review_container d-flex flex-column flex-sm-row">
+                                        <div class="user">
+                                            <div class="user_pic"></div>
+                                            <div class="user_rating">
+                                                <ul class="star_rating"></ul>
+                                            </div>
+                                        </div>
+                                        <div class="review">
+                                            There are no reviews yet.
+                                            Be the first one to write a review for this bag!
                                         </div>
                                     </div>
-                                    <div class="review">
-                                        <div class="review_date">27 Aug 2016</div>
-                                        <div class="user_name">Brandon William</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                </div>
-
-                                <!-- User Review -->
-
-                                <div class="user_review_container d-flex flex-column flex-sm-row">
-                                    <div class="user">
-                                        <div class="user_pic"></div>
-                                        <div class="user_rating">
-                                            <ul class="star_rating">
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                                            </ul>
+                                }
+                                else
+                                {
+                                    foreach (var review in bag.Reviews.OrderByDescending(r => r.ReviewedOn).Take(bag.Reviews.Count > 4 ? 4 : bag.Reviews.Count))
+                                    {
+                                        <div class="user_review_container d-flex flex-column flex-sm-row">
+                                            <div class="user">
+                                                <div class="user_pic"></div>
+                                                <div class="user_rating">
+                                                    <ul class="star_rating">
+                                                        @for (int i = 0; i < review.Rating; i++)
+                                                        {
+                                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                        }
+                                                        @for (int i = 0; i < 5 - review.Rating; i++)
+                                                        {
+                                                            <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="review">
+                                                <div class="review_date">@review.ReviewedOn</div>
+                                                <div class="user_name">@review.Name</div>
+                                                <p>@review.Comment</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="review">
-                                        <div class="review_date">27 Aug 2016</div>
-                                        <div class="user_name">Brandon William</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                </div>
+                                    }
+                                }
+
+
                             </div>
-
                             <!-- Add Review -->
 
                             <div class="col-lg-6 add_review_col">
-
+                                <p class="text-success">@ViewData["Message"]</p>
                                 <div class="add_review">
-                                    <form id="review_form" action="post">
+                                    <form asp-area="" asp-action="Create" asp-controller="Review">
                                         <div>
                                             <h1>Add Review</h1>
-                                            <input id="review_name" class="form_input input_name" type="text" name="name" placeholder="Name*" required="required" data-error="Name is required.">
-                                            <input id="review_email" class="form_input input_email" type="email" name="email" placeholder="Email*" required="required" data-error="Valid email is required.">
+                                            <input type="hidden" name="bagId" value="@bag.Id" />
+                                            <input asp-for="Name" class="form_input input_name" placeholder="Name*">
+                                            <input asp-for="Email" class="form_input input_email" placeholder="Email*">
                                         </div>
                                         <div>
                                             <h1>Your Rating:</h1>
-                                            <ul class="user_star_rating">
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                                            </ul>
-                                            <textarea id="review_message" class="input_review" name="message" placeholder="Your Review" rows="4" required data-error="Please, leave us a review."></textarea>
+                                            <input asp-for="Rating" class="form_input input_name" placeholder="Rating*" />
+                                            <textarea asp-for="Comment" class="input_review"  placeholder="Your Review" rows="3"></textarea>
                                         </div>
                                         <div class="text-left text-sm-right">
                                             <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">submit</button>

@@ -37,7 +37,7 @@
                 @if (this.User.IsInRole("Administrator"))
                 {
                     <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Category" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></div>
-                    <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Category" asp-action="Delete" asp-route-id="@Model.Id">Edit</a></div>
+                    <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Category" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
                 }
             </section>
         </div>

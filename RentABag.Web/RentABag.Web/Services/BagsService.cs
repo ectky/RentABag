@@ -12,6 +12,7 @@ namespace RentABag.Web.Services
 {
     public class BagsService : IBagsService
     {
+        private const int bagsPerPage = 12;
         private readonly RentABagDbContext context;
 
         public BagsService(RentABagDbContext context)
@@ -75,6 +76,13 @@ namespace RentABag.Web.Services
             return bag;
         }
 
+        public ICollection<Bag> GetBagsForPage(int page)
+        {
+            var bags = this.context.Bags.Skip((page - 1) * bagsPerPage).Take(bagsPerPage).ToArray();
+
+            return bags;
+        }
+
         public ICollection<Bag> GetBestSellers(int count)
         {
             if (count > this.context.Bags.Count())
@@ -96,6 +104,13 @@ namespace RentABag.Web.Services
                 .FirstOrDefault();
 
             return bag;
+        }
+
+        public int GetPages()
+        {
+            var pages = (this.context.Bags.Count() / bagsPerPage) + 1;
+
+            return pages;
         }
     }
 }

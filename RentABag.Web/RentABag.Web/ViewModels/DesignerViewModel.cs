@@ -1,5 +1,6 @@
 ﻿using RentABag.Models;
 using RentABag.Services.Mapping;
+using System.Collections.Generic;
 
 namespace RentABag.Web.ViewModels
 {
@@ -12,5 +13,8 @@ namespace RentABag.Web.ViewModels
         public string Description { get; set; }
 
         public byte[] Image { get; set; }
+
+        public ICollection<Bag> Bags { get; set; }
+
     }
 }

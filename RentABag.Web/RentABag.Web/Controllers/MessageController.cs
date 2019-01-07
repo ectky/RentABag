@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentABag.Models;
+using RentABag.Web.Helpers;
 using RentABag.Web.Services.Contracts;
 using RentABag.Web.ViewModels;
 
@@ -14,12 +15,6 @@ namespace RentABag.Web.Controllers
 {
     public class MessageController : Controller
     {
-        private const string homeControllerName = "Home";
-        private const string administratorRole = "Administrator";
-        private const string detailsName = "Details";
-        private const string designerName = "Designer";
-        private const string errorName = "Error";
-
         private readonly IMessagesService messagesService;
 
         public MessageController(IMessagesService messagesService)
@@ -28,29 +23,35 @@ namespace RentABag.Web.Controllers
         }
 
         // GET: Designer
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Index()
         {
             var allMessages = this.messagesService.GetAllMessages().ToList();
+
+            if (allMessages == null)
+            {
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
+            }
 
             return View(allMessages);
         }
 
         // GET: Designer/Details/5
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Details(int id)
         {
             var message = this.messagesService.GetMessageById(id);
 
             if (message == null)
             {
-                return RedirectToAction(errorName, homeControllerName);
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
             return View(message);
         }
 
         // GET: Designer/Delete/5
-        [Authorize(Roles =administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Delete(int id)
         {
             try
@@ -59,7 +60,7 @@ namespace RentABag.Web.Controllers
 
                 if (message == null)
                 {
-                    return RedirectToAction(errorName, homeControllerName);
+                    return RedirectToAction(Constants.errorName, Constants.homeControllerName);
                 }
 
                 this.messagesService.DeleteMessageAsync(message);
@@ -68,7 +69,7 @@ namespace RentABag.Web.Controllers
             }
             catch
             {
-                return RedirectToAction(errorName, homeControllerName);
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
         }
     }

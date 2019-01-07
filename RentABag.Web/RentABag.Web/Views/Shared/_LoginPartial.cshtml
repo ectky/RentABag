@@ -25,7 +25,7 @@
                                 <!-- Currency / Language / My Account -->
 
                                 <li class="currency">
-                                    <a href="#">
+                                    <a>
                                         usd
                                         <i class="fa fa-angle-down"></i>
                                     </a>
@@ -38,7 +38,7 @@
                                     </ul>
                                 </li>
                                 <li class="language">
-                                    <a href="#">
+                                    <a>
                                         English
                                         <i class="fa fa-angle-down"></i>
                                     </a>
@@ -47,13 +47,13 @@
                                     </ul>
                                 </li>
                                 <li class="language">
-                                    <a href="#">
+                                    <a>
                                         My Account
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="language_selection">
-                                        <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-sign-in"></i>My Profile</a></li>
-                                        <li><a asp-area="Identity" asp-page="/Account/Logout"><i class="fa fa-user-plus"></i>Logout</a></li>
+                                        <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-user"></i>My Profile</a></li>
+                                        <li><a asp-area="Identity" asp-page="/Account/Logout"><i class="fa fa-sign-out"></i>Logout</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -74,8 +74,8 @@
                         </div>
                         <nav class="navbar">
                             <ul class="navbar_menu">
-                                <li><a href="#">home</a></li>
-                                <li><a href="#">shop</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Index">home</a></li>
+                                <li><a asp-area="" asp-controller="Rent" asp-action="Index">Rent</a></li>
                                 <li><a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a></li>
                                 @if (this.User.IsInRole("Administrator"))
                                 {
@@ -85,12 +85,16 @@
                                             <i class="fa fa-angle-down"></i>
                                         </a>
                                         <ul class="language_selection">
+                                            <li><a asp-area="Administrator" asp-controller="Administrator" asp-action="Index">Administrators</a></li>
                                             <li><a asp-area="" asp-controller="Bag" asp-action="Index">Bags</a></li>
                                             <li><a asp-area="" asp-controller="Designer" asp-action="Index">Designers</a></li>
                                             <li><a asp-area="" asp-controller="Category" asp-action="Index">Categories</a></li>
+                                        </ul>
+                                        <ul class="language_selection2">
                                             <li><a asp-area="" asp-controller="Collection" asp-action="Index">Collections</a></li>
                                             <li><a asp-area="" asp-controller="Shop" asp-action="Index">Shops</a></li>
                                             <li><a asp-area="" asp-controller="Message" asp-action="Index">Messages</a></li>
+                                            <li><a asp-area="" asp-controller="Review" asp-action="Index">Reviews</a></li>
                                         </ul>
                                     </li>
                                 }
@@ -121,7 +125,7 @@
         <div class="hamburger_menu_content text-right">
             <ul class="menu_top_nav">
                 <li class="menu_item has-children">
-                    <a href="#">
+                    <a>
                         usd
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -134,7 +138,7 @@
                     </ul>
                 </li>
                 <li class="menu_item has-children">
-                    <a href="#">
+                    <a>
                         English
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -143,26 +147,26 @@
                     </ul>
                 </li>
                 <li class="menu_item has-children">
-                    <a href="#">
+                    <a>
                         My Account
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="menu_selection">
-                        <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-sign-in" aria-hidden="true"></i>My Profile</a></li>
-                        <li><a asp-area="Identity" asp-page="/Account/Logout"><i class="fa fa-user-minus" aria-hidden="true"></i>Logout</a></li>
+                        <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-user" aria-hidden="true"></i>My Profile</a></li>
+                        <li><a asp-area="Identity" asp-page="/Account/Logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
                     </ul>
                 </li>
-                <li class="menu_item"><a href="#">home</a></li>
-                <li class="menu_item"><a href="#">shop</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a></li>
+                <li class="menu_item"><a asp-area="" asp-controller="Home" asp-action="Index">home</a></li>
+                <li class="menu_item"><a asp-area="" asp-controller="Rent" asp-action="Index">Rent</a></li>
+                <li class="menu_item"><a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a></li>
                 @if (this.User.IsInRole("Administrator"))
                 {
-                    <li class="language2">
+                    <li class="menu_item has-children">
                         <a>
                             Administartor
                             <i class="fa fa-angle-down"></i>
                         </a>
-                        <ul class="language_selection">
+                        <ul class="menu_selection">
                             <li><a asp-area="" asp-controller="Bag" asp-action="Index">Bags</a></li>
                             <li><a asp-area="" asp-controller="Designer" asp-action="Index">Designers</a></li>
                             <li><a asp-area="" asp-controller="Category" asp-action="Index">Categories</a></li>
@@ -200,7 +204,7 @@ else
                                 <!-- Currency / Language / My Account -->
 
                                 <li class="currency">
-                                    <a href="#">
+                                    <a>
                                         usd
                                         <i class="fa fa-angle-down"></i>
                                     </a>
@@ -213,16 +217,16 @@ else
                                     </ul>
                                 </li>
                                 <li class="language">
-                                    <a href="#">
+                                    <a>
                                         English
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="language_selection">
-                                        <li><a href="#">English</a></li>
+                                        <li><a>English</a></li>
                                     </ul>
                                 </li>
                                 <li class="language">
-                                    <a href="#">
+                                    <a>
                                         My Account
                                         <i class="fa fa-angle-down"></i>
                                     </a>
@@ -249,8 +253,8 @@ else
                         </div>
                         <nav class="navbar">
                             <ul class="navbar_menu">
-                                <li><a href="#">home</a></li>
-                                <li><a href="#">shop</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Index">home</a></li>
+                                <li><a asp-area="" asp-controller="Rent" asp-action="Index">Rent</a></li>
                                 <li><a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a></li>
                             </ul>
                             <ul class="navbar_user">
@@ -292,16 +296,16 @@ else
                     </ul>
                 </li>
                 <li class="menu_item has-children">
-                    <a href="#">
+                    <a>
                         English
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="menu_selection">
-                        <li><a href="#">English</a></li>
+                        <li><a>English</a></li>
                     </ul>
                 </li>
                 <li class="menu_item has-children">
-                    <a href="#">
+                    <a>
                         My Account
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -310,9 +314,9 @@ else
                         <li><a asp-area="Identity" asp-page="/Account/Register"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
                     </ul>
                 </li>
-                <li class="menu_item"><a href="#">home</a></li>
-                <li class="menu_item"><a href="#">shop</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a></li>
+                <li class="menu_item"><a asp-area="" asp-controller="Home" asp-action="Index">home</a></li>
+                <li class="menu_item"><a asp-area="" asp-controller="Rent" asp-action="Index">Rent</a></li>
+                <li class="menu_item"><a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a></li>
             </ul>
         </div>
     </div>

@@ -47,7 +47,7 @@ namespace RentABag.Web.Services
 
             designer.Name = vm.Name;
             designer.Description = vm.Description;
-            designer.Image = vm.Image;
+            //designer.Image = vm.Image;
 
             await this.context.SaveChangesAsync();
 

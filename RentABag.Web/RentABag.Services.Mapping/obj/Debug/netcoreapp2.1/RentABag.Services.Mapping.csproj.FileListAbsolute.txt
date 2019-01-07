@@ -6,3 +6,4 @@ D:\VSProjects\RentABag\RentABag.Web\RentABag.Services.Mapping\bin\Debug\netcorea
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Services.Mapping\bin\Debug\netcoreapp2.1\RentABag.Services.Mapping.pdb
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Services.Mapping\obj\Debug\netcoreapp2.1\RentABag.Services.Mapping.dll
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Services.Mapping\obj\Debug\netcoreapp2.1\RentABag.Services.Mapping.pdb
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Services.Mapping\obj\Debug\netcoreapp2.1\RentABag.Services.Mapping.csprojAssemblyReference.cache

@@ -1,0 +1,60 @@
+﻿@model Review
+
+@{
+    ViewData["Title"] = "Review Details";
+}
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li>Administrator</li>
+                    <li class="active"><a asp-area="" asp-controller="Review" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Review</a></li>
+                    <li class="active"><a asp-area="" asp-controller="Review" asp-action="Details" asp-route-id="@Model.Id"><i class="fa fa-angle-right" aria-hidden="true"></i>Review Details</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <section>
+                <h4>Review Details</h4>
+                <hr />
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Bag.Name"></label>
+                    <input asp-for="Bag.Name" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Comment"></label>
+                    <input asp-for="Comment" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReviewedOn"></label>
+                    <input asp-for="ReviewedOn" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Rating"></label>
+                    <input asp-for="Rating" class="form-control" disabled />
+                </div>
+                <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Review" asp-action="Index">Back to List</a></div>
+                @if (this.User.IsInRole("Administrator"))
+                {
+                    <div class="red_button shop_now_button mr-3"><a asp-area="" asp-controller="Review" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
+                }
+            </section>
+        </div>
+    </div>
+</div>

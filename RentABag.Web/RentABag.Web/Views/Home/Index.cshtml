@@ -8,6 +8,7 @@
 
 <!-- Slider -->
 
+
 <div class="main_slider" style="background-image:url(images/slider1.jpg)">
     <div class="container fill_height">
         <div class="row align-items-center fill_height">
@@ -15,7 +16,7 @@
                 <div class="main_slider_content">
                     <h6>@Model.Name</h6>
                     <h1>Get up to 30% Off New Arrivals</h1>
-                    <div class="red_button shop_now_button"><a href="#">shop now</a></div>
+                    <div class="red_button shop_now_button"><a href="#">rent now</a></div>
                 </div>
             </div>
         </div>
@@ -35,13 +36,21 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="product-grid" data-isotope='{ "layoutMode": "fitRows" }'>
+                <div class="product_slider_container">
+                    <div class="owl-carousel owl-theme product_slider">
 
-                    @foreach (var bag in Model.Bags)
-                    {
-                        await Html.RenderPartialAsync("BagViewModelDisplayTemplate", bag);
-                    }
+                        @foreach (var bag in Model.Bags)
+                        {
+                            await Html.RenderPartialAsync("BagScrollableDisplayTemplate", bag, ViewData);
+                        }
 
+                    </div>
+                    <div class="product_slider_nav_left product_slider_nav  align-items-center justify-content-center flex-column">
+                        <i class="fa fa-chevron-left"></i>
+                    </div>
+                    <div class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                        <i class="fa fa-chevron-right"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,7 +90,7 @@
                             <div class="timer_unit">Sec</div>
                         </li>
                     </ul>
-                    <div class="red_button shop_now_button"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@dealOfTheWeek.Id">shop now</a></div>
+                    <div class="red_button shop_now_button"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@dealOfTheWeek.Id">rent now</a></div>
                 </div>
             </div>
         </div>

@@ -5,9 +5,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentABag.Models;
 using RentABag.Services.Mapping;
+using RentABag.Web.Helpers;
 using RentABag.Web.Models;
 using RentABag.Web.Services.Contracts;
 using RentABag.Web.ViewModels;
@@ -16,9 +18,6 @@ namespace RentABag.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private const string homeControllerName = "Home";
-        private const string errorName = "Error";
-        private const string successfulMessage = "Your message was sent successfully.";
         private ICollectionsService collectionsService;
         private IBagsService bagsService;
         private IMessagesService messagesService;
@@ -36,7 +35,7 @@ namespace RentABag.Web.Controllers
 
             if (collection == null)
             {
-                return RedirectToAction(errorName, homeControllerName);
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
             var collectionViewModel = Mapper.Map<Collection ,CollectionViewModel>(collection);
@@ -45,7 +44,7 @@ namespace RentABag.Web.Controllers
 
             if (dealOfTheWeek == null)
             {
-                return RedirectToAction(errorName, homeControllerName);
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
             var bagViewModel = Mapper.Map<Bag, BagViewModel>(dealOfTheWeek);
@@ -56,7 +55,7 @@ namespace RentABag.Web.Controllers
 
             if (bestSellers == null)
             {
-                return RedirectToAction(errorName, homeControllerName);
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
             var queryable = bestSellers.AsQueryable();
@@ -70,13 +69,6 @@ namespace RentABag.Web.Controllers
             return View(collectionViewModel);
         }
 
-        //public IActionResult About()
-        //{
-        //    ViewData["Message"] = "Your application description page.";
-
-        //    return View();
-        //}
-
         public IActionResult Contact()
         {
             return View();
@@ -89,7 +81,7 @@ namespace RentABag.Web.Controllers
             {
                 int messageId = await this.messagesService.CreateMessageAsync(vm);
 
-                ViewData["Message"] = successfulMessage;
+                ViewData["Message"] = Constants.successfulMessage;
 
                 return View();
             }

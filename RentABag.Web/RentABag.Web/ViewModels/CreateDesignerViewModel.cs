@@ -1,4 +1,5 @@
-﻿using RentABag.Models;
+﻿using Microsoft.AspNetCore.Http;
+using RentABag.Models;
 using RentABag.Services.Mapping;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,6 @@ namespace RentABag.Web.ViewModels
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        public byte[] Image { get; set; }
+        public List<IFormFile> Image { get; set; }
     }
 }

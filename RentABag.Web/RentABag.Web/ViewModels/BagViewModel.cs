@@ -27,7 +27,7 @@ namespace RentABag.Web.ViewModels
 
         public int DesignerId { get; set; }
 
-        public string Designer { get; set; }
+        public string DesignerName { get; set; }
 
         public int CategoryId { get; set; }
 
@@ -36,5 +36,7 @@ namespace RentABag.Web.ViewModels
         public int CollectionId { get; set; }
 
         public string Collection { get; set; }
+
+        public ICollection<Review> Reviews { get; set; }
     }
 }

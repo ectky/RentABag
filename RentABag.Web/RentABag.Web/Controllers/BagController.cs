@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using RentABag.Models;
 using RentABag.Services.Mapping;
+using RentABag.Web.Helpers;
 using RentABag.Web.Services.Contracts;
 using RentABag.Web.ViewModels;
 using System;
@@ -13,11 +16,6 @@ namespace RentABag.Web.Controllers
 {
     public class BagController : Controller
     {
-        private const string homeControllerName = "Home";
-        private const string administratorRole = "Administrator";
-        private const string detailsName = "Details";
-        private const string bagName = "Bag";
-
         private readonly IBagsService bagsService;
         private readonly IDesignersService designersService;
         private readonly ICategoriesService categoriesService;
@@ -34,7 +32,7 @@ namespace RentABag.Web.Controllers
         }
 
         // GET: Bag
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Index()
         {
             var allCategories = bagsService.GetAllBags();
@@ -49,28 +47,16 @@ namespace RentABag.Web.Controllers
 
             if (bag == null)
             {
-                return RedirectToAction(nameof(Index), homeControllerName);
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
-            var category = this.categoriesService.GetCategoryById(bag.CategoryId);
-            var designer = this.designersService.GetDesignerById(bag.DesignerId);
-
-            var bagViewModel = new BagViewModel()
-            {
-                Description = bag.Description,
-                Category = category.Name,
-                Designer = designer.Name,
-                Id = bag.Id,
-                Image = bag.Image,
-                Name = bag.Name,
-                Price = bag.Price
-            };
-
-            return View(bagViewModel);
+            var bagViewModel = Mapper.Map<Bag, BagViewModel>(bag);
+            ViewData["Bag"] = bagViewModel;
+            return View();
         }
 
         // GET: Bag/Create
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Create()
         {
             this.LoadViewData();
@@ -81,14 +67,14 @@ namespace RentABag.Web.Controllers
         // POST: Bag/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public async Task<ActionResult> Create(CreateBagViewModel vm)
         {
             if (ModelState.IsValid)
             {
                 int bagId = await bagsService.CreateBagAsync(vm);
 
-                return RedirectToAction(detailsName, bagName, new { id = bagId });
+                return RedirectToAction(Constants.detailsName, Constants.bagName, new { id = bagId });
             }
             else
             {
@@ -97,7 +83,7 @@ namespace RentABag.Web.Controllers
         }
 
         // GET: Bag/Edit/5
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Edit(int id)
         {
             this.LoadViewData();
@@ -106,18 +92,10 @@ namespace RentABag.Web.Controllers
 
             if (bag == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
-            var bagViewModel = new BagViewModel()
-            {
-                Description = bag.Description,
-                Name = bag.Name,
-                Id = bag.Id,
-                DesignerId = bag.DesignerId,
-                CategoryId = bag.CategoryId,
-                Price = bag.Price
-            };
+            var bagViewModel = Mapper.Map<Bag, BagViewModel>(bag);
 
             return View(bagViewModel);
         }
@@ -165,12 +143,12 @@ namespace RentABag.Web.Controllers
 
                 if (bag == null)
                 {
-                    return RedirectToAction(nameof(Index), homeControllerName);
+                    return RedirectToAction(Constants.errorName, Constants.homeControllerName);
                 }
 
                 int bagId = await bagsService.EditBagAsync(vm, bag);
 
-                return RedirectToAction(detailsName, bagName, new { id = bagId });
+                return RedirectToAction(Constants.detailsName, Constants.bagName, new { id = bagId });
             }
             else
             {
@@ -180,25 +158,17 @@ namespace RentABag.Web.Controllers
 
                 if (bag == null)
                 {
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(Constants.errorName, Constants.homeControllerName);
                 }
 
-                var bagViewModel = new BagViewModel()
-                {
-                    Description = bag.Description,
-                    Name = bag.Name,
-                    Id = bag.Id,
-                    DesignerId = bag.DesignerId,
-                    CategoryId = bag.CategoryId,
-                    Price = bag.Price
-                };
+                var bagViewModel = Mapper.Map<Bag, BagViewModel>(bag);
 
                 return View(bagViewModel);
             }
         }
 
         // GET: Bag/Delete/5
-        [Authorize(Roles = administratorRole)]
+        [Authorize(Roles = Constants.administratorRole)]
         public ActionResult Delete(int id)
         {
             try
@@ -207,7 +177,7 @@ namespace RentABag.Web.Controllers
 
                 if (bag == null)
                 {
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(Constants.errorName, Constants.homeControllerName);
                 }
 
                 this.bagsService.DeleteBagAsync(bag);
@@ -216,7 +186,7 @@ namespace RentABag.Web.Controllers
             }
             catch
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
         }
     }

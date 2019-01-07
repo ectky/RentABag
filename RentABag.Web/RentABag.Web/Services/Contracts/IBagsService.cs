@@ -16,5 +16,7 @@ namespace RentABag.Web.Services.Contracts
         ICollection<BagViewModel> GetAllBags();
         Bag GetDealOfTheWeek();
         ICollection<Bag> GetBestSellers(int count);
+        ICollection<Bag> GetBagsForPage(int page);
+        int GetPages();
     }
 }

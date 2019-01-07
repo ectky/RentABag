@@ -59,6 +59,12 @@
     <Content Update="Views\Message\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Review\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Review\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shop\Create.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
