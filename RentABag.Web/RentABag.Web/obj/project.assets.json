@@ -4768,6 +4768,20 @@
           "bin/placeholder/RentABag.Models.dll": {}
         }
       },
+      "RentABag.Services.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "RentABag.Models": "1.0.0",
+          "RentABag.ViewModels": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RentABag.Services.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RentABag.Services.Common.dll": {}
+        }
+      },
       "RentABag.Services.Mapping/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
@@ -4779,6 +4793,20 @@
         },
         "runtime": {
           "bin/placeholder/RentABag.Services.Mapping.dll": {}
+        }
+      },
+      "RentABag.ViewModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "RentABag.Models": "1.0.0",
+          "RentABag.Services.Mapping": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RentABag.ViewModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RentABag.ViewModels.dll": {}
         }
       }
     }
@@ -12848,10 +12876,20 @@
       "path": "../RentABag.Models/RentABag.Models.csproj",
       "msbuildProject": "../RentABag.Models/RentABag.Models.csproj"
     },
+    "RentABag.Services.Common/1.0.0": {
+      "type": "project",
+      "path": "../RentABag.Services.Common/RentABag.Services.Common.csproj",
+      "msbuildProject": "../RentABag.Services.Common/RentABag.Services.Common.csproj"
+    },
     "RentABag.Services.Mapping/1.0.0": {
       "type": "project",
       "path": "../RentABag.Services.Mapping/RentABag.Services.Mapping.csproj",
       "msbuildProject": "../RentABag.Services.Mapping/RentABag.Services.Mapping.csproj"
+    },
+    "RentABag.ViewModels/1.0.0": {
+      "type": "project",
+      "path": "../RentABag.ViewModels/RentABag.ViewModels.csproj",
+      "msbuildProject": "../RentABag.ViewModels/RentABag.ViewModels.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -12861,7 +12899,9 @@
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.4",
       "RentABag.Data >= 1.0.0",
-      "RentABag.Services.Mapping >= 1.0.0"
+      "RentABag.Services.Common >= 1.0.0",
+      "RentABag.Services.Mapping >= 1.0.0",
+      "RentABag.ViewModels >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -12894,8 +12934,14 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
+            "D:\\VSProjects\\RentABag\\RentABag.Web\\RentABag.Services.Common\\RentABag.Services.Common.csproj": {
+              "projectPath": "D:\\VSProjects\\RentABag\\RentABag.Web\\RentABag.Services.Common\\RentABag.Services.Common.csproj"
+            },
             "D:\\VSProjects\\RentABag\\RentABag.Web\\RentABag.Services.Mapping\\RentABag.Services.Mapping.csproj": {
               "projectPath": "D:\\VSProjects\\RentABag\\RentABag.Web\\RentABag.Services.Mapping\\RentABag.Services.Mapping.csproj"
+            },
+            "D:\\VSProjects\\RentABag\\RentABag.Web\\RentABag.ViewModels\\RentABag.ViewModels.csproj": {
+              "projectPath": "D:\\VSProjects\\RentABag\\RentABag.Web\\RentABag.ViewModels\\RentABag.ViewModels.csproj"
             },
             "D:\\VSProjects\\RentABag\\RentABag.Web\\RentACar.Data\\RentABag.Data.csproj": {
               "projectPath": "D:\\VSProjects\\RentABag\\RentABag.Web\\RentACar.Data\\RentABag.Data.csproj"

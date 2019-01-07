@@ -33,6 +33,15 @@ COLOR PALETTE
 ******************************/
 
 /***********
+1. Custom
+***********/
+
+.badge-primary {
+    color: #fff;
+    background-color: #fe4c50;
+}
+
+/***********
 1. Fonts
 ***********/
 
@@ -1233,6 +1242,7 @@ section {
     padding-bottom: 35px;
     margin-bottom: 50px;
     border-bottom: solid 1px #ebebeb;
+    height: 350px;
 }
 
 .sidebar_title h5 {

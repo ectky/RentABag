@@ -29,7 +29,10 @@
           "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.4",
           "RentABag.Data": "1.0.0",
-          "RentABag.Services.Mapping": "1.0.0"
+          "RentABag.Services": "1.0.0",
+          "RentABag.Services.Common": "1.0.0",
+          "RentABag.Services.Mapping": "1.0.0",
+          "RentABag.ViewModels": "1.0.0"
         },
         "runtime": {
           "RentABag.Web.dll": {}
@@ -802,6 +805,33 @@
           "RentABag.Models.dll": {}
         }
       },
+      "RentABag.Services/1.0.0": {
+        "dependencies": {
+          "RentABag.Data": "1.0.0",
+          "RentABag.Models": "1.0.0",
+          "RentABag.Services.Common": "1.0.0",
+          "RentABag.Services.Mapping": "1.0.0",
+          "RentABag.ViewModels": "1.0.0"
+        },
+        "runtime": {
+          "RentABag.Services.dll": {}
+        },
+        "compile": {
+          "RentABag.Services.dll": {}
+        }
+      },
+      "RentABag.Services.Common/1.0.0": {
+        "dependencies": {
+          "RentABag.Models": "1.0.0",
+          "RentABag.ViewModels": "1.0.0"
+        },
+        "runtime": {
+          "RentABag.Services.Common.dll": {}
+        },
+        "compile": {
+          "RentABag.Services.Common.dll": {}
+        }
+      },
       "RentABag.Services.Mapping/1.0.0": {
         "dependencies": {
           "AutoMapper": "8.0.0"
@@ -811,6 +841,18 @@
         },
         "compile": {
           "RentABag.Services.Mapping.dll": {}
+        }
+      },
+      "RentABag.ViewModels/1.0.0": {
+        "dependencies": {
+          "RentABag.Models": "1.0.0",
+          "RentABag.Services.Mapping": "1.0.0"
+        },
+        "runtime": {
+          "RentABag.ViewModels.dll": {}
+        },
+        "compile": {
+          "RentABag.ViewModels.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3966,7 +4008,22 @@
       "serviceable": false,
       "sha512": ""
     },
+    "RentABag.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RentABag.Services.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "RentABag.Services.Mapping/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RentABag.ViewModels/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

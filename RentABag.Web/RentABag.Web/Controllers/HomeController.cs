@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentABag.Models;
+using RentABag.Services.Common;
 using RentABag.Services.Mapping;
+using RentABag.ViewModels;
 using RentABag.Web.Helpers;
 using RentABag.Web.Models;
-using RentABag.Web.Services.Contracts;
-using RentABag.Web.ViewModels;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RentABag.Web.Controllers
 {
@@ -31,16 +28,16 @@ namespace RentABag.Web.Controllers
 
         public IActionResult Index()
         {
-            var collection = this.collectionsService.GetCurrentCollection();
+            var collection = collectionsService.GetCurrentCollection();
 
             if (collection == null)
             {
                 return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
-            var collectionViewModel = Mapper.Map<Collection ,CollectionViewModel>(collection);
+            var collectionViewModel = Mapper.Map<Collection, CollectionViewModel>(collection);
 
-            var dealOfTheWeek = this.bagsService.GetDealOfTheWeek();
+            var dealOfTheWeek = bagsService.GetDealOfTheWeek();
 
             if (dealOfTheWeek == null)
             {
@@ -49,9 +46,9 @@ namespace RentABag.Web.Controllers
 
             var bagViewModel = Mapper.Map<Bag, BagViewModel>(dealOfTheWeek);
 
-            this.ViewData["DealOfTheWeek"] = bagViewModel;
+            ViewData["DealOfTheWeek"] = bagViewModel;
 
-            var bestSellers = this.bagsService.GetBestSellers(10);
+            var bestSellers = bagsService.GetBestSellers(10);
 
             if (bestSellers == null)
             {
@@ -63,8 +60,8 @@ namespace RentABag.Web.Controllers
             var bestSellersViewModels = queryable
                 .To<BagViewModel>().ToArray();
 
-            this.ViewData["BestSellers"] = bestSellersViewModels;
-            this.ViewData["CurrentCollectionId"] = collection.Id;
+            ViewData["BestSellers"] = bestSellersViewModels;
+            ViewData["CurrentCollectionId"] = collection.Id;
 
             return View(collectionViewModel);
         }
@@ -79,7 +76,7 @@ namespace RentABag.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int messageId = await this.messagesService.CreateMessageAsync(vm);
+                int messageId = await messagesService.CreateMessageAsync(vm);
 
                 ViewData["Message"] = Constants.successfulMessage;
 

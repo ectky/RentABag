@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using RentABag.Models;
-using RentABag.Web.Services;
-using RentABag.Web.ValidationAttributes;
+using RentABag.Services.Common;
+using RentABag.Services.ValidationAttributes;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
@@ -122,7 +121,7 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
                     City = Input.City,
                     Country = Input.Country
                 };
-                this._addressesService.CreateAddressAsync(address);
+                _addressesService.CreateAddressAsync(address);
                 var user = new RentABagUser { UserName = Input.UserName, Email = Input.Email, FullName = Input.FullName, Address = address, Birthday = Input.Birthday, PhoneNumber = Input.PhoneNumber };
                 var result1 = await _userManager.CreateAsync(user, Input.Password);
                 var result2 = await _userManager.AddToRoleAsync(user, "User");

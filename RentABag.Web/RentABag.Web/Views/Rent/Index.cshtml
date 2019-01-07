@@ -9,9 +9,9 @@
     var designers = ViewData["Designers"] as IEnumerable<DesignerViewModel>;
 }
 
-<div class="container contact_container">
+<div class="container product_section_container">
     <div class="row">
-        <div class="col">
+        <div class="col product_section clearfix">
 
             <!-- Breadcrumbs -->
 
@@ -20,64 +20,208 @@
                     <li><a asp-area="" asp-controller="Rent" asp-action="Index">Rent</a></li>
                 </ul>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <p>Categories</p>
-            <ul class="list-group list-group-flush">
-                @foreach (var category in categories)
-                {
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        @category.Name
-                        <span class="badge badge-primary badge-pill">@category.Bags.Count</span>
-                    </li>
-                }
-            </ul>
-            <br />
-            <p>Designers</p>
-            <ul class="list-group list-group-flush">
-                @foreach (var designer in designers)
-                {
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        @designer.Name
-                        <span class="badge badge-primary badge-pill">@designer.Bags.Count</span>
-                    </li>
-                }
-            </ul>
-        </div>
-        <div class="col-9">
-            <h3>Rent the perfect Bag</h3>
-            <div class="product-grid" data-isotope='{ "layoutMode": "fitCols" }'>
-                @foreach (var bag in Model)
-                {
-                    await Html.RenderPartialAsync("BagViewModelDisplayTemplate", bag);
-                }
+
+            <!-- Sidebar -->
+
+            <div class="sidebar">
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Product Category</h5>
+                    </div>
+                    <ul class="sidebar_categories" data-filter-group="categories">
+                        <li>
+                            <div class="d-flex justify-content-between align-items-center grid_sorting_button d-flex flex-column" data-filter="*">
+                                <a>
+                                    All
+                                    <span class="badge badge-primary badge-pill">@categories.Sum(c => c.Bags.Count)</span>
+                                </a>
+                            </div>
+                        </li>
+                        @foreach (var category in categories)
+                        {
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center grid_sorting_button d-flex flex-column" data-filter=".@category.Name">
+                                    <a>
+                                        @category.Name
+                                        <span class="badge badge-primary badge-pill">@category.Bags.Count</span>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Product Designer</h5>
+                    </div>
+                    <ul class="sidebar_categories" data-filter-group="designers">
+                        <li>
+                            <div class="d-flex justify-content-between align-items-center grid_sorting_button d-flex flex-column" data-filter="*">
+                                <a>
+                                    All
+                                    <span class="badge badge-primary badge-pill">@designers.Sum(c => c.Bags.Count)</span>
+                                </a>
+                            </div>
+                        </li>
+                        @foreach (var designer in designers)
+                        {
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center grid_sorting_button d-flex flex-column" data-filter=".@designer.Name">
+                                    <a>
+                                        @designer.Name
+                                        <span class="badge badge-primary badge-pill">@designer.Bags.Count</span>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                <!-- Price Range Filtering -->
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Filter by Price</h5>
+                    </div>
+                    <p>
+                        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                    </p>
+                    <div id="slider-range"></div>
+                    <div class="filter_button"><span>filter</span></div>
+                </div>
+
+            </div>
+
+            <!-- Main Content -->
+
+            <div class="main_content">
+
+                <!-- Products -->
+
+                <div class="products_iso">
+                    <div class="row">
+                        <div class="col">
+
+                            <!-- Product Sorting -->
+
+                            <div class="product_sorting_container product_sorting_container_top">
+                                <ul class="product_sorting">
+                                    <li>
+                                        <span class="type_sorting_text">Default Sorting</span>
+                                        <i class="fa fa-angle-down"></i>
+                                        <ul class="sorting_type">
+                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "original-order" }'><span>Default Sorting</span></li>
+                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><span>Price</span></li>
+                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "name" }'><span>Product Name</span></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>Show</span>
+                                        <span class="num_sorting_text">6</span>
+                                        <i class="fa fa-angle-down"></i>
+                                        <ul class="sorting_num">
+                                            <li class="num_sorting_btn"><span>6</span></li>
+                                            <li class="num_sorting_btn"><span>12</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="pages d-flex flex-row align-items-center">
+                                    <div id="next_page" class="page_next"><a @previousDisabled class="page-link" asp-area="" asp-controller="Rent" asp-action="Index" asp-route-id="@(currentPage - 1)" aria-label="Previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></div>
+                                    <div class="page_current">
+                                        <span>1</span>
+                                        <ul class="page_selection">
+                                            @for (int i = 1; i <= pages; i++)
+                                            {
+                                                <li><a asp-area="" asp-controller="Rent" asp-action="Index" asp-route-id="@i">@i</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="page_total"><span>of</span> @pages</div>
+                                    <div id="next_page" class="page_next"><a @nextDisabled class="page-link" asp-area="" asp-controller="Rent" asp-action="Index" asp-route-id="@(currentPage + 1)" aria-label="Previous"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
+
+                                </div>
+
+                                <!-- Product Grid -->
+
+                                <div class="product-grid" >
+
+                                    @foreach (var bag in Model)
+                                    {
+                                        await Html.RenderPartialAsync("RentBagViewModelDisplayTemplate", bag);
+                                    }
+
+                                </div>
+                                <!-- Product Sorting -->
+                                <div class="product_sorting_container product_sorting_container_bottom clearfix">
+                                    <div class="product_sorting_container product_sorting_container_bottom clearfix">
+                                        <div class="pages d-flex flex-row align-items-center">
+                                            <div id="next_page" class="page_next"><a @previousDisabled class="page-link" asp-area="" asp-controller="Rent" asp-action="Index" asp-route-id="@(currentPage - 1)" aria-label="Previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></div>
+                                            <div class="page_current">
+                                                <span>1</span>
+                                                <ul class="page_selection">
+                                                    @for (int i = 1; i <= pages; i++)
+                                                    {
+                                                        <li><a asp-area="" asp-controller="Rent" asp-action="Index" asp-route-id="@i">@i</a></li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                            <div class="page_total"><span>of</span> @pages</div>
+                                            <div id="next_page" class="page_next"><a @nextDisabled class="page-link" asp-area="" asp-controller="Rent" asp-action="Index" asp-route-id="@(currentPage + 1)" aria-label="Previous"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    @for (int i = 1; i <= pages; i++)
-                    {
-                        <li class="page-item">
-                            <a @previousDisabled class="page-link" asp-area="" asp-controller="Rent" asp-action="Index" asp-route-id="@(i - 1)" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" asp-area="" asp-controller="Rent" asp-action="Index" asp-route-id="@i">@i</a></li>
-                        <li class="page-item" @nextDisabled>
-                            <a @nextDisabled class="page-link" asp-area="" asp-controller="Rent" asp-action="Index" asp-route-id="@(i+1)" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </nav>
-        </div>
-    </div>
 </div>
+
+<script>
+    / external js: isotope.pkgd.js
+
+    // init Isotope
+    var $grid = $('.product-grid').isotope({
+        itemSelector: '.product-item'
+    });
+
+    // store filter for each group
+    var filters = {};
+
+    $('.filters').on('click', '.grid_sorting_button', function (event) {
+        var $button = $(event.currentTarget);
+        // get group key
+        var $buttonGroup = $button.parents('.sidebar_categories');
+        var filterGroup = $buttonGroup.attr('data-filter-group');
+        // set filter for group
+        filters[filterGroup] = $button.attr('data-filter');
+        // combine filters
+        var filterValue = concatValues(filters);
+        // set filter for Isotope
+        $grid.isotope({ filter: filterValue });
+    });
+
+    // change is-checked class on buttons
+    $('.button-group').each(function (i, buttonGroup) {
+        var $buttonGroup = $(buttonGroup);
+        $buttonGroup.on('click', 'grid_sorting_button', function (event) {
+            $buttonGroup.find('.is-checked').removeClass('is-checked');
+            var $button = $(event.currentTarget);
+            $button.addClass('is-checked');
+        });
+    });
+
+    // flatten object by concatting values
+    function concatValues(obj) {
+        var value = '';
+        for (var prop in obj) {
+            value += obj[prop];
+        }
+        return value;
+    }
+
+</script>
