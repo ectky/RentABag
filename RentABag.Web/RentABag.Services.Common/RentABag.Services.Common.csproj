@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RentABag.Models\RentABag.Models.csproj" />
+    <ProjectReference Include="..\RentABag.ViewModels\RentABag.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
