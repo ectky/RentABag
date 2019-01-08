@@ -32,6 +32,8 @@ namespace RentABag.Web.Services.Administrator
                 throw new InvalidOperationException("User with this id does not exist");
             }
 
+            await userManager.RemoveFromRoleAsync(user, Constants.administratorRole);
+
             await userManager.AddToRoleAsync(user, Constants.userRole);
         }
 
@@ -51,7 +53,10 @@ namespace RentABag.Web.Services.Administrator
                 throw new InvalidOperationException("User with this id does not exist");
             }
 
-            await userManager.AddToRoleAsync(user, Constants.administratorRole);
+            userManager.RemoveFromRoleAsync(user, Constants.userRole).Wait();
+            userManager.AddToRoleAsync(user, Constants.administratorRole).Wait();
+
+            var c = 5;
         }
     }
 }

@@ -1,11 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace RentABag.Models
 {
     public class Order
     {
+        public Order()
+        {
+            this.BagOrders = new HashSet<BagOrder>();
+        }
+
         public int Id { get; set; }
+
+        public int? AddressId { get; set; }
+
+        public virtual Address Address { get; set; }
 
         public Status Status { get; set; }
 
@@ -16,10 +27,6 @@ namespace RentABag.Models
         public DateTime? ReturnDate { get; set; }
 
         public int RentalDays { get; set; }
-
-        public int BagId { get; set; }
-
-        public virtual Bag Bag { get; set; }
 
         public int UserId { get; set; }
 
@@ -33,7 +40,9 @@ namespace RentABag.Models
 
         public virtual Shop Shop { get; set; }
 
+        public virtual ICollection<BagOrder> BagOrders { get; set; }
+
         [NotMapped]
-        public decimal TotalPrice => (this.Bag.Price * this.RentalDays) * (1 - DiscountCode?.DiscountPercent ?? 0);
+        public decimal TotalPrice => (this.BagOrders.Sum(bo => bo.Bag.Price) * this.RentalDays) * (1 - DiscountCode?.DiscountPercent ?? 0);
     }
 }

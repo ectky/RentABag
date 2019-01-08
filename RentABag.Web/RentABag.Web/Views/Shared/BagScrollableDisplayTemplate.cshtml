@@ -7,8 +7,7 @@
 
 @if (Model.DiscountPercent != 0)
 {
-    var newPrice = Model.Price * (1 - Model.DiscountPercent / 100);
-    var newPriceString = $"{newPrice:f2}";
+    var newPriceString = $"{Model.NewPrice:f2}";
     var discountPercent = Model.DiscountPercent;
     <div class="owl-item product_slider_item">
         <div class="product-item">

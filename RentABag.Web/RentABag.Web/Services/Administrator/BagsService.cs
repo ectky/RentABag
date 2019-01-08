@@ -84,7 +84,7 @@ namespace RentABag.Web.Services.Administrator
             }
 
             var bags = context.Bags
-                .OrderByDescending(b => b.Orders.Count)
+                .OrderByDescending(b => b.BagOrders.Count)
                 .Take(count).ToArray();
 
             return bags;

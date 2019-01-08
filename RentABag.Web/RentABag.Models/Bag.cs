@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace RentABag.Models
 {
@@ -8,9 +8,9 @@ namespace RentABag.Models
     {
         public Bag()
         {
-            this.Orders = new HashSet<Order>();
-            this.Reviews = new HashSet<Review>();
+            this.BagOrders = new HashSet<BagOrder>();
             this.BagShops = new HashSet<BagShop>();
+            this.Reviews = new HashSet<Review>();
         }
 
         public int Id { get; set; }
@@ -33,16 +33,14 @@ namespace RentABag.Models
 
         public virtual Category Category { get; set; }
 
-        public int? CollectionId { get; set; }
+        public int CollectionId { get; set; }
 
         public virtual Collection Collection { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
-
         public virtual ICollection<Review> Reviews { get; set; }
 
+        public virtual ICollection<BagOrder> BagOrders { get; set; }
+
         public virtual ICollection<BagShop> BagShops { get; set; }
-
-
     }
 }

@@ -141,6 +141,8 @@ namespace RentABag.Data.Migrations
 
                     b.Property<string>("Country");
 
+                    b.Property<int?>("OrderId");
+
                     b.Property<string>("PostCode");
 
                     b.Property<int?>("ShopId");
@@ -148,6 +150,10 @@ namespace RentABag.Data.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique()
+                        .HasFilter("[OrderId] IS NOT NULL");
 
                     b.HasIndex("ShopId")
                         .IsUnique()
@@ -168,7 +174,7 @@ namespace RentABag.Data.Migrations
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<int?>("CollectionId");
+                    b.Property<int>("CollectionId");
 
                     b.Property<string>("Description");
 
@@ -193,6 +199,19 @@ namespace RentABag.Data.Migrations
                     b.ToTable("Bags");
                 });
 
+            modelBuilder.Entity("RentABag.Models.BagOrder", b =>
+                {
+                    b.Property<int>("BagId");
+
+                    b.Property<int>("OrderId");
+
+                    b.HasKey("BagId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("BagOrders");
+                });
+
             modelBuilder.Entity("RentABag.Models.BagShop", b =>
                 {
                     b.Property<int>("BagId");
@@ -204,6 +223,23 @@ namespace RentABag.Data.Migrations
                     b.HasIndex("ShopId");
 
                     b.ToTable("BagShops");
+                });
+
+            modelBuilder.Entity("RentABag.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BagId");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BagId");
+
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("RentABag.Models.Category", b =>
@@ -293,7 +329,7 @@ namespace RentABag.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BagId");
+                    b.Property<int?>("AddressId");
 
                     b.Property<DateTime?>("DeliveryDate");
 
@@ -314,8 +350,6 @@ namespace RentABag.Data.Migrations
                     b.Property<string>("UserId1");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BagId");
 
                     b.HasIndex("DiscountCodeId");
 
@@ -484,15 +518,17 @@ namespace RentABag.Data.Migrations
 
             modelBuilder.Entity("RentABag.Models.Address", b =>
                 {
+                    b.HasOne("RentABag.Models.Order", "Order")
+                        .WithOne("Address")
+                        .HasForeignKey("RentABag.Models.Address", "OrderId");
+
                     b.HasOne("RentABag.Models.Shop", "Shop")
                         .WithOne("Address")
-                        .HasForeignKey("RentABag.Models.Address", "ShopId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RentABag.Models.Address", "ShopId");
 
                     b.HasOne("RentABag.Models.RentABagUser", "User")
                         .WithOne("Address")
-                        .HasForeignKey("RentABag.Models.Address", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RentABag.Models.Address", "UserId");
                 });
 
             modelBuilder.Entity("RentABag.Models.Bag", b =>
@@ -504,11 +540,25 @@ namespace RentABag.Data.Migrations
 
                     b.HasOne("RentABag.Models.Collection", "Collection")
                         .WithMany("Bags")
-                        .HasForeignKey("CollectionId");
+                        .HasForeignKey("CollectionId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RentABag.Models.Designer", "Designer")
                         .WithMany("Bags")
                         .HasForeignKey("DesignerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RentABag.Models.BagOrder", b =>
+                {
+                    b.HasOne("RentABag.Models.Bag", "Bag")
+                        .WithMany("BagOrders")
+                        .HasForeignKey("BagId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RentABag.Models.Order", "Order")
+                        .WithMany("BagOrders")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -525,13 +575,16 @@ namespace RentABag.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("RentABag.Models.Order", b =>
+            modelBuilder.Entity("RentABag.Models.Cart", b =>
                 {
                     b.HasOne("RentABag.Models.Bag", "Bag")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("BagId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
 
+            modelBuilder.Entity("RentABag.Models.Order", b =>
+                {
                     b.HasOne("RentABag.Models.DiscountCode", "DiscountCode")
                         .WithMany()
                         .HasForeignKey("DiscountCodeId");

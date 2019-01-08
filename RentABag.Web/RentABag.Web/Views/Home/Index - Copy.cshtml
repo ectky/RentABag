@@ -1,0 +1,131 @@
+﻿@model CollectionViewModel
+
+@{
+    ViewData["Title"] = "RentABag";
+    BagViewModel dealOfTheWeek = ViewData["DealOfTheWeek"] as BagViewModel;
+    var bestSellers = ViewData["BestSellers"] as IEnumerable<BagViewModel>;
+}
+
+<!-- Slider -->
+
+
+<div class="main_slider" style="background-image:url(images/slider1.jpg)">
+    <div class="container fill_height">
+        <div class="row align-items-center fill_height">
+            <div class="col">
+                <div class="main_slider_content">
+                    <h6>@Model.Name</h6>
+                    <h1>Get up to 30% Off New Arrivals</h1>
+                    <div class="red_button shop_now_button"><a href="#">rent now</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Arrivals -->
+
+<div class="new_arrivals">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>New Arrivals</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product_slider_container">
+                    <div class="owl-carousel owl-theme product_slider">
+
+                        @foreach (var bag in Model.Bags)
+                        {
+                            await Html.RenderPartialAsync("BagScrollableDisplayTemplate", bag, ViewData);
+                        }
+
+                    </div>
+                    <div class="product_slider_nav_left product_slider_nav  align-items-center justify-content-center flex-column">
+                        <i class="fa fa-chevron-left"></i>
+                    </div>
+                    <div class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                        <i class="fa fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Deal of the week -->
+
+<div class="deal_ofthe_week">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="deal_ofthe_week_img">
+                    <img src="images/deal_ofthe_week.png" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 text-right deal_ofthe_week_col">
+                <div class="deal_ofthe_week_content d-flex flex-column align-items-center float-right">
+                    <div class="section_title">
+                        <h2>Deal Of The Week</h2>
+                    </div>
+                    <ul class="timer">
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="day" class="timer_num">03</div>
+                            <div class="timer_unit">Day</div>
+                        </li>
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="hour" class="timer_num">15</div>
+                            <div class="timer_unit">Hours</div>
+                        </li>
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="minute" class="timer_num">45</div>
+                            <div class="timer_unit">Mins</div>
+                        </li>
+                        <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                            <div id="second" class="timer_num">23</div>
+                            <div class="timer_unit">Sec</div>
+                        </li>
+                    </ul>
+                    <div class="red_button shop_now_button"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@dealOfTheWeek.Id">rent now</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Best Sellers -->
+
+<div class="best_sellers">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>Best Sellers</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product_slider_container">
+                    <div class="owl-carousel owl-theme product_slider">
+
+                        @foreach (var bag in bestSellers)
+                        {
+                            await Html.RenderPartialAsync("BagScrollableDisplayTemplate", bag, ViewData);
+                        }
+
+                    </div>
+                    <div class="product_slider_nav_left product_slider_nav  align-items-center justify-content-center flex-column">
+                        <i class="fa fa-chevron-left"></i>
+                    </div>
+                    <div class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                        <i class="fa fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

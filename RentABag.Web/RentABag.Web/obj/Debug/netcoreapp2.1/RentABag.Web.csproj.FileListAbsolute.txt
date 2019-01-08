@@ -110,3 +110,4 @@ D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\RentABa
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\RentABag.Web.csproj.CopyComplete
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Administrator\Views\_ViewStart.g.cshtml.cs
 D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Administrator\Views\User\Index.g.cshtml.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Web\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index - Copy.g.cshtml.cs

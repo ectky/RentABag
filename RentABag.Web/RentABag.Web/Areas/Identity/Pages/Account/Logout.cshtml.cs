@@ -25,10 +25,11 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGet()
         {
+            string returnUrl = Url.Content("~/");
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
 
-            return RedirectToPage("/");
+            return LocalRedirect(returnUrl);
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
