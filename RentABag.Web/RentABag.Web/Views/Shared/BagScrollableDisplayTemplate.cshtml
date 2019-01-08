@@ -18,8 +18,8 @@
                 </div>
                 <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-@discountPercent%</span></div>
                 <div class="product_info">
-                    <h6 class="product_name"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a></h6>
-                    <h6 class="product_name"><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-id="@Model.DesignerId">@Model.DesignerName</a></h6>
+                    <h6 class="product_name"><a asp-area="Administrator" asp-controller="Bag" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a></h6>
+                    <h6 class="product_name"><a asp-area="Administrator" asp-controller="Designer" asp-action="Details" asp-route-id="@Model.DesignerId">@Model.DesignerName</a></h6>
                     <div class="product_price">$@newPriceString<span>$@priceString</span></div>
                 </div>
             </div>

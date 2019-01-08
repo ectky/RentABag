@@ -78,6 +78,7 @@ namespace RentABag.Web
             services.AddScoped<ICollectionsService, CollectionsService>();
             services.AddScoped<IMessagesService, MessagesService>();
             services.AddScoped<IReviewsService, ReviewsService>();
+            services.AddScoped<IUsersService, UsersService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAuthentication()

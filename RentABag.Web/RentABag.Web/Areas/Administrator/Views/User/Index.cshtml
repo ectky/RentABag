@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RentABag.Models
+
+@model ICollection<RentABagUser>
+
+@inject UserManager<RentABagUser> UserManager
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li>Administrator</li>
+                    <li class="active"><a asp-area="Administrator" asp-controller="User" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Users</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="text-center">Users</h1>
+    <hr class="hr-2" />
+    <table class="table w-75 mx-auto table-hover">
+        <thead>
+            <tr class="row">
+                <th class="col-md-4">Username</th>
+                <th class="col-md-5">Email</th>
+                <th class="col-md-3 text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bag in Model)
+            {
+                <tr class="row">
+                    <th class="col-md-4">@bag.UserName</th>
+                    <th class="col-md-5">@bag.Email</th>
+
+                    @if (await this.UserManager.IsInRoleAsync(bag, "Administrator"))
+                    {
+                        <td class="col-md-3 text-center">
+                            <div class="red_button btn mr-3"><a asp-area="Administrator" asp-controller="User" asp-action="DeAdministrate" asp-route-id="@bag.Id">De-Administrate</a></div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="col-md-3 text-center">
+                            <div class="red_button btn mr-3"><a asp-area="Administrator" asp-controller="User" asp-action="Administrate" asp-route-id="@bag.Id">Administrate</a></div>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

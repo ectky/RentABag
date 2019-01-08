@@ -1,0 +1,78 @@
+﻿@model CreateShopViewModel
+
+@{
+    ViewData["Title"] = "Create Shop";
+}
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li>Administrator</li>
+                    <li class="active"><a asp-area="Administrator" asp-controller="Shop" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Shops</a></li>
+                    <li class="active"><a asp-area="Administrator" asp-controller="Shop" asp-action="Create"><i class="fa fa-angle-right" aria-hidden="true"></i>Create Shop</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <section>
+        <h4>Create a Shop</h4>
+        <hr />
+        <form method="post" class="row" asp-area="Administrator" asp-controller="Shop" asp-action="Create">
+            <div class="col-md-6">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DiscountPercent"></label>
+                    <input asp-for="DiscountPercent" type="number" step=".01" min="0" max="100" class="form-control" />
+                    <span asp-validation-for="DiscountPercent" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="red_button shop_now_button mr-3"><a asp-area="Administrator" asp-controller="Shop" asp-action="Index">Back to List</a></div>
+                    <button type="submit" class="message_submit_btn trans_300">Create</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Country"></label>
+                    <input asp-for="Country" class="form-control" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="City"></label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PostCode"></label>
+                    <input asp-for="PostCode" class="form-control" />
+                    <span asp-validation-for="PostCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ActualAddress"></label>
+                    <input asp-for="ActualAddress" class="form-control" />
+                    <span asp-validation-for="ActualAddress" class="text-danger"></span>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>

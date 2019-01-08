@@ -13,11 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{77
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentABag.Services.Mapping", "RentABag.Services.Mapping\RentABag.Services.Mapping.csproj", "{D9EB9C21-D50A-40AB-883F-05444125847F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentABag.Services", "RentABag.Services\RentABag.Services.csproj", "{429427C0-0CD7-43D7-86D4-22FEB896B9E7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentABag.ViewModels", "RentABag.ViewModels\RentABag.ViewModels.csproj", "{44CEE2E1-CBBD-4160-8C15-FC3F8F71ECCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABag.Services.Common", "RentABag.Services.Common\RentABag.Services.Common.csproj", "{298598C8-C959-4EFE-95F5-91C2922983BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentABag.Services.Common", "RentABag.Services.Common\RentABag.Services.Common.csproj", "{298598C8-C959-4EFE-95F5-91C2922983BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{D9EB9C21-D50A-40AB-883F-05444125847F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9EB9C21-D50A-40AB-883F-05444125847F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9EB9C21-D50A-40AB-883F-05444125847F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{429427C0-0CD7-43D7-86D4-22FEB896B9E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{429427C0-0CD7-43D7-86D4-22FEB896B9E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{429427C0-0CD7-43D7-86D4-22FEB896B9E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{429427C0-0CD7-43D7-86D4-22FEB896B9E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{44CEE2E1-CBBD-4160-8C15-FC3F8F71ECCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{44CEE2E1-CBBD-4160-8C15-FC3F8F71ECCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44CEE2E1-CBBD-4160-8C15-FC3F8F71ECCC}.Release|Any CPU.ActiveCfg = Release|Any CPU

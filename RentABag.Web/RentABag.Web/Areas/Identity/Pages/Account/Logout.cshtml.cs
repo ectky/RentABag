@@ -28,7 +28,7 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToPage("/");
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)

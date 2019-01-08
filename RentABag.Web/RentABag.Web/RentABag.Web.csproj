@@ -60,7 +60,13 @@
     <Content Update="Areas\Administrator\Views\Shared\_LoginPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Areas\Administrator\Views\User\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Administrator\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Administrator\Views\_ViewStart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Rent\Index2.cshtml">
@@ -97,7 +103,6 @@
   <ItemGroup>
     <ProjectReference Include="..\RentABag.Services.Common\RentABag.Services.Common.csproj" />
     <ProjectReference Include="..\RentABag.Services.Mapping\RentABag.Services.Mapping.csproj" />
-    <ProjectReference Include="..\RentABag.Services\RentABag.Services.csproj" />
     <ProjectReference Include="..\RentABag.ViewModels\RentABag.ViewModels.csproj" />
     <ProjectReference Include="..\RentACar.Data\RentABag.Data.csproj" />
   </ItemGroup>

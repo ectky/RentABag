@@ -1,0 +1,45 @@
+﻿@model ICollection<ShopViewModel>
+@{
+    ViewData["Title"] = "Shops";
+}
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li>Administrator</li>
+                    <li class="active"><a asp-area="Administrator" asp-controller="Shop" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Shops</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="text-center">Shops</h1>
+    <div class="red_button shop_now_button mr-3"><a asp-area="Administrator" asp-controller="Shop" asp-action="Create">Create</a></div>
+    <hr class="hr-2" />
+    <table class="table w-75 mx-auto table-hover">
+        <thead>
+            <tr class="row">
+                <th class="col-md-9">Name</th>
+                <th class="col-md-3 text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var shop in Model)
+            {
+                <tr class="row">
+                    <th class="col-md-9"><a asp-area="Administrator" asp-controller="Shop" asp-action="Details" asp-route-id="@shop.Id">@shop.Name</a></th>
+                    <td class="col-md-3 text-center">
+                        <div class="red_button btn mr-3"><a asp-area="Administrator" asp-controller="Shop" asp-action="Edit" asp-route-id="@shop.Id">Edit</a></div>
+                        <div class="red_button btn mr-3"><a asp-area="Administrator" asp-controller="Shop" asp-action="Delete" asp-route-id="@shop.Id">Delete</a></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

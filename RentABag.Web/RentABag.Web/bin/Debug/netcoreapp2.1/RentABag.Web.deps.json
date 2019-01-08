@@ -29,7 +29,6 @@
           "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.4",
           "RentABag.Data": "1.0.0",
-          "RentABag.Services": "1.0.0",
           "RentABag.Services.Common": "1.0.0",
           "RentABag.Services.Mapping": "1.0.0",
           "RentABag.ViewModels": "1.0.0"
@@ -803,21 +802,6 @@
         },
         "compile": {
           "RentABag.Models.dll": {}
-        }
-      },
-      "RentABag.Services/1.0.0": {
-        "dependencies": {
-          "RentABag.Data": "1.0.0",
-          "RentABag.Models": "1.0.0",
-          "RentABag.Services.Common": "1.0.0",
-          "RentABag.Services.Mapping": "1.0.0",
-          "RentABag.ViewModels": "1.0.0"
-        },
-        "runtime": {
-          "RentABag.Services.dll": {}
-        },
-        "compile": {
-          "RentABag.Services.dll": {}
         }
       },
       "RentABag.Services.Common/1.0.0": {
@@ -4004,11 +3988,6 @@
       "sha512": ""
     },
     "RentABag.Models/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "RentABag.Services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

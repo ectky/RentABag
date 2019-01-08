@@ -181,7 +181,7 @@ using RentABag.ViewModels;
                     <div class=""red_button shop_now_button"">");
             EndContext();
             BeginContext(3924, 102, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a917703849c746f9819ec14fdd6ba148", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "80da540c86d24a44b4a661673a5c2af7", async() => {
                 BeginContext(4014, 8, true);
                 WriteLiteral("rent now");
                 EndContext();
