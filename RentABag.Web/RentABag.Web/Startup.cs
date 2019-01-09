@@ -80,6 +80,14 @@ namespace RentABag.Web
             services.AddScoped<IReviewsService, ReviewsService>();
             services.AddScoped<IUsersService, UsersService>();
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.Cookie.HttpOnly = true;
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAuthentication()
                 .AddFacebook(fbOptions =>
@@ -114,6 +122,7 @@ namespace RentABag.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseAuthentication();
 

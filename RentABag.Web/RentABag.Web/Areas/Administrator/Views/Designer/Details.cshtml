@@ -2,7 +2,10 @@
 
 @{
     ViewData["Title"] = "Designer Details";
+    var base64 = Convert.ToBase64String(Model.Image);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 }
+
 
 <div class="container contact_container">
     <div class="row">
@@ -22,20 +25,16 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+            <h4>Designer Details</h4>
+            <hr />
             <section>
-                <h4>Designer Details</h4>
-                <hr />
                 <div class="form-group">
                     <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control" disabled />
+                    <h5>@Model.Name</h5>
                 </div>
                 <div class="form-group">
                     <label asp-for="Description"></label>
-                    <textarea asp-for="Description" class="form-control" disabled></textarea>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Image"></label>
-                    <input asp-for="Image" class="form-control" disabled />
+                    <h5>@Model.Description</h5>
                 </div>
                 <div class="red_button shop_now_button mr-3"><a asp-area="Administrator" asp-controller="Designer" asp-action="Index">Back to List</a></div>
                 @if (this.User.IsInRole("Administrator"))
@@ -43,6 +42,11 @@
                     <div class="red_button shop_now_button mr-3"><a asp-area="Administrator" asp-controller="Designer" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></div>
                     <div class="red_button shop_now_button mr-3"><a asp-area="Administrator" asp-controller="Designer" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
                 }
+            </section>
+        </div>
+        <div class="col-md-6">
+            <section>
+                <img src="@imgSrc" />
             </section>
         </div>
     </div>

@@ -27,7 +27,7 @@
     <section>
         <h4>Edit a Bag</h4>
         <hr />
-        <form method="post" asp-area="Administrator" asp-controller="Bag" asp-action="Edit" asp-route-id="@Model.Id" class="row">
+        <form method="post" asp-area="Administrator" asp-controller="Bag" asp-action="Edit" asp-route-id="@Model.Id" class="row" enctype="multipart/form-data">
             <div class="col-md-6">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -51,9 +51,8 @@
                     <span asp-validation-for="DiscountPercent" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Image"></label>
-                    <input asp-for="Image" class="form-control" />
-                    <span asp-validation-for="Image" class="text-danger"></span>
+                    <label>Image</label>
+                    <input type="file" name="file" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label asp-for="CategoryName"></label>

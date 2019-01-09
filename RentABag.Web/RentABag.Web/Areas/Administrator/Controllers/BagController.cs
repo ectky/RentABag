@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RentABag.Models;
@@ -69,17 +70,29 @@ namespace RentABag.Web.Areas.Administrator.Controllers
         // POST: Bag/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateBagViewModel vm)
+        public async Task<ActionResult> Create(CreateBagViewModel vm, IFormFile file)
         {
             if (ModelState.IsValid)
             {
-                var otherVm = Mapper.Map<CreateBagViewModel, CreateBagOtherViewModel>(vm);
-                int bagId = await bagsService.CreateBagAsync(otherVm);
+                var otherVm = new CreateBagOtherViewModel()
+                {
+                    CategoryId = vm.CategoryId,
+                    CollectionId = vm.CollectionId,
+                    DesignerId = vm.DesignerId,
+                    Description = vm.Description,
+                    DiscountPercent = vm.DiscountPercent,
+                    Name = vm.Name,
+                    Price = vm.Price
+                };
+
+                int bagId = await bagsService.CreateBagAsync(otherVm, file);
 
                 return RedirectToAction(Constants.detailsName, Constants.bagName, new { id = bagId });
             }
             else
             {
+                LoadViewData();
+
                 return View();
             }
         }
@@ -97,6 +110,8 @@ namespace RentABag.Web.Areas.Administrator.Controllers
             }
 
             var bagViewModel = Mapper.Map<Bag, BagViewModel>(bag);
+
+            bagViewModel.Image = null;
 
             return View(bagViewModel);
         }
@@ -136,7 +151,7 @@ namespace RentABag.Web.Areas.Administrator.Controllers
         // POST: Bag/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, CreateBagViewModel vm)
+        public async Task<ActionResult> Edit(int id, CreateBagViewModel vm, IFormFile file)
         {
             if (ModelState.IsValid)
             {
@@ -146,8 +161,18 @@ namespace RentABag.Web.Areas.Administrator.Controllers
                 {
                     return RedirectToAction(Constants.errorName, Constants.homeControllerName);
                 }
-                var bagVm = Mapper.Map<CreateBagViewModel, CreateBagOtherViewModel>(vm);
-                int bagId = await bagsService.EditBagAsync(bagVm, bag);
+                var bagVm = new CreateBagOtherViewModel()
+                {
+                    CategoryId = vm.CategoryId,
+                    CollectionId = vm.CollectionId,
+                    DesignerId = vm.DesignerId,
+                    Description = vm.Description,
+                    DiscountPercent = vm.DiscountPercent,
+                    Name = vm.Name,
+                    Price = vm.Price
+                };
+
+                int bagId = await bagsService.EditBagAsync(bagVm, bag, file);
 
                 return RedirectToAction(Constants.detailsName, Constants.bagName, new { id = bagId });
             }

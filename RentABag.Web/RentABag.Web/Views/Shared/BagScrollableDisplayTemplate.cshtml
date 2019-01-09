@@ -3,6 +3,8 @@
 @{
     var priceString = $"{Model.Price:f2}";
     var collectionId = ViewData["CurrentCollectionId"] as int?;
+    var base64 = Convert.ToBase64String(Model.Image);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 }
 
 @if (Model.DiscountPercent != 0)
@@ -13,7 +15,7 @@
         <div class="product-item">
             <div class="product discount">
                 <div class="product_image">
-                    <img src="images/product_1.png" alt="">
+                    <img src="@imgSrc" alt="">
                 </div>
                 <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-@discountPercent%</span></div>
                 <div class="product_info">
@@ -31,12 +33,12 @@ else if (Model.CollectionId == collectionId)
         <div class="product-item">
             <div class="product">
                 <div class="product_image">
-                    <img src="images/product_2.png" alt="">
+                    <img src="@imgSrc" alt="">
                 </div>
                 <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>new</span></div>
                 <div class="product_info">
-                    <h6 class="product_name"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a></h6>
-                    <h6 class="product_name"><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-id="@Model.DesignerId">@Model.DesignerName</a></h6>
+                    <h6 class="product_name"><a asp-area="Administrator" asp-controller="Bag" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a></h6>
+                    <h6 class="product_name"><a asp-area="Administrator" asp-controller="Designer" asp-action="Details" asp-route-id="@Model.DesignerId">@Model.DesignerName</a></h6>
                     <div class="product_price">$@priceString</div>
                 </div>
             </div>
@@ -49,11 +51,11 @@ else
         <div class="product-item">
             <div class="product">
                 <div class="product_image">
-                    <img src="images/product_8.png" alt="">
+                    <img src="@imgSrc" alt="">
                 </div>
                 <div class="product_info">
-                    <h6 class="product_name"><a asp-area="" asp-controller="Bag" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a></h6>
-                    <h6 class="product_name"><a asp-area="" asp-controller="Designer" asp-action="Details" asp-route-id="@Model.DesignerId">@Model.DesignerName</a></h6>
+                    <h6 class="product_name"><a asp-area="Administrator" asp-controller="Bag" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a></h6>
+                    <h6 class="product_name"><a asp-area="Administrator" asp-controller="Designer" asp-action="Details" asp-route-id="@Model.DesignerId">@Model.DesignerName</a></h6>
                     <div class="product_price">$@priceString</div>
                 </div>
             </div>

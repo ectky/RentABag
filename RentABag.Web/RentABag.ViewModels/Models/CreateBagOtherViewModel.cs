@@ -1,10 +1,11 @@
-﻿using RentABag.Models;
+﻿using Microsoft.AspNetCore.Http;
+using RentABag.Models;
 using RentABag.Services.Mapping;
 using System.Collections.Generic;
 
 namespace RentABag.ViewModels
 {
-    public class CreateBagOtherViewModel : IMapTo<Bag>
+    public class CreateBagOtherViewModel : IMapTo<CreateBagOtherViewModel>, IMapTo<Bag>
     {
         public int Id { get; set; }
 
@@ -31,5 +32,7 @@ namespace RentABag.ViewModels
         public string CollectioName { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
+
+
     }
 }

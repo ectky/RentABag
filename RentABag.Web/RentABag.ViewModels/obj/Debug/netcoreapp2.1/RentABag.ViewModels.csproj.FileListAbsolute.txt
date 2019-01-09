@@ -1,7 +1,3 @@
-D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.csprojAssemblyReference.cache
-D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.csproj.CoreCompileInputs.cache
-D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.AssemblyInfoInputs.cache
-D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.AssemblyInfo.cs
 D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\bin\Debug\netcoreapp2.1\RentABag.ViewModels.deps.json
 D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\bin\Debug\netcoreapp2.1\RentABag.ViewModels.dll
 D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\bin\Debug\netcoreapp2.1\RentABag.ViewModels.pdb
@@ -13,6 +9,10 @@ D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\bin\Debug\netcoreapp2.1\
 D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\bin\Debug\netcoreapp2.1\RentABag.Services.Mapping.pdb
 D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Http.Features.xml
 D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Identity.Stores.xml
+D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.csprojAssemblyReference.cache
+D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.csproj.CoreCompileInputs.cache
+D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.AssemblyInfoInputs.cache
+D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.AssemblyInfo.cs
 D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.csproj.CopyComplete
 D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.dll
 D:\VSProjects\RentABag\RentABag.Web\RentABag.ViewModels\obj\Debug\netcoreapp2.1\RentABag.ViewModels.pdb

@@ -1,7 +1,9 @@
 ﻿@model BagViewModel
 
 @{
-    var priceString = $"{Model.Price:f2}";
+    var priceString = $"{Model.Price:f1}";
+    var base64 = Convert.ToBase64String(Model.Image);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 }
 
 @if (Model.DiscountPercent != 0)
@@ -11,7 +13,7 @@
     <div class="product-item">
         <div class="product discount product_filter">
             <div class="product_image">
-                <img src="images/product_1.png" alt="">
+                <img src="@imgSrc" alt="">
             </div>
             <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-@discountPercent%</span></div>
             <div class="product_info">
@@ -20,7 +22,7 @@
                 <div class="product_price">$@newPriceString<span>$@priceString</span></div>
             </div>
         </div>
-        <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+        <div class="red_button add_to_cart_button"><a asp-area="" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Id">add to cart</a></div>
     </div>
 }
 else
@@ -28,7 +30,7 @@ else
     <div class="product-item">
         <div class="product product_filter">
             <div class="product_image">
-                <img src="images/product_2.png" alt="">
+                <img src="@imgSrc" alt="">
             </div>
             <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>new</span></div>
             <div class="product_info">
@@ -37,6 +39,6 @@ else
                 <div class="product_price">$@priceString</div>
             </div>
         </div>
-        <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+        <div class="red_button add_to_cart_button"><a asp-area="" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Id">add to cart</a></div>
     </div>
 }

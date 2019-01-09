@@ -1,8 +1,11 @@
-﻿using RentABag.Models;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using RentABag.Models;
 using RentABag.Services.Common;
 using RentABag.Services.Mapping;
 using RentABag.ViewModels;
 using RentABag.Web.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,13 +20,18 @@ namespace RentABag.Web.Services.Administrator
             this.context = context;
         }
 
-        public async Task<int> CreateDesignerAsync(CreateDesignerViewModel vm)
+        public async Task<int> CreateDesignerAsync(CreateDesignerViewModel vm, IFormFile file)
         {
-            var designer = new Designer()
+            var designer = Mapper.Map<CreateDesignerViewModel, Designer>(vm);
+
+            if (file != null)
             {
-                Name = vm.Name,
-                Description = vm.Description
-            };
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    designer.Image = memoryStream.ToArray();
+                }
+            }
 
             await context.Designers.AddAsync(designer);
             await context.SaveChangesAsync();
@@ -39,9 +47,18 @@ namespace RentABag.Web.Services.Administrator
             await context.SaveChangesAsync();
         }
 
-        public async Task<int> EditDesignerAsync(CreateDesignerViewModel vm, Designer designer)
+        public async Task<int> EditDesignerAsync(CreateDesignerViewModel vm, Designer designer, IFormFile file)
         {
             context.Attach(designer);
+
+            if (file != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    designer.Image = memoryStream.ToArray();
+                }
+            }
 
             designer.Name = vm.Name;
             designer.Description = vm.Description;
@@ -71,5 +88,6 @@ namespace RentABag.Web.Services.Administrator
 
             return designer;
         }
+
     }
 }

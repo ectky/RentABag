@@ -9,7 +9,8 @@
       "RentABag.Services.Common/1.0.0": {
         "dependencies": {
           "RentABag.Models": "1.0.0",
-          "RentABag.ViewModels": "1.0.0"
+          "RentABag.ViewModels": "1.0.0",
+          "Microsoft.AspNetCore.Http.Features": "2.1.1.0"
         },
         "runtime": {
           "RentABag.Services.Common.dll": {}
@@ -93,24 +94,23 @@
       "RentABag.ViewModels/1.0.0": {
         "dependencies": {
           "RentABag.Models": "1.0.0",
-          "RentABag.Services.Mapping": "1.0.0",
-          "Microsoft.AspNetCore.Http.Features": "2.1.1.0"
+          "RentABag.Services.Mapping": "1.0.0"
         },
         "runtime": {
           "RentABag.ViewModels.dll": {}
         }
       },
-      "Microsoft.Extensions.Identity.Stores.Reference/2.1.1.0": {
+      "Microsoft.AspNetCore.Http.Features/2.1.1.0": {
         "runtime": {
-          "Microsoft.Extensions.Identity.Stores.dll": {
+          "Microsoft.AspNetCore.Http.Features.dll": {
             "assemblyVersion": "2.1.1.0",
             "fileVersion": "2.1.1.18157"
           }
         }
       },
-      "Microsoft.AspNetCore.Http.Features.Reference/2.1.1.0": {
+      "Microsoft.Extensions.Identity.Stores.Reference/2.1.1.0": {
         "runtime": {
-          "Microsoft.AspNetCore.Http.Features.dll": {
+          "Microsoft.Extensions.Identity.Stores.dll": {
             "assemblyVersion": "2.1.1.0",
             "fileVersion": "2.1.1.18157"
           }
@@ -209,12 +209,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Extensions.Identity.Stores.Reference/2.1.1.0": {
+    "Microsoft.AspNetCore.Http.Features/2.1.1.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.Http.Features.Reference/2.1.1.0": {
+    "Microsoft.Extensions.Identity.Stores.Reference/2.1.1.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

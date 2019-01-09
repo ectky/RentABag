@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using RentABag.Models;
 using RentABag.Services.Common;
 using RentABag.Services.Mapping;
 using RentABag.ViewModels;
 using RentABag.Web.Data;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,9 +22,18 @@ namespace RentABag.Web.Services.Administrator
             this.context = context;
         }
 
-        public async Task<int> CreateBagAsync(CreateBagOtherViewModel vm)
+        public async Task<int> CreateBagAsync(CreateBagOtherViewModel vm, IFormFile file)
         {
             var bag = Mapper.Map<CreateBagOtherViewModel, Bag>(vm);
+
+            if (file != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    bag.Image = memoryStream.ToArray();
+                }
+            }
 
             await context.Bags.AddAsync(bag);
             await context.SaveChangesAsync();
@@ -38,9 +49,17 @@ namespace RentABag.Web.Services.Administrator
             await context.SaveChangesAsync();
         }
 
-        public async Task<int> EditBagAsync(CreateBagOtherViewModel vm, Bag bag)
+        public async Task<int> EditBagAsync(CreateBagOtherViewModel vm, Bag bag, IFormFile file)
         {
             context.Attach(bag);
+            if (file != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    bag.Image = memoryStream.ToArray();
+                }
+            }
 
             bag.Name = vm.Name;
             bag.Description = vm.Description;

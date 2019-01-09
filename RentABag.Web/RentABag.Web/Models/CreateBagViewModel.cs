@@ -1,12 +1,15 @@
-﻿using RentABag.Models;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using RentABag.Models;
 using RentABag.Services.Mapping;
 using RentABag.Services.ValidationAttributes;
 using RentABag.ViewModels;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RentABag.Web.Models
 {
-    public class CreateBagViewModel : IMapTo<CreateBagOtherViewModel>, IMapTo<Bag>
+    public class CreateBagViewModel :  IMapTo<Bag>
     {
         [Required]
         [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -27,8 +30,6 @@ namespace RentABag.Web.Models
         [Range(0.00, 100, ErrorMessage = "Discount Percent must be greater than 0.00")]
         [Display(Name = "Discount Percent")]
         public decimal DiscountPercent { get; set; }
-
-        public byte[] Image { get; set; }
 
         [Required]
         [IsValidDesignerId]

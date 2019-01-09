@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentABag.Models;
 using RentABag.Services.Common;
 using RentABag.ViewModels;
 using RentABag.Web.Helpers;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RentABag.Web.Areas.Administrator.Controllers
 {
@@ -56,11 +61,11 @@ namespace RentABag.Web.Areas.Administrator.Controllers
         // POST: Designer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateDesignerViewModel vm)
+        public async Task<ActionResult> Create(CreateDesignerViewModel vm, IFormFile file)
         {
             if (ModelState.IsValid)
             {
-                int designerId = await designersService.CreateDesignerAsync(vm);
+                int designerId = await designersService.CreateDesignerAsync(vm, file);
 
                 return RedirectToAction(detailsName, designerName, new { id = designerId });
             }
@@ -80,13 +85,9 @@ namespace RentABag.Web.Areas.Administrator.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var designerViewModel = new DesignerViewModel()
-            {
-                Description = designer.Description,
-                Name = designer.Name,
-                Image = designer.Image,
-                Id = designer.Id
-            };
+            var designerViewModel = Mapper.Map<Designer, DesignerViewModel>(designer);
+
+            designerViewModel.Image = null;
 
             return View(designerViewModel);
         }
@@ -94,7 +95,7 @@ namespace RentABag.Web.Areas.Administrator.Controllers
         // POST: Designer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, CreateDesignerViewModel vm)
+        public async Task<ActionResult> Edit(int id, CreateDesignerViewModel vm, IFormFile file)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +106,7 @@ namespace RentABag.Web.Areas.Administrator.Controllers
                     return RedirectToAction(nameof(Index), homeControllerName);
                 }
 
-                int designerId = await designersService.EditDesignerAsync(vm, designer);
+                int designerId = await designersService.EditDesignerAsync(vm, designer, file);
 
                 return RedirectToAction(detailsName, designerName, new { id = designerId });
             }

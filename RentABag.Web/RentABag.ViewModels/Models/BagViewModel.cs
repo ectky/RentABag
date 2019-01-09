@@ -1,5 +1,6 @@
 ﻿using RentABag.Models;
 using RentABag.Services.Mapping;
+using System;
 using System.Collections.Generic;
 
 namespace RentABag.ViewModels
@@ -12,7 +13,7 @@ namespace RentABag.ViewModels
 
         public decimal Price { get; set; }
 
-        public decimal NewPrice => Price * (1 - DiscountPercent / 100);
+        public decimal NewPrice => Math.Round(Price * (1 - DiscountPercent / 100),2);
 
         public string Description { get; set; }
 

@@ -3,8 +3,11 @@
 @{
     ViewData["Title"] = "Bag Details";
     var bag = ViewData["Bag"] as BagViewModel;
+    var message = ViewData["Message"] as string;
     var priceString = $"{bag.Price:f2}";
     var newPriceString = $"{bag.NewPrice:f2}";
+    var base64 = Convert.ToBase64String(bag.Image);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 }
 
 <div class="container single_product_container">
@@ -27,18 +30,10 @@
         <div class="col-lg-7">
             <div class="single_product_pics">
                 <div class="row">
-                    <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
-                        <div class="single_product_thumbnails">
-                            <ul>
-                                <li><img src="images/single_1_thumb.jpg" alt="" data-image="images/single_1.jpg"></li>
-                                <li class="active"><img src="images/single_2_thumb.jpg" alt="" data-image="images/single_2.jpg"></li>
-                                <li><img src="images/single_3_thumb.jpg" alt="" data-image="images/single_3.jpg"></li>
-                            </ul>
-                        </div>
-                    </div>
+
                     <div class="col-lg-9 image_col order-lg-2 order-1">
                         <div class="single_product_image">
-                            <div class="single_product_image_background" style="background-image:url(images/single_2.jpg)"></div>
+                            <div class="single_product_image_background" style="background-image:url(@imgSrc)"></div>
                         </div>
                     </div>
                 </div>
@@ -57,15 +52,16 @@
                         <span class="ti-truck"></span><span>free delivery</span>
                     </div>
                 }
-                @if (bag.DiscountPercent != 0)
-                {
-                    <div class="original_price">$@priceString</div>
-                    <div class="product_price">$@newPriceString</div>
-                }
-                else
-                {
-                    <div class="product_price">$@priceString</div>
-                }
+                <div>
+                    @if (bag.DiscountPercent != 0)
+                    {
+                        <div class="original_price">$@priceString</div>
+                        <div class="product_price">$@newPriceString for a Day</div>
+                    }
+                    else
+                    {
+                        <div class="product_price">$@priceString for a Day</div>
+                    }
                 <ul class="star_rating">
                     @for (int i = 0; i < bag.Reviews.Average(r => r?.Rating); i++)
                     {
@@ -76,9 +72,14 @@
                         <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
                     }
                 </ul>
-                <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-                    <div class="red_button shop_now_button"><a href="#">add to cart</a></div>
-                </div>
+                <p>
+                    @message
+                    <form method="post" asp-area="" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@bag.Id" class="form-inline">
+                        <input type="date" class="form-control mr-3" name="getDate" />
+                        <input type="date" class="form-control" name="returnDate" />
+                        <button type="submit" class="message_submit_btn trans_300 mt-3">Add To Cart</button>
+                    </form>
+                </p>
                 <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                     @if (this.User.IsInRole("Administrator"))
                     {
@@ -214,7 +215,7 @@
                                         <div>
                                             <h1>Your Rating:</h1>
                                             <input asp-for="Rating" class="form_input input_name" placeholder="Rating*" />
-                                            <textarea asp-for="Comment" class="input_review"  placeholder="Your Review" rows="3"></textarea>
+                                            <textarea asp-for="Comment" class="input_review" placeholder="Your Review" rows="3"></textarea>
                                         </div>
                                         <div class="text-left text-sm-right">
                                             <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">submit</button>

@@ -23,5 +23,6 @@ namespace RentABag.Web.Helpers
         public const string shopDetails = "/" + shopName + "/" + detailsName;
         public const string designerDetails = "/" + designerName + "/" + detailsName;
         public const string categoryDetails = "/" + categoryName + "/" + detailsName;
+        public const string CartSessionKey = "CartId";
     }
 }

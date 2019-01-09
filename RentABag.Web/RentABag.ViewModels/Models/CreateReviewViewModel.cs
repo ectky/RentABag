@@ -1,11 +1,16 @@
 ﻿using RentABag.Models;
 using RentABag.Services.Mapping;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace RentABag.ViewModels
 {
     public class CreateReviewViewModel : IMapTo<Review>
     {
+        public DateTime GetDate { get; set; }
+
+        public DateTime ReturnDate { get; set; }
+
         [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [Display(Name = "Full Name")]
         [Required]

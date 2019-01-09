@@ -14,21 +14,15 @@ namespace RentABag.Models
 
         public int Id { get; set; }
 
+        public decimal Total { get; set; }
+
         public int? AddressId { get; set; }
 
         public virtual Address Address { get; set; }
 
         public Status Status { get; set; }
 
-        public DateTime Orderdate { get; set; }
-
-        public DateTime? DeliveryDate { get; set; }
-
-        public DateTime? ReturnDate { get; set; }
-
-        public int RentalDays { get; set; }
-
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         public virtual RentABagUser User { get; set; }
 
@@ -36,13 +30,13 @@ namespace RentABag.Models
 
         public virtual DiscountCode DiscountCode { get; set; }
 
-        public int ShopId { get; set; }
+        public int? ShopId { get; set; }
 
         public virtual Shop Shop { get; set; }
 
         public virtual ICollection<BagOrder> BagOrders { get; set; }
 
         [NotMapped]
-        public decimal TotalPrice => (this.BagOrders.Sum(bo => bo.Bag.Price) * this.RentalDays) * (1 - DiscountCode?.DiscountPercent ?? 0);
+        public decimal TotalPrice => (this.BagOrders.Sum(bo => bo.Bag.Price * bo.RentalDays)) * (1 - DiscountCode?.DiscountPercent ?? 0);
     }
 }

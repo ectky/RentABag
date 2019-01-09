@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using RentABag.Models;
 using RentABag.Services.Mapping;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 
 namespace RentABag.ViewModels
 {
@@ -17,7 +19,7 @@ namespace RentABag.ViewModels
         [StringLength(500, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [Display(Name = "Description")]
         public string Description { get; set; }
-
-        public List<IFormFile> Image { get; set; }
+        
+        public byte[] Image { get; set; }
     }
 }

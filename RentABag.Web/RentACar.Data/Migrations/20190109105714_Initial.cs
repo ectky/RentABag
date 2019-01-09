@@ -292,14 +292,10 @@ namespace RentABag.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AddressId = table.Column<int>(nullable: true),
                     Status = table.Column<int>(nullable: false),
-                    Orderdate = table.Column<DateTime>(nullable: false),
-                    DeliveryDate = table.Column<DateTime>(nullable: true),
-                    ReturnDate = table.Column<DateTime>(nullable: true),
-                    RentalDays = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
                     UserId1 = table.Column<string>(nullable: true),
                     DiscountCodeId = table.Column<int>(nullable: true),
-                    ShopId = table.Column<int>(nullable: false)
+                    ShopId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -315,7 +311,7 @@ namespace RentABag.Data.Migrations
                         column: x => x.ShopId,
                         principalTable: "Shops",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers_UserId1",
                         column: x => x.UserId1,
@@ -352,10 +348,12 @@ namespace RentABag.Data.Migrations
                 name: "Carts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
-                    BagId = table.Column<int>(nullable: false)
+                    BagId = table.Column<int>(nullable: false),
+                    GetDate = table.Column<DateTime>(nullable: false),
+                    ReturnDate = table.Column<DateTime>(nullable: false),
+                    RentalDays = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -448,7 +446,10 @@ namespace RentABag.Data.Migrations
                 columns: table => new
                 {
                     BagId = table.Column<int>(nullable: false),
-                    OrderId = table.Column<int>(nullable: false)
+                    OrderId = table.Column<int>(nullable: false),
+                    GetDate = table.Column<DateTime>(nullable: false),
+                    ReturnDate = table.Column<DateTime>(nullable: false),
+                    RentalDays = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -205,6 +205,12 @@ namespace RentABag.Data.Migrations
 
                     b.Property<int>("OrderId");
 
+                    b.Property<DateTime>("GetDate");
+
+                    b.Property<int>("RentalDays");
+
+                    b.Property<DateTime>("ReturnDate");
+
                     b.HasKey("BagId", "OrderId");
 
                     b.HasIndex("OrderId");
@@ -227,15 +233,23 @@ namespace RentABag.Data.Migrations
 
             modelBuilder.Entity("RentABag.Models.Cart", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BagId");
 
+                    b.Property<string>("CartId");
+
                     b.Property<DateTime>("DateCreated");
 
-                    b.HasKey("Id");
+                    b.Property<DateTime>("GetDate");
+
+                    b.Property<int>("RentalDays");
+
+                    b.Property<DateTime>("ReturnDate");
+
+                    b.HasKey("RecordId");
 
                     b.HasIndex("BagId");
 
@@ -331,21 +345,15 @@ namespace RentABag.Data.Migrations
 
                     b.Property<int?>("AddressId");
 
-                    b.Property<DateTime?>("DeliveryDate");
-
                     b.Property<int?>("DiscountCodeId");
 
-                    b.Property<DateTime>("Orderdate");
-
-                    b.Property<int>("RentalDays");
-
-                    b.Property<DateTime?>("ReturnDate");
-
-                    b.Property<int>("ShopId");
+                    b.Property<int?>("ShopId");
 
                     b.Property<int>("Status");
 
-                    b.Property<int>("UserId");
+                    b.Property<decimal>("Total");
+
+                    b.Property<int?>("UserId");
 
                     b.Property<string>("UserId1");
 
@@ -591,8 +599,7 @@ namespace RentABag.Data.Migrations
 
                     b.HasOne("RentABag.Models.Shop", "Shop")
                         .WithMany()
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ShopId");
 
                     b.HasOne("RentABag.Models.RentABagUser", "User")
                         .WithMany("Orders")

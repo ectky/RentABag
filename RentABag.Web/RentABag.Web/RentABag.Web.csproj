@@ -69,7 +69,7 @@
     <Content Update="Areas\Administrator\Views\_ViewStart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\Index - Copy.cshtml">
+    <Content Update="Views\Home\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Rent\Index2.cshtml">
