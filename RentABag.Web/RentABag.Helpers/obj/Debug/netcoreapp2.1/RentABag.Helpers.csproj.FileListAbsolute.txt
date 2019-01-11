@@ -1,0 +1,9 @@
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Helpers\bin\Debug\netcoreapp2.1\RentABag.Helpers.deps.json
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Helpers\bin\Debug\netcoreapp2.1\RentABag.Helpers.dll
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Helpers\bin\Debug\netcoreapp2.1\RentABag.Helpers.pdb
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Helpers\obj\Debug\netcoreapp2.1\RentABag.Helpers.csproj.CoreCompileInputs.cache
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Helpers\obj\Debug\netcoreapp2.1\RentABag.Helpers.AssemblyInfoInputs.cache
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Helpers\obj\Debug\netcoreapp2.1\RentABag.Helpers.AssemblyInfo.cs
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Helpers\obj\Debug\netcoreapp2.1\RentABag.Helpers.dll
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Helpers\obj\Debug\netcoreapp2.1\RentABag.Helpers.pdb
+D:\VSProjects\RentABag\RentABag.Web\RentABag.Helpers\obj\Debug\netcoreapp2.1\RentABag.Helpers.csprojAssemblyReference.cache
