@@ -11,7 +11,7 @@
 {
     var discountPercent = Model.DiscountPercent;
 
-    <div class="product-item @Model.CategoryName @Model.DesignerName">
+    <div class="product-item @Model.CategoryName.Replace(" ", "") @Model.DesignerName.Replace(" ", "")">
         <div class="product discount product_filter">
             <div class="product_image">
                 <img src="@imgSrc" alt="">
@@ -28,7 +28,7 @@
 }
 else if (Model.CollectionId == collectionId)
 {
-    <div class="product-item @Model.CategoryName @Model.DesignerName">
+    <div class="product-item @Model.CategoryName.Replace(" ", "") @Model.DesignerName.Replace(" ", "")">
         <div class="product product_filter">
             <div class="product_image">
                 <img src="@imgSrc" alt="">
@@ -45,7 +45,7 @@ else if (Model.CollectionId == collectionId)
 }
 else
 {
-    <div class="product-item @Model.CategoryName @Model.DesignerName">
+    <div class="product-item @Model.CategoryName.Replace(" ", "") @Model.DesignerName.Replace(" ", "")">
         <div class="product product_filter">
             <div class="product_image">
                 <img src="@imgSrc" alt="">
