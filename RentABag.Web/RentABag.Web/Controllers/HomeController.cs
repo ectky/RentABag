@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentABag.Helpers;
 using RentABag.Models;
 using RentABag.Services.Common;
 using RentABag.Services.Mapping;
 using RentABag.ViewModels;
-using RentABag.Web.Helpers;
 using RentABag.Web.Models;
 using System.Diagnostics;
 using System.Linq;

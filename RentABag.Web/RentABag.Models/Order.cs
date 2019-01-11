@@ -22,7 +22,7 @@ namespace RentABag.Models
 
         public Status Status { get; set; }
 
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual RentABagUser User { get; set; }
 

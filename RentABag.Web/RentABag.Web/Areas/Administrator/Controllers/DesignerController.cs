@@ -2,14 +2,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentABag.Helpers;
 using RentABag.Models;
 using RentABag.Services.Common;
 using RentABag.ViewModels;
-using RentABag.Web.Helpers;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace RentABag.Web.Areas.Administrator.Controllers
 {

@@ -58,9 +58,6 @@
             <h3>
                 <em>Review</em> your cart:
             </h3>
-            <p class="button">
-                @Html.ActionLink("Checkout>>", "AddressAndPayment", "Checkout")
-            </p>
             <div id="update-message">
             </div>
             <table class="table w-75 mx-auto table-hover">
@@ -70,7 +67,10 @@
                             Bag Name
                         </th>
                         <th>
-                            Price
+                            Price(per day)
+                        </th>
+                        <th>
+                            Days
                         </th>
                         <th>
                             Rental Period
@@ -81,18 +81,21 @@
                 <tbody>
                     @foreach (var item in Model.CartItems)
                     {
-                        <tr id="row">
+                        <tr id="row-@item.RecordId">
                             <td>
                                 @Html.ActionLink(item.Bag.Name, "Details", "Bag", new { id = item.BagId, area = "Administrator" }, null)
                             </td>
                             <td>
-                                @item.Bag.Price
+                                $@item.Bag.NewPrice
+                            </td>
+                            <td>
+                                @item.RentalDays
                             </td>
                             <td>
                                 @(item.GetDate.ToString("d", CultureInfo.InvariantCulture) + " - " + item.ReturnDate.ToString("d", CultureInfo.InvariantCulture))
                             </td>
                             <td>
-                                @Html.ActionLink("Remove from cart", "RemoveFromCart", "Cart", new { id = item.RecordId, getDate = item.GetDate, returnDate = item.ReturnDate, area = "" }, "")
+                                @Html.ActionLink("Remove from cart", "RemoveFromCart", "Cart", new { id = item.RecordId, area = "" })
                             </td>
                         </tr>
                     }
@@ -102,12 +105,18 @@
                         </td>
                         <td></td>
                         <td></td>
+                        <td></td>
                         <td id="cart-total" class="align-items-right">
-                            @Model.CartTotal
+                            $@Model.CartTotal
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <form method="post" asp-action="AddressAndPayment" asp-area="" asp-controller="Checkout">
+                <label>Add a Discount code if you like:</label>
+                <input name="code" type="text"/>
+                <button type="submit" class="message_submit_btn trans_300">Checkout</button>
+            </form>
         </div>
     </div>
 </div>

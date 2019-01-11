@@ -1,0 +1,35 @@
+﻿@model int
+@{
+    ViewBag.Title = "Checkout Complete";
+}
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li class="active"><a asp-area="" asp-controller="Cart" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Cart</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Contact Us -->
+
+    <div class="row">
+
+        <div class="col">
+
+            <h2>Checkout Complete</h2>
+            <p>Thanks for your order! Your order number is: @Model</p>
+            <p>
+                How about shopping for some more music in our
+                @Html.ActionLink("store", "Index", "Home", new { area = "" })
+            </p>
+        </div>
+    </div>
+</div>

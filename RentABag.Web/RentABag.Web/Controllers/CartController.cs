@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RentABag.Helpers;
 using RentABag.Services.Common;
 using RentABag.ViewModels;
 using RentABag.Web.Data;
-using RentABag.Web.Helpers;
 using RentABag.Web.Models;
 using System;
 using System.Linq;
@@ -69,8 +69,7 @@ namespace RentABag.Web.Controllers
         }
         //
         // AJAX: /ShoppingCart/RemoveFromCart/5
-        [HttpPost]
-        public ActionResult RemoveFromCart(int id, DateTime getDate, DateTime returnDate)
+        public ActionResult RemoveFromCart(int id)
         {
             // Remove the item from the cart
             var cart = ShoppingCart.GetCart(HttpContext, context);
@@ -84,7 +83,7 @@ namespace RentABag.Web.Controllers
             try
             {
                 // Remove from cart
-                itemCount = cart.RemoveFromCart(id, getDate, returnDate);
+                itemCount = cart.RemoveFromCart(id);
             }
             catch
             {
@@ -105,7 +104,7 @@ namespace RentABag.Web.Controllers
                 DeleteId = id
             };
 
-            return Json(results);
+            return RedirectToAction("Index");
         }
 
         //

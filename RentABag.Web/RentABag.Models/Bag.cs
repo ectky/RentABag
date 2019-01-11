@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace RentABag.Models
@@ -42,5 +43,8 @@ namespace RentABag.Models
         public virtual ICollection<BagOrder> BagOrders { get; set; }
 
         public virtual ICollection<BagShop> BagShops { get; set; }
+
+        [NotMapped]
+        public decimal NewPrice => Math.Round(Price * (1 - DiscountPercent / 100), 2);
     }
 }

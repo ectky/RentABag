@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RentABag.Helpers;
 using RentABag.Services.Common;
-using RentABag.Web.Helpers;
 using System.Linq;
 
 namespace RentABag.Web.Areas.Administrator.Controllers

@@ -1,0 +1,45 @@
+﻿@model DiscountCode
+
+@{
+    ViewData["Title"] = "Discount Code Details";
+} 
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li>Administrator</li>
+                    <li class="active"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Discount Codes</a></li>
+                    <li class="active"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Details" asp-route-id="@Model.Id"><i class="fa fa-angle-right" aria-hidden="true"></i>Discount Code Details</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <section>
+                <h4>Discount Code Details</h4>
+                <hr />
+                <div class="form-group">
+                    <label asp-for="Code"></label>
+                    <input asp-for="Code" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="DiscountPercent"></label>
+                    <input asp-for="DiscountPercent" class="form-control" disabled>
+                </div>
+                <div class="red_button shop_now_button mr-3"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Index">Back to List</a></div>
+                @if (this.User.IsInRole("Administrator"))
+                {
+                    <div class="red_button shop_now_button mr-3"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></div>
+                    <div class="red_button shop_now_button mr-3"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
+                }
+            </section>
+        </div>
+    </div>
+</div>

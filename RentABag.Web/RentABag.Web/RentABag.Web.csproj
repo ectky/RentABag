@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>aspnet-RentABag.Web-093213BC-8281-454B-9EB3-8086F6EE1A44</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +46,18 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Administrator\Views\Designer\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Administrator\Views\DiscountCode\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Administrator\Views\DiscountCode\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Administrator\Views\DiscountCode\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Administrator\Views\DiscountCode\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Administrator\Views\Message\Details.cshtml">
@@ -104,9 +116,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RentABag.Helpers\RentABag.Helpers.csproj" />
     <ProjectReference Include="..\RentABag.Services.Common\RentABag.Services.Common.csproj" />
-    <ProjectReference Include="..\RentABag.Services.Mapping\RentABag.Services.Mapping.csproj" />
-    <ProjectReference Include="..\RentABag.ViewModels\RentABag.ViewModels.csproj" />
+    <ProjectReference Include="..\RentABag.Services\RentABag.Services.csproj" />
     <ProjectReference Include="..\RentACar.Data\RentABag.Data.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,45 @@
+﻿@model ICollection<DiscountCode>
+@{
+    ViewData["Title"] = "Discount Codes";
+}
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li>Administrator</li>
+                    <li class="active"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Discount Codes</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="text-center">Discount Codes</h1>
+    <div class="red_button shop_now_button mr-3"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Create">Create</a></div>
+    <hr class="hr-2" />
+    <table class="table w-75 mx-auto table-hover">
+        <thead>
+            <tr class="row">
+                <th class="col-md-9">Code</th>
+                <th class="col-md-3 text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr class="row">
+                    <th class="col-md-9"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Details" asp-route-id="@category.Id">@category.Code</a></th>
+                    <td class="col-md-3 text-center">
+                        <div class="red_button btn mr-3"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Edit" asp-route-id="@category.Id">Edit</a></div>
+                        <div class="red_button btn mr-3"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Delete" asp-route-id="@category.Id">Delete</a></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

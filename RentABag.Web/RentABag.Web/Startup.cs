@@ -8,13 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using RentABag.Models;
+using RentABag.Services;
 using RentABag.Services.Common;
 using RentABag.Services.Mapping;
 using RentABag.ViewModels;
 using RentABag.Web.Data;
 using RentABag.Web.Middlewares;
-using RentABag.Web.Services.Administrator;
-using RentABag.Web.Services.User;
 using System;
 using System.IO;
 
@@ -79,6 +78,8 @@ namespace RentABag.Web
             services.AddScoped<IMessagesService, MessagesService>();
             services.AddScoped<IReviewsService, ReviewsService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IOrdersService, OrdersService>();
+            services.AddScoped<IDiscountCodesService, DiscountCodesService>();
 
             services.AddDistributedMemoryCache();
 

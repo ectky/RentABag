@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentABag.Helpers;
 using RentABag.Models;
-using RentABag.Services.Common.Contracts;
 using RentABag.Web.Data;
-using RentABag.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace RentABag.Web.Models
 {
@@ -56,7 +54,7 @@ namespace RentABag.Web.Models
                     DateCreated = DateTime.Now,
                     GetDate = getDate,
                     ReturnDate = returnDate,
-                    RentalDays = (returnDate - getDate).Days
+                    RentalDays = (returnDate - getDate).Days + 1
                 };
                 storeDB.Carts.Add(cartItem);
             }
@@ -69,15 +67,12 @@ namespace RentABag.Web.Models
             // Save changes
             storeDB.SaveChanges();
         }
-        public int RemoveFromCart(int id, DateTime getDate, DateTime returnDate)
+        public int RemoveFromCart(int id)
         {
             // Get the cart
             var cartItem = storeDB.Carts.Single(
                 c => c.CartId == ShoppingCartId
-                && c.RecordId == id
-                && ((c.GetDate <= getDate && c.ReturnDate >= getDate)
-                || (c.GetDate <= returnDate && c.ReturnDate >= returnDate)
-                || (c.GetDate >= getDate && c.ReturnDate <= returnDate)));
+                && c.RecordId == id);
 
             int itemCount = 0;
 
@@ -126,11 +121,11 @@ namespace RentABag.Web.Models
             // Multiply album price by count of that album to get 
             // the current price for each of those albums in the cart
             // sum all album price totals to get the cart total
-            decimal? total = (from cartItems in storeDB.Carts
-                              where cartItems.CartId == ShoppingCartId
-                              select cartItems.Bag.Price).Sum();
+            decimal? total = storeDB.Carts.Sum(c => (c.Bag.Price * (1 - c.Bag.DiscountPercent / 100)) * c.RentalDays);
 
-            return total ?? decimal.Zero;
+            var result = total ?? decimal.Zero;
+
+            return Math.Round(result, 2);
         }
 
         public int CreateOrder(Order order)
@@ -148,7 +143,7 @@ namespace RentABag.Web.Models
                     OrderId = order.Id,
                     GetDate = item.GetDate,
                     ReturnDate = item.ReturnDate,
-                    RentalDays = (item.ReturnDate - item.GetDate).Days
+                    RentalDays = (item.ReturnDate - item.GetDate).Days + 1
                 };
                 // Set the order total of the shopping cart
                 orderTotal += (item.Bag.Price);

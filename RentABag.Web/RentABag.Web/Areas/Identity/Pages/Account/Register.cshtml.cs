@@ -8,8 +8,11 @@ using Microsoft.Extensions.Logging;
 using RentABag.Models;
 using RentABag.Services.Common;
 using RentABag.Services.ValidationAttributes;
+using RentABag.Web.Data;
+using RentABag.Web.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
@@ -23,20 +26,22 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IAddressesService _addressesService;
+        private readonly RentABagDbContext _context;
 
         public RegisterModel(
             UserManager<RentABagUser> userManager,
             SignInManager<RentABagUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IAddressesService addressesService)
+            IAddressesService addressesService,
+            RentABagDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _addressesService = addressesService;
-
+            _context = context;
         }
 
         [BindProperty(Name = "Input")]
@@ -125,8 +130,10 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
                 var user = new RentABagUser { UserName = Input.UserName, Email = Input.Email, FullName = Input.FullName, Address = address, Birthday = Input.Birthday, PhoneNumber = Input.PhoneNumber };
                 var result1 = await _userManager.CreateAsync(user, Input.Password);
                 var result2 = await _userManager.AddToRoleAsync(user, "User");
-                if (result1.Succeeded && result2.Succeeded)
+                var result3 = !_context.Users.Any(u => u.UserName == Input.UserName);
+                if (result1.Succeeded && result2.Succeeded && result3)
                 {
+                    MigrateShoppingCart(Input.UserName);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -154,6 +161,15 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        private void MigrateShoppingCart(string UserName)
+        {
+            // Associate shopping cart items with logged-in user
+            var cart = ShoppingCart.GetCart(this.HttpContext, _context);
+
+            cart.MigrateCart(UserName);
+            //Session[ShoppingCart.CartSessionKey] = UserName;
         }
     }
 }

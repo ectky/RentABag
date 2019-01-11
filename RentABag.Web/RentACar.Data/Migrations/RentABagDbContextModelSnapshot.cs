@@ -15,7 +15,7 @@ namespace RentABag.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -353,9 +353,7 @@ namespace RentABag.Data.Migrations
 
                     b.Property<decimal>("Total");
 
-                    b.Property<int?>("UserId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -363,7 +361,7 @@ namespace RentABag.Data.Migrations
 
                     b.HasIndex("ShopId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -603,7 +601,7 @@ namespace RentABag.Data.Migrations
 
                     b.HasOne("RentABag.Models.RentABagUser", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("RentABag.Models.Review", b =>

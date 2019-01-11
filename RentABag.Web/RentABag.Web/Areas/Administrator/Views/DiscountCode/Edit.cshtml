@@ -1,0 +1,48 @@
+﻿@model CreateDiscountCodeViewModel
+
+@{
+    ViewData["Title"] = "Edit Discount Code";
+}
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li>Administrator</li>
+                    <li class="active"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Index"><i class="fa fa-angle-right" aria-hidden="true"></i>Discount Codes</a></li>
+                    <li class="active"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Edit" asp-route-id="@Model.Id"><i class="fa fa-angle-right" aria-hidden="true"></i>Edit Discount Code</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <section>
+                <form method="post" asp-area="Administrator" asp-controller="DiscountCode" asp-action="Edit" asp-route-id="@Model.Id">
+                    <h4>Edit a Discount Code</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Code"></label>
+                        <input asp-for="Code" class="form-control" />
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DiscountPercent"></label>
+                        <input asp-for="DiscountPercent" class="form-control"></input>
+                        <span asp-validation-for="DiscountPercent" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="red_button shop_now_button mr-3"><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Index">Back to List</a></div>
+                        <button type="submit" class="message_submit_btn trans_300">Edit</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>

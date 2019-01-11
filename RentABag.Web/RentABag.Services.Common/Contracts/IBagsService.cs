@@ -2,6 +2,7 @@
 using RentABag.Models;
 using RentABag.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RentABag.Services.Common
@@ -15,7 +16,7 @@ namespace RentABag.Services.Common
         ICollection<BagViewModel> GetAllBags();
         Bag GetDealOfTheWeek();
         ICollection<Bag> GetBestSellers(int count);
-        ICollection<Bag> GetBagsForPage(int page);
-        int GetPages();
+        ICollection<Bag> GetBagsForPage(int page, int bagsPerPage);
+        int GetPages(int bagsPerPage);
     }
 }

@@ -29,7 +29,7 @@ namespace RentABag.ViewModels
 
         public int CollectionId { get; set; }
 
-        public string CollectioName { get; set; }
+        public string CollectionName { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
 

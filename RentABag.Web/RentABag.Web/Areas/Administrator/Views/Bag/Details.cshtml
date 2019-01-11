@@ -46,7 +46,7 @@
                     <p><a asp-area="Administrator" asp-controller="Designer" asp-action="Details" asp-route-id="@bag.DesignerId">@bag.DesignerName</a></p>
                     <p>@bag.ShortDescription</p>
                 </div>
-                @if (bag.Price >= 500)
+                @if (bag.NewPrice >= 500)
                 {
                     <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
                         <span class="ti-truck"></span><span>free delivery</span>

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RentABag.Helpers;
 using RentABag.Services.Common;
 using RentABag.Services.Mapping;
 using RentABag.ViewModels;
-using RentABag.Web.Helpers;
 using System.Linq;
 
 namespace RentABag.Web.Controllers
@@ -26,14 +26,14 @@ namespace RentABag.Web.Controllers
         {
             int page = id ?? 1;
 
-            var pages = bagsService.GetPages();
+            var pages = bagsService.GetPages(Constants.bagsPerPage);
 
             if (page > pages)
             {
                 return RedirectToAction(Constants.errorName, Constants.homeControllerName);
             }
 
-            var bags = bagsService.GetBagsForPage(page)
+            var bags = bagsService.GetBagsForPage(page, Constants.bagsPerPage)
                 .AsQueryable()
                 .To<BagViewModel>();
 
