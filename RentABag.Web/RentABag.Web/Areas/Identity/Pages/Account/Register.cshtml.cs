@@ -128,10 +128,10 @@ namespace RentABag.Web.Areas.Identity.Pages.Account
                 };
                 _addressesService.CreateAddressAsync(address);
                 var user = new RentABagUser { UserName = Input.UserName, Email = Input.Email, FullName = Input.FullName, Address = address, Birthday = Input.Birthday, PhoneNumber = Input.PhoneNumber };
+                
                 var result1 = await _userManager.CreateAsync(user, Input.Password);
                 var result2 = await _userManager.AddToRoleAsync(user, "User");
-                var result3 = !_context.Users.Any(u => u.UserName == Input.UserName);
-                if (result1.Succeeded && result2.Succeeded && result3)
+                if (result1.Succeeded && result2.Succeeded)
                 {
                     MigrateShoppingCart(Input.UserName);
                     _logger.LogInformation("User created a new account with password.");

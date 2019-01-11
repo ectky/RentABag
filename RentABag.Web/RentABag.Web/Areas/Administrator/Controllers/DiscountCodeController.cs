@@ -35,7 +35,7 @@ namespace RentABag.Web.Areas.Administrator.Controllers
         }
 
         // GET: Category/Details/5
-        [Route(Constants.categoryDetails)]
+        [Route(Constants.discountCodeDetails)]
         [AllowAnonymous]
         public ActionResult Details(int id)
         {
@@ -64,7 +64,7 @@ namespace RentABag.Web.Areas.Administrator.Controllers
             {
                 int categoryId = await discountCodesService.CreateDiscountCodeAsync(vm);
 
-                return RedirectToAction(Constants.detailsName, Constants.categoryName, new { id = categoryId });
+                return RedirectToAction(Constants.detailsName, Constants.discountCodeName, new { id = categoryId });
             }
             else
             {
@@ -101,7 +101,7 @@ namespace RentABag.Web.Areas.Administrator.Controllers
 
                 int categoryId = await discountCodesService.EditDiscountCodeAsync(vm, category);
 
-                return RedirectToAction(Constants.detailsName, Constants.categoryName, new { id = categoryId });
+                return RedirectToAction(Constants.detailsName, Constants.discountCodeName, new { id = categoryId });
             }
             else
             {

@@ -48,7 +48,7 @@ namespace RentABag.Web.Controllers
 
             ViewData["DealOfTheWeek"] = bagViewModel;
 
-            var bestSellers = bagsService.GetBestSellers(1);
+            var bestSellers = bagsService.GetBestSellers(10);
 
             if (bestSellers == null)
             {

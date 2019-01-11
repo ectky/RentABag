@@ -26,15 +26,15 @@ namespace RentABag.Models
 
         public byte[] Image { get; set; }
 
-        public int DesignerId { get; set; }
+        public int? DesignerId { get; set; }
 
         public virtual Designer Designer { get; set; }
 
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
 
-        public int CollectionId { get; set; }
+        public int? CollectionId { get; set; }
 
         public virtual Collection Collection { get; set; }
 

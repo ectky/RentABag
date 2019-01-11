@@ -10,7 +10,7 @@ namespace RentABag.ViewModels
 {
     public class CreateDesignerViewModel : IMapTo<Designer>
     {
-        [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
         [Display(Name = "Full Name")]
         [Required]
         public string Name { get; set; }

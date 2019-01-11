@@ -18,12 +18,14 @@ namespace RentABag.Helpers
         public const string designerName = "Designer";
         public const string collectionName = "Collection";
         public const string shopName = "Shop";
+        public const string discountCodeName = "DiscountCode";
         public const string defaultName = "default";
         public const string successfulMessage = "Your message was sent successfully.";
         public const string bagDetails = "/" + bagName + "/" + detailsName;
         public const string shopDetails = "/" + shopName + "/" + detailsName;
         public const string designerDetails = "/" + designerName + "/" + detailsName;
         public const string categoryDetails = "/" + categoryName + "/" + detailsName;
+        public const string discountCodeDetails = "/" + discountCodeName + "/" + detailsName;
         public const string CartSessionKey = "CartId";
     }
 }

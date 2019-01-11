@@ -43,7 +43,7 @@ namespace RentABag.Services
 
         public async void DeleteDesignerAsync(Designer designer)
         {
-            context.Remove(designer);
+            context.Designers.Remove(designer);
             await context.SaveChangesAsync();
         }
 

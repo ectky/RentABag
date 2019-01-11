@@ -121,7 +121,7 @@ namespace RentABag.Web.Models
             // Multiply album price by count of that album to get 
             // the current price for each of those albums in the cart
             // sum all album price totals to get the cart total
-            decimal? total = storeDB.Carts.Sum(c => (c.Bag.Price * (1 - c.Bag.DiscountPercent / 100)) * c.RentalDays);
+            decimal? total = storeDB.Carts.Where(cart => cart.CartId == ShoppingCartId).Sum(c => (c.Bag.Price * (1 - c.Bag.DiscountPercent / 100)) * c.RentalDays);
 
             var result = total ?? decimal.Zero;
 

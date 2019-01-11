@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RentABag.Web.Controllers
 {
-    [Authorize]
+    
     public class CheckoutController : Controller
     {
         private readonly IOrdersService ordersService;
@@ -25,8 +25,9 @@ namespace RentABag.Web.Controllers
 
         public ActionResult AddressAndPayment()
         {
-            return View();
+            return RedirectToAction("Index", "Cart", new { area = "" });
         }
+
 
         public ActionResult Complete(int id)
         {
@@ -34,6 +35,7 @@ namespace RentABag.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> AddressAndPayment(string code)
         {
             try

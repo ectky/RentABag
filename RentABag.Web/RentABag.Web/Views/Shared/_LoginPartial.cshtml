@@ -86,6 +86,7 @@
                                         </a>
                                         <ul class="language_selection">
                                             <li><a asp-area="Administrator" asp-controller="User" asp-action="Index">Administrators</a></li>
+                                            <li><a asp-area="Administrator" asp-controller="Order" asp-action="Index">Orders</a></li>
                                             <li><a asp-area="Administrator" asp-controller="Bag" asp-action="Index">Bags</a></li>
                                             <li><a asp-area="Administrator" asp-controller="Designer" asp-action="Index">Designers</a></li>
                                             <li><a asp-area="Administrator" asp-controller="Category" asp-action="Index">Categories</a></li>
@@ -95,6 +96,7 @@
                                             <li><a asp-area="Administrator" asp-controller="Shop" asp-action="Index">Shops</a></li>
                                             <li><a asp-area="Administrator" asp-controller="Message" asp-action="Index">Messages</a></li>
                                             <li><a asp-area="Administrator" asp-controller="Review" asp-action="Index">Reviews</a></li>
+                                            <li><a asp-area="Administrator" asp-controller="DiscountCode" asp-action="Index">Discount Codes</a></li>
                                         </ul>
                                     </li>
                                 }
@@ -165,12 +167,14 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="menu_selection">
-                            <li><a asp-area="" asp-controller="Bag" asp-action="Index">Bags</a></li>
-                            <li><a asp-area="" asp-controller="Designer" asp-action="Index">Designers</a></li>
-                            <li><a asp-area="" asp-controller="Category" asp-action="Index">Categories</a></li>
-                            <li><a asp-area="" asp-controller="Collection" asp-action="Index">Collections</a></li>
-                            <li><a asp-area="" asp-controller="Shop" asp-action="Index">Shops</a></li>
-                            <li><a asp-area="" asp-controller="Message" asp-action="Index">Messages</a></li>
+                            <li><a asp-area="Administrator" asp-controller="User" asp-action="Index">Administrators</a></li>
+                            <li><a asp-area="Administrator" asp-controller="Order" asp-action="Index">Orders</a></li>
+                            <li><a asp-area="Administrator" asp-controller="Bag" asp-action="Index">Bags</a></li>
+                            <li><a asp-area="Administrator" asp-controller="Designer" asp-action="Index">Designers</a></li>
+                            <li><a asp-area="Administrator" asp-controller="Category" asp-action="Index">Categories</a></li>
+                            <li><a asp-area="Administrator" asp-controller="Collection" asp-action="Index">Collections</a></li>
+                            <li><a asp-area="Administrator" asp-controller="Shop" asp-action="Index">Shops</a></li>
+                            <li><a asp-area="Administrator" asp-controller="Message" asp-action="Index">Messages</a></li>
                         </ul>
                     </li>
                 }
@@ -258,7 +262,7 @@ else
                             <ul class="navbar_user">
                                 <li class="checkout">
                                     <a asp-area="" asp-action="Index" asp-controller="Cart">
-                                        <span id="checkout_items" class="checkout_items">0</span>
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     </a>
                                 </li>
                             </ul>

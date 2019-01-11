@@ -65,6 +65,8 @@ namespace RentABag.Services
             bag.DesignerId = vm.DesignerId;
             bag.CategoryId = vm.CategoryId;
             bag.Price = vm.Price;
+            bag.DiscountPercent = vm.DiscountPercent;
+            bag.CollectionId = vm.CollectionId;
 
             await context.SaveChangesAsync();
 
